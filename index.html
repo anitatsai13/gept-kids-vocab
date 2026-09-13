@@ -637,7 +637,7 @@
     <div class="control-panel">
       <div class="control-group">
         <span>分類：</span>
-        <select id="quiz-category" onchange="startQuiz()">
+        <select id="quiz-category" onchange="startQuiz(true)">
           <option value="all">🌟 全部單字 (149)</option>
           <option value="wrong">❌ 錯題本專練</option>
           <option value="food">🍔 食物與飲料</option>
@@ -652,10 +652,11 @@
       </div>
       <div class="control-group" style="margin-left:auto;">
         <span>題型：</span>
-        <select id="quiz-dir" onchange="startQuiz()">
+        <select id="quiz-dir" onchange="startQuiz(true)">
           <option value="zh2en">看中文選英文</option>
           <option value="en2zh">看英文選中文</option>
         </select>
+        <button class="btn btn-outline btn-sm" onclick="startQuiz(true)" title="重新洗牌出題">🔄 重新測驗</button>
       </div>
     </div>
 
@@ -692,7 +693,7 @@
       <div class="result-score" id="quiz-result-score">0%</div>
       <p id="quiz-result-detail" style="color:var(--text-muted); margin-bottom:20px;"></p>
       <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
-        <button class="btn btn-primary" onclick="startQuiz()">再測一次</button>
+        <button class="btn btn-primary" onclick="startQuiz(true)">再測一次</button>
         <button class="btn btn-danger" id="quiz-retry-wrong-btn" onclick="retryQuizWrong()" style="display:none;">🔥 立即練習本次錯題</button>
         <button class="btn btn-outline" onclick="switchTab('mistakes')">查看錯題本</button>
       </div>
@@ -708,7 +709,7 @@
     <div class="control-panel">
       <div class="control-group">
         <span>分類：</span>
-        <select id="typing-category" onchange="startTyping()">
+        <select id="typing-category" onchange="startTyping(true)">
           <option value="all">🌟 全部單字 (149)</option>
           <option value="wrong">❌ 錯題本專練</option>
           <option value="food">🍔 食物與飲料</option>
@@ -720,6 +721,7 @@
           <option value="health">🏥 健康與感覺</option>
           <option value="life">💰 購物與生活</option>
         </select>
+        <button class="btn btn-outline btn-sm" onclick="startTyping(true)" title="重新洗牌練習">🔄 重新開始</button>
       </div>
       <button class="btn btn-outline btn-sm" style="margin-left:auto;" onclick="revealTypingHint()">💡 提示一個字</button>
     </div>
@@ -762,7 +764,7 @@
       <div class="result-score" id="typing-result-score">0%</div>
       <p id="typing-result-detail" style="color:var(--text-muted); margin-bottom:20px;"></p>
       <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
-        <button class="btn btn-primary" onclick="startTyping()">再試一次</button>
+        <button class="btn btn-primary" onclick="startTyping(true)">再試一次</button>
         <button class="btn btn-outline" onclick="switchTab('mistakes')">查看錯題本</button>
       </div>
     </div>
@@ -1109,17 +1111,17 @@ function switchTab(name) {
     document.querySelectorAll('.tab-btn')[idx].classList.add('active');
   }
 
-  if (name === 'flashcard') initFlashcards();
-  if (name === 'quiz') startQuiz();
-  if (name === 'typing') startTyping();
+  if (name === 'flashcard') initFlashcards(false);
+  if (name === 'quiz') startQuiz(false);
+  if (name === 'typing') startTyping(false);
   if (name === 'mistakes') renderMistakesHub();
 }
 
 function exitWrongMode(selectId) {
   document.getElementById(selectId).value = 'all';
-  if (selectId === 'fc-category') initFlashcards();
-  if (selectId === 'quiz-category') startQuiz();
-  if (selectId === 'typing-category') startTyping();
+  if (selectId === 'fc-category') initFlashcards(true);
+  if (selectId === 'quiz-category') startQuiz(true);
+  if (selectId === 'typing-category') startTyping(true);
 }
 
 function startMistakePractice(mode) {
@@ -1131,11 +1133,11 @@ function startMistakePractice(mode) {
   if (mode === 'quiz') {
     switchTab('quiz');
     document.getElementById('quiz-category').value = 'wrong';
-    startQuiz();
+    startQuiz(true);
   } else if (mode === 'typing') {
     switchTab('typing');
     document.getElementById('typing-category').value = 'wrong';
-    startTyping();
+    startTyping(true);
   }
 }
 
@@ -1150,10 +1152,14 @@ function filterWords(catVal) {
   return VOCAB_DATA.filter(w => w.cat === catVal);
 }
 
-function initFlashcards() {
+function initFlashcards(forceRestart = false) {
   const cat = document.getElementById('fc-category').value;
   const banner = document.getElementById('fc-wrong-banner');
   banner.style.display = (cat === 'wrong') ? 'flex' : 'none';
+
+  if (!forceRestart && fcList.length > 0 && fcIndex < fcList.length) {
+    return;
+  }
 
   fcList = filterWords(cat);
   if (fcList.length === 0) {
@@ -1245,10 +1251,16 @@ function markCurrentCardLearned(e) {
 let quizList = [], quizIdx = 0, quizScore = 0, quizAnswered = false;
 let sessionWrongs = [];
 
-function startQuiz() {
+function startQuiz(forceRestart = false) {
   const cat = document.getElementById('quiz-category').value;
   const banner = document.getElementById('quiz-wrong-banner');
   banner.style.display = (cat === 'wrong') ? 'flex' : 'none';
+
+  // 若已有測驗進行中且未要求強制重測，且不是在成績頁，則保留原本做題進度
+  const isResultShowing = document.getElementById('quiz-result-panel').style.display === 'block';
+  if (!forceRestart && quizList.length > 0 && quizIdx < quizList.length && !isResultShowing) {
+    return;
+  }
 
   quizList = filterWords(cat);
   if (quizList.length === 0) {
@@ -1394,10 +1406,18 @@ function retryQuizWrong() {
 let typingList = [], typingIdx = 0, typingScore = 0, typingAnswered = false;
 let hintLettersRevealed = 1;
 
-function startTyping() {
+function startTyping(forceRestart = false) {
   const cat = document.getElementById('typing-category').value;
   const banner = document.getElementById('typing-wrong-banner');
   banner.style.display = (cat === 'wrong') ? 'flex' : 'none';
+
+  // 若已有拼字題進行中且未要求強制重練，且不是在成績頁，則保留原本做題進度並聚焦
+  const isResultShowing = document.getElementById('typing-result-panel').style.display === 'block';
+  if (!forceRestart && typingList.length > 0 && typingIdx < typingList.length && !isResultShowing) {
+    const inp = document.getElementById('typing-input');
+    if (inp && !inp.disabled) inp.focus();
+    return;
+  }
 
   typingList = filterWords(cat);
   if (typingList.length === 0) {
