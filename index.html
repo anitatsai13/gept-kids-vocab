@@ -402,9 +402,14 @@
   /* ── Mistakes & Progress Dashboard ─────────────────── */
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     margin-bottom: 16px;
+  }
+  @media (max-width: 520px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
   .stat-card {
     background: var(--card);
@@ -479,6 +484,14 @@
   .wrong-pill {
     background: var(--danger-bg);
     color: var(--danger);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 99px;
+  }
+  .correct-pill {
+    background: var(--success-bg);
+    color: #065F46;
     font-size: 0.75rem;
     font-weight: 800;
     padding: 2px 8px;
@@ -604,8 +617,8 @@
     <div class="fc-actions">
       <button class="btn btn-outline" onclick="prevCard()">◀ 上一個</button>
       <button class="btn-speak" onclick="speakCurrentCard(event)" title="朗讀英文">🔊</button>
-      <button class="btn btn-danger btn-sm" onclick="markCurrentCardMistake(event)">❌ 記不住(加入錯題)</button>
-      <button class="btn btn-success btn-sm" onclick="markCurrentCardLearned(event)">👍 學會了(移除錯題)</button>
+      <button class="btn btn-danger btn-sm" onclick="markCurrentCardMistake(event)">❌ 記不住(加錯 1 次)</button>
+      <button class="btn btn-success btn-sm" onclick="markCurrentCardLearned(event)">👍 我會了(記為答對)</button>
       <button class="btn btn-primary" onclick="nextCard()">下一個 ▶</button>
     </div>
 
@@ -768,11 +781,15 @@
       </div>
       <div class="stat-card">
         <div class="stat-num" id="stat-wrong-words" style="color:var(--danger)">0</div>
-        <div class="stat-label">待加強錯題</div>
+        <div class="stat-label">曾出錯單字</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-wrong-times" style="color:#DC2626">0</div>
+        <div class="stat-label">累計出錯次數</div>
       </div>
       <div class="stat-card">
         <div class="stat-num" id="stat-master-words" style="color:var(--success)">0</div>
-        <div class="stat-label">已掌握單字</div>
+        <div class="stat-label">已答對單字</div>
       </div>
     </div>
 
@@ -780,7 +797,7 @@
     <div class="wrong-hub-banner" id="wrong-practice-box">
       <div class="wrong-hub-info">
         <h3><span>❌</span> 錯題專練特訓區</h3>
-        <p id="wrong-banner-sub">目前共有 0 個單字需要加強複習</p>
+        <p id="wrong-banner-sub">共 0 個錯題單字，累計出錯 0 次（特訓後持續保留）</p>
       </div>
       <div style="display:flex; gap:6px;">
         <button class="btn btn-danger btn-sm" onclick="startMistakePractice('quiz')">特訓選擇題</button>
@@ -791,12 +808,12 @@
     <!-- Word List -->
     <div class="words-list-container">
       <div class="words-list-header">
-        <div style="display:flex; align-items:center; gap:8px;">
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
           <strong style="font-size:0.95rem;">單字與錯題清單</strong>
           <select id="filter-list-cat" class="filter-select" onchange="renderMistakesHub()">
             <option value="all">顯示全部 (149)</option>
             <option value="only-wrong" selected>僅顯示錯題 ❌</option>
-            <option value="mastered">僅顯示已掌握 👍</option>
+            <option value="mastered">僅顯示已答對 👍</option>
             <option value="food">🍔 食物與飲料</option>
             <option value="animal">🐾 動物</option>
             <option value="clothing">👕 服飾配件</option>
@@ -805,6 +822,11 @@
             <option value="nature">🏖️ 大自然風景</option>
             <option value="health">🏥 健康與感覺</option>
             <option value="life">💰 購物與生活</option>
+          </select>
+          <select id="sort-mistakes" class="filter-select" onchange="renderMistakesHub()" style="max-width:140px;">
+            <option value="wrong-desc" selected>錯最多優先 🔥</option>
+            <option value="default">預設順序</option>
+            <option value="alpha">字母 A-Z</option>
           </select>
         </div>
         <button class="btn btn-outline btn-sm" onclick="clearAllMistakes()">清空錯題</button>
@@ -994,9 +1016,7 @@ function recordAnswer(en, isCorrect) {
   }
   if (isCorrect) {
     records[en].correctCount++;
-    if (records[en].wrongCount > 0) {
-      records[en].wrongCount--;
-    }
+    // 特訓答對時不刪除、不減少錯題次數，完整保留每個字的歷史錯誤統計
   } else {
     records[en].wrongCount++;
   }
@@ -1027,30 +1047,37 @@ function getWrongWords() {
 }
 
 function updateBadges() {
-  const wrongCount = getWrongWords().length;
+  const wrongWords = getWrongWords();
+  const wrongWordCount = wrongWords.length;
   const badge = document.getElementById('nav-wrong-badge');
-  if (wrongCount > 0) {
-    badge.textContent = wrongCount;
+  if (wrongWordCount > 0) {
+    badge.textContent = wrongWordCount;
     badge.style.display = 'block';
   } else {
     badge.style.display = 'none';
   }
 
+  let totalWrongTimes = 0;
+  let correctWordsCount = 0;
+  VOCAB_DATA.forEach(w => {
+    const r = records[w.en];
+    if (r) {
+      totalWrongTimes += (r.wrongCount || 0);
+      if (r.correctCount > 0) correctWordsCount++;
+    }
+  });
+
   const totalElem = document.getElementById('stat-total-words');
   const wrongElem = document.getElementById('stat-wrong-words');
+  const wrongTimesElem = document.getElementById('stat-wrong-times');
   const masterElem = document.getElementById('stat-master-words');
   const bannerSub = document.getElementById('wrong-banner-sub');
 
   if (totalElem) totalElem.textContent = VOCAB_DATA.length;
-  if (wrongElem) wrongElem.textContent = wrongCount;
-  if (bannerSub) bannerSub.textContent = `目前共有 ${wrongCount} 個單字需要加強複習`;
-
-  let masteredCount = 0;
-  VOCAB_DATA.forEach(w => {
-    const r = records[w.en];
-    if (r && r.correctCount >= 2 && r.wrongCount === 0) masteredCount++;
-  });
-  if (masterElem) masterElem.textContent = masteredCount;
+  if (wrongElem) wrongElem.textContent = wrongWordCount;
+  if (wrongTimesElem) wrongTimesElem.textContent = totalWrongTimes;
+  if (masterElem) masterElem.textContent = correctWordsCount;
+  if (bannerSub) bannerSub.textContent = `共 ${wrongWordCount} 個錯題單字，累計出錯 ${totalWrongTimes} 次（特訓後持續保留）`;
 }
 
 /* ════════════════════════════════════════════════════
@@ -1207,8 +1234,8 @@ function markCurrentCardMistake(e) {
 function markCurrentCardLearned(e) {
   if (e) e.stopPropagation();
   const w = fcList[fcIndex];
-  removeMistake(w.en);
-  alert(`太棒了！已將「${w.en}」標記為熟記！`);
+  recordAnswer(w.en, true);
+  alert(`太棒了！已將「${w.en}」記為答對 1 次（歷史錯誤次數持續保存）！`);
   nextCard();
 }
 
@@ -1308,9 +1335,10 @@ function checkQuizChoice(btn, chosen, correct, dir) {
     recordAnswer(correct.en, true);
     speakWord(correct.en);
   } else {
-    fb.textContent = `❌ 答錯囉！正確答案是：${dir === 'zh2en' ? correct.en : correct.zh} (已存入錯題本)`;
-    fb.classList.add('wrong');
     recordAnswer(correct.en, false);
+    const times = records[correct.en]?.wrongCount || 1;
+    fb.textContent = `❌ 答錯囉！答案是：${dir === 'zh2en' ? correct.en : correct.zh} (累計錯 ${times} 次)`;
+    fb.classList.add('wrong');
     sessionWrongs.push(correct);
   }
 
@@ -1333,7 +1361,10 @@ function finishQuiz() {
   const total = quizList.length;
   const pct = Math.round((quizScore / total) * 100);
   document.getElementById('quiz-result-score').textContent = pct + '%';
-  document.getElementById('quiz-result-detail').textContent = `共 ${total} 題，答對 ${quizScore} 題，答錯 ${total - quizScore} 題`;
+  document.getElementById('quiz-result-detail').innerHTML = `共 ${total} 題，答對 ${quizScore} 題，答錯 ${total - quizScore} 題<br>
+    <span style="display:inline-block; margin-top:8px; font-size:0.83rem; color:var(--text-muted); background:var(--bg); padding:6px 14px; border-radius:10px;">
+      💡 提示：特訓答對不會把錯題刪除，各單字的累計錯誤次數皆完整保留！
+    </span>`;
 
   const retryWrongBtn = document.getElementById('quiz-retry-wrong-btn');
   if (sessionWrongs.length > 0) {
@@ -1454,10 +1485,11 @@ function checkTyping() {
     recordAnswer(typingList[typingIdx].en, true);
     speakWord(typingList[typingIdx].en);
   } else {
-    inp.classList.add('wrong');
-    fb.textContent = `❌ 正確拼法為：${typingList[typingIdx].en} (已記錄到錯題本)`;
-    fb.classList.add('wrong');
     recordAnswer(typingList[typingIdx].en, false);
+    const times = records[typingList[typingIdx].en]?.wrongCount || 1;
+    inp.classList.add('wrong');
+    fb.textContent = `❌ 正確拼法為：${typingList[typingIdx].en} (累計錯 ${times} 次)`;
+    fb.classList.add('wrong');
     const box = document.getElementById('typing-box');
     box.classList.add('shake');
     setTimeout(() => box.classList.remove('shake'), 400);
@@ -1502,6 +1534,7 @@ function finishTyping() {
 function renderMistakesHub() {
   updateBadges();
   const filter = document.getElementById('filter-list-cat').value;
+  const sortMode = document.getElementById('sort-mistakes')?.value || 'wrong-desc';
   const listContainer = document.getElementById('mistakes-word-list');
   listContainer.innerHTML = '';
 
@@ -1509,9 +1542,21 @@ function renderMistakesHub() {
   if (filter === 'only-wrong') {
     filtered = filtered.filter(w => (records[w.en]?.wrongCount || 0) > 0);
   } else if (filter === 'mastered') {
-    filtered = filtered.filter(w => (records[w.en]?.correctCount || 0) >= 2 && (records[w.en]?.wrongCount || 0) === 0);
+    filtered = filtered.filter(w => (records[w.en]?.correctCount || 0) > 0);
   } else if (filter !== 'all') {
     filtered = filtered.filter(w => w.cat === filter);
+  }
+
+  // Sorting
+  if (sortMode === 'wrong-desc') {
+    filtered.sort((a, b) => {
+      const wa = records[a.en]?.wrongCount || 0;
+      const wb = records[b.en]?.wrongCount || 0;
+      if (wb !== wa) return wb - wa;
+      return a.en.localeCompare(b.en);
+    });
+  } else if (sortMode === 'alpha') {
+    filtered.sort((a, b) => a.en.localeCompare(b.en));
   }
 
   if (filtered.length === 0) {
@@ -1536,9 +1581,9 @@ function renderMistakesHub() {
         </div>
       </div>
       <div class="word-meta">
-        ${isWrong ? `<span class="wrong-pill">錯 ${rec.wrongCount} 次</span>` : ''}
-        <span style="font-size:0.75rem; color:var(--text-muted);">${rec.correctCount}✓</span>
-        ${isWrong ? `<button class="btn-remove-wrong" title="移出錯題本" onclick="removeMistake('${w.en}')">✕</button>` : ''}
+        ${isWrong ? `<span class="wrong-pill">❌ 錯 ${rec.wrongCount} 次</span>` : ''}
+        ${rec.correctCount > 0 ? `<span class="correct-pill">✅ 對 ${rec.correctCount} 次</span>` : ''}
+        ${isWrong ? `<button class="btn-remove-wrong" title="手動移除錯題" onclick="removeMistake('${w.en}')">✕</button>` : ''}
       </div>
     `;
     listContainer.appendChild(row);
