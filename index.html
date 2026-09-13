@@ -317,13 +317,45 @@
   }
   .quiz-q-word { font-size: 2.1rem; font-weight: 800; }
   .quiz-feedback {
-    min-height: 28px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    margin: 10px 0;
+    min-height: 32px;
+    font-size: clamp(1.1rem, 3.5vw, 1.25rem);
+    font-weight: 800;
+    margin: 12px 0;
+    line-height: 1.4;
+    word-break: break-word;
   }
-  .quiz-feedback.success { color: var(--success); }
-  .quiz-feedback.wrong { color: var(--danger); }
+  .quiz-feedback.success {
+    color: var(--success);
+  }
+  .quiz-feedback.wrong {
+    color: var(--danger);
+    font-size: clamp(1.2rem, 3.8vw, 1.35rem);
+  }
+
+  /* 拼字練習錯誤提示整行特別加大與醒目顯色 */
+  #typing-feedback.wrong {
+    font-size: clamp(1.3rem, 4.5vw, 1.55rem);
+    font-weight: 900;
+    color: #DC2626;
+    background: #FEF2F2;
+    padding: 10px 18px;
+    border-radius: 12px;
+    border: 2px solid #FCA5A5;
+    display: inline-block;
+    margin-top: 14px;
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.12);
+    letter-spacing: 0.5px;
+  }
+  #typing-feedback.success {
+    font-size: clamp(1.15rem, 3.8vw, 1.35rem);
+    font-weight: 800;
+    color: #065F46;
+    background: #ECFDF5;
+    padding: 8px 16px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-top: 14px;
+  }
 
   .quiz-options-grid {
     display: grid;
