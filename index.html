@@ -136,8 +136,9 @@
     color: var(--text);
     cursor: pointer;
     outline: none;
-    max-width: 190px;
+    max-width: 260px;
   }
+  optgroup { font-weight: 800; color: var(--primary); }
   select:focus { border-color: var(--primary); }
 
   .wrong-mode-banner {
@@ -531,7 +532,7 @@
 
 <header>
   <h1>🎒 GEPT Kids 英文單字練習</h1>
-  <p>小學英檢 · 內建 149 個完整單字（第 1 ~ 4 頁）· 支援錯題特訓與發音</p>
+  <p>小學英檢 · 內建 151 個完整單字（第 1 ~ 4 頁）· 支援分頁測驗、錯題特訓與發音</p>
 </header>
 
 <nav>
@@ -564,17 +565,27 @@
     <div class="control-panel">
       <div class="control-group">
         <span>分類：</span>
-        <select id="fc-category" onchange="initFlashcards()">
-          <option value="all">🌟 全部單字 (149)</option>
-          <option value="wrong">❌ 錯題本專練</option>
-          <option value="food">🍔 食物與飲料</option>
-          <option value="animal">🐾 動物</option>
-          <option value="clothing">👕 服飾配件</option>
-          <option value="color">🎨 顏色</option>
-          <option value="family">👨‍👩‍👦 家庭與稱謂</option>
-          <option value="nature">🏖️ 大自然風景</option>
-          <option value="health">🏥 健康與感覺</option>
-          <option value="life">💰 購物與生活</option>
+        <select id="fc-category" onchange="initFlashcards(true)">
+          <optgroup label="📑 依單字表各頁">
+            <option value="page-1">📄 第 1 頁 (動物、服飾 · 38字)</option>
+            <option value="page-2">📄 第 2 頁 (服飾、顏色、家人 · 37字)</option>
+            <option value="page-3">📄 第 3 頁 (親屬、食物三餐 · 38字)</option>
+            <option value="page-4">📄 第 4 頁 (蔬果、自然、健康 · 38字)</option>
+          </optgroup>
+          <optgroup label="🌟 綜合與錯題">
+            <option value="all" selected>🌟 全真綜合 (全部 151 字)</option>
+            <option value="wrong">❌ 錯題本專練</option>
+          </optgroup>
+          <optgroup label="🏷️ 依主題分類">
+            <option value="food">🍔 食物與飲料</option>
+            <option value="animal">🐾 動物</option>
+            <option value="clothing">👕 服飾配件</option>
+            <option value="color">🎨 顏色</option>
+            <option value="family">👨‍👩‍👦 家庭與稱謂</option>
+            <option value="nature">🏖️ 大自然風景</option>
+            <option value="health">🏥 健康與感覺</option>
+            <option value="life">💰 購物與生活</option>
+          </optgroup>
         </select>
       </div>
       <div class="control-group" style="margin-left:auto;">
@@ -638,16 +649,26 @@
       <div class="control-group">
         <span>分類：</span>
         <select id="quiz-category" onchange="startQuiz(true)">
-          <option value="all">🌟 全部單字 (149)</option>
-          <option value="wrong">❌ 錯題本專練</option>
-          <option value="food">🍔 食物與飲料</option>
-          <option value="animal">🐾 動物</option>
-          <option value="clothing">👕 服飾配件</option>
-          <option value="color">🎨 顏色</option>
-          <option value="family">👨‍👩‍👦 家庭與稱謂</option>
-          <option value="nature">🏖️ 大自然風景</option>
-          <option value="health">🏥 健康與感覺</option>
-          <option value="life">💰 購物與生活</option>
+          <optgroup label="📑 依單字表各頁測驗">
+            <option value="page-1">📄 第 1 頁測驗 (動物、服飾 · 38題)</option>
+            <option value="page-2">📄 第 2 頁測驗 (服飾、顏色、家人 · 37題)</option>
+            <option value="page-3">📄 第 3 頁測驗 (親屬、食物三餐 · 38題)</option>
+            <option value="page-4">📄 第 4 頁測驗 (蔬果、自然、健康 · 38題)</option>
+          </optgroup>
+          <optgroup label="🌟 綜合與錯題">
+            <option value="all" selected>🌟 全真綜合測驗 (全部 151 題)</option>
+            <option value="wrong">❌ 錯題本專練</option>
+          </optgroup>
+          <optgroup label="🏷️ 依主題分類">
+            <option value="food">🍔 食物與飲料</option>
+            <option value="animal">🐾 動物</option>
+            <option value="clothing">👕 服飾配件</option>
+            <option value="color">🎨 顏色</option>
+            <option value="family">👨‍👩‍👦 家庭與稱謂</option>
+            <option value="nature">🏖️ 大自然風景</option>
+            <option value="health">🏥 健康與感覺</option>
+            <option value="life">💰 購物與生活</option>
+          </optgroup>
         </select>
       </div>
       <div class="control-group" style="margin-left:auto;">
@@ -710,16 +731,26 @@
       <div class="control-group">
         <span>分類：</span>
         <select id="typing-category" onchange="startTyping(true)">
-          <option value="all">🌟 全部單字 (149)</option>
-          <option value="wrong">❌ 錯題本專練</option>
-          <option value="food">🍔 食物與飲料</option>
-          <option value="animal">🐾 動物</option>
-          <option value="clothing">👕 服飾配件</option>
-          <option value="color">🎨 顏色</option>
-          <option value="family">👨‍👩‍👦 家庭與稱謂</option>
-          <option value="nature">🏖️ 大自然風景</option>
-          <option value="health">🏥 健康與感覺</option>
-          <option value="life">💰 購物與生活</option>
+          <optgroup label="📑 依單字表各頁拼字">
+            <option value="page-1">📄 第 1 頁拼字 (動物、服飾 · 38字)</option>
+            <option value="page-2">📄 第 2 頁拼字 (服飾、顏色、家人 · 37字)</option>
+            <option value="page-3">📄 第 3 頁拼字 (親屬、食物三餐 · 38字)</option>
+            <option value="page-4">📄 第 4 頁拼字 (蔬果、自然、健康 · 38字)</option>
+          </optgroup>
+          <optgroup label="🌟 綜合與錯題">
+            <option value="all" selected>🌟 全部單字拼字 (全部 151 字)</option>
+            <option value="wrong">❌ 錯題本專練</option>
+          </optgroup>
+          <optgroup label="🏷️ 依主題分類">
+            <option value="food">🍔 食物與飲料</option>
+            <option value="animal">🐾 動物</option>
+            <option value="clothing">👕 服飾配件</option>
+            <option value="color">🎨 顏色</option>
+            <option value="family">👨‍👩‍👦 家庭與稱謂</option>
+            <option value="nature">🏖️ 大自然風景</option>
+            <option value="health">🏥 健康與感覺</option>
+            <option value="life">💰 購物與生活</option>
+          </optgroup>
         </select>
         <button class="btn btn-outline btn-sm" onclick="startTyping(true)" title="重新洗牌練習">🔄 重新開始</button>
       </div>
@@ -738,7 +769,7 @@
 
     <div id="typing-game-panel">
       <div class="typing-box" id="typing-box">
-        <div style="font-size:0.8rem; font-weight:700; color:var(--primary);">請拼出此中文的英文</div>
+        <div class="quiz-q-tag" id="typing-q-tag">請拼出此中文的英文</div>
         <div class="typing-zh" id="typing-zh-word">--</div>
         <div>
           <span class="typing-hint" id="typing-hint-display">_ _ _ _</span>
@@ -813,17 +844,27 @@
         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
           <strong style="font-size:0.95rem;">單字與錯題清單</strong>
           <select id="filter-list-cat" class="filter-select" onchange="renderMistakesHub()">
-            <option value="all">顯示全部 (149)</option>
-            <option value="only-wrong" selected>僅顯示錯題 ❌</option>
-            <option value="mastered">僅顯示已答對 👍</option>
-            <option value="food">🍔 食物與飲料</option>
-            <option value="animal">🐾 動物</option>
-            <option value="clothing">👕 服飾配件</option>
-            <option value="color">🎨 顏色</option>
-            <option value="family">👨‍👩‍👦 家庭與稱謂</option>
-            <option value="nature">🏖️ 大自然風景</option>
-            <option value="health">🏥 健康與感覺</option>
-            <option value="life">💰 購物與生活</option>
+            <optgroup label="📑 依單字表各頁">
+              <option value="page-1">📄 第 1 頁 (38字)</option>
+              <option value="page-2">📄 第 2 頁 (37字)</option>
+              <option value="page-3">📄 第 3 頁 (38字)</option>
+              <option value="page-4">📄 第 4 頁 (38字)</option>
+            </optgroup>
+            <optgroup label="📊 學習狀態">
+              <option value="only-wrong" selected>僅顯示錯題 ❌</option>
+              <option value="mastered">僅顯示已答對 👍</option>
+              <option value="all">顯示全部 (151 字)</option>
+            </optgroup>
+            <optgroup label="🏷️ 依主題分類">
+              <option value="food">🍔 食物與飲料</option>
+              <option value="animal">🐾 動物</option>
+              <option value="clothing">👕 服飾配件</option>
+              <option value="color">🎨 顏色</option>
+              <option value="family">👨‍👩‍👦 家庭與稱謂</option>
+              <option value="nature">🏖️ 大自然風景</option>
+              <option value="health">🏥 健康與感覺</option>
+              <option value="life">💰 購物與生活</option>
+            </optgroup>
           </select>
           <select id="sort-mistakes" class="filter-select" onchange="renderMistakesHub()" style="max-width:140px;">
             <option value="wrong-desc" selected>錯最多優先 🔥</option>
@@ -843,163 +884,167 @@
 
 <script>
 /* ════════════════════════════════════════════════════
-   FULL VOCABULARY DATABASE (149 WORDS: PAGES 1, 2, 3, 4)
+   FULL VOCABULARY DATABASE (151 WORDS: PAGES 1, 2, 3, 4)
    ════════════════════════════════════════════════════ */
 const VOCAB_DATA = [
-  // ── Page 1: Animals & Clothing ────────────────────
-  { id:'animal', en:'animal', zh:'動物', cat:'animal' },
-  { id:'bear', en:'bear', zh:'熊', cat:'animal' },
-  { id:'bee', en:'bee', zh:'蜜蜂', cat:'animal' },
-  { id:'bird', en:'bird', zh:'鳥', cat:'animal' },
-  { id:'bite', en:'bite', zh:'咬', cat:'life' },
-  { id:'butterfly', en:'butterfly', zh:'蝴蝶', cat:'animal' },
-  { id:'cat', en:'cat', zh:'貓', cat:'animal' },
-  { id:'cow', en:'cow', zh:'乳牛', cat:'animal' },
-  { id:'dog', en:'dog', zh:'狗', cat:'animal' },
-  { id:'elephant', en:'elephant', zh:'大象', cat:'animal' },
-  { id:'frog', en:'frog', zh:'青蛙', cat:'animal' },
-  { id:'hippo', en:'hippo', zh:'河馬', cat:'animal' },
-  { id:'horse', en:'horse', zh:'馬', cat:'animal' },
-  { id:'koala', en:'koala', zh:'無尾熊', cat:'animal' },
-  { id:'lion', en:'lion', zh:'獅子', cat:'animal' },
-  { id:'mouse', en:'mouse', zh:'老鼠', cat:'animal' },
-  { id:'mice', en:'mice', zh:'老鼠(複數)', cat:'animal' },
-  { id:'monkey', en:'monkey', zh:'猴子', cat:'animal' },
-  { id:'panda', en:'panda', zh:'大貓熊', cat:'animal' },
-  { id:'pet', en:'pet', zh:'寵物', cat:'animal' },
-  { id:'pig', en:'pig', zh:'豬', cat:'animal' },
-  { id:'rabbit', en:'rabbit', zh:'兔子', cat:'animal' },
-  { id:'sheep', en:'sheep', zh:'綿羊', cat:'animal' },
-  { id:'snake', en:'snake', zh:'蛇', cat:'animal' },
-  { id:'spider', en:'spider', zh:'蜘蛛', cat:'animal' },
-  { id:'tiger', en:'tiger', zh:'老虎', cat:'animal' },
-  { id:'turtle', en:'turtle', zh:'烏龜', cat:'animal' },
-  { id:'whale', en:'whale', zh:'鯨魚', cat:'animal' },
-  { id:'zebra', en:'zebra', zh:'斑馬', cat:'animal' },
-  { id:'bag', en:'bag', zh:'袋子', cat:'clothing' },
-  { id:'cap', en:'cap', zh:'棒球帽', cat:'clothing' },
-  { id:'clothes', en:'clothes', zh:'衣服', cat:'clothing' },
-  { id:'coat', en:'coat', zh:'外套', cat:'clothing' },
-  { id:'dress', en:'dress', zh:'洋裝', cat:'clothing' },
-  { id:'glasses', en:'glasses', zh:'眼鏡', cat:'clothing' },
+  // ── Page 1: Animals & Clothing (38 words) ────────────────────
+  { id:'p1_animal', en:'animal', zh:'動物', cat:'animal', page:1 },
+  { id:'p1_bear', en:'bear', zh:'熊', cat:'animal', page:1 },
+  { id:'p1_bee', en:'bee', zh:'蜜蜂', cat:'animal', page:1 },
+  { id:'p1_bird', en:'bird', zh:'鳥', cat:'animal', page:1 },
+  { id:'p1_bite', en:'bite', zh:'咬', cat:'life', page:1 },
+  { id:'p1_butterfly', en:'butterfly', zh:'蝴蝶', cat:'animal', page:1 },
+  { id:'p1_cat', en:'cat', zh:'貓', cat:'animal', page:1 },
+  { id:'p1_chicken', en:'chicken', zh:'雞', cat:'animal', page:1 },
+  { id:'p1_cow', en:'cow', zh:'乳牛', cat:'animal', page:1 },
+  { id:'p1_dog', en:'dog', zh:'狗', cat:'animal', page:1 },
+  { id:'p1_duck', en:'duck', zh:'鴨子', cat:'animal', page:1 },
+  { id:'p1_elephant', en:'elephant', zh:'大象', cat:'animal', page:1 },
+  { id:'p1_fish', en:'fish', zh:'魚', cat:'animal', page:1 },
+  { id:'p1_frog', en:'frog', zh:'青蛙', cat:'animal', page:1 },
+  { id:'p1_hippo', en:'hippo', zh:'河馬', cat:'animal', page:1 },
+  { id:'p1_horse', en:'horse', zh:'馬', cat:'animal', page:1 },
+  { id:'p1_koala', en:'koala', zh:'無尾熊', cat:'animal', page:1 },
+  { id:'p1_lion', en:'lion', zh:'獅子', cat:'animal', page:1 },
+  { id:'p1_mice', en:'mice', zh:'老鼠(複數)', cat:'animal', page:1 },
+  { id:'p1_monkey', en:'monkey', zh:'猴子', cat:'animal', page:1 },
+  { id:'p1_mouse', en:'mouse', zh:'老鼠', cat:'animal', page:1 },
+  { id:'p1_panda', en:'panda', zh:'大貓熊', cat:'animal', page:1 },
+  { id:'p1_pet', en:'pet', zh:'寵物', cat:'animal', page:1 },
+  { id:'p1_pig', en:'pig', zh:'豬', cat:'animal', page:1 },
+  { id:'p1_rabbit', en:'rabbit', zh:'兔子', cat:'animal', page:1 },
+  { id:'p1_sheep', en:'sheep', zh:'綿羊', cat:'animal', page:1 },
+  { id:'p1_snake', en:'snake', zh:'蛇', cat:'animal', page:1 },
+  { id:'p1_spider', en:'spider', zh:'蜘蛛', cat:'animal', page:1 },
+  { id:'p1_tiger', en:'tiger', zh:'老虎', cat:'animal', page:1 },
+  { id:'p1_turtle', en:'turtle', zh:'烏龜', cat:'animal', page:1 },
+  { id:'p1_whale', en:'whale', zh:'鯨魚', cat:'animal', page:1 },
+  { id:'p1_zebra', en:'zebra', zh:'斑馬', cat:'animal', page:1 },
+  { id:'p1_bag', en:'bag', zh:'袋子', cat:'clothing', page:1 },
+  { id:'p1_cap', en:'cap', zh:'棒球帽', cat:'clothing', page:1 },
+  { id:'p1_clothes', en:'clothes', zh:'衣服', cat:'clothing', page:1 },
+  { id:'p1_coat', en:'coat', zh:'外套', cat:'clothing', page:1 },
+  { id:'p1_dress', en:'dress', zh:'洋裝', cat:'clothing', page:1 },
+  { id:'p1_glasses', en:'glasses', zh:'眼鏡', cat:'clothing', page:1 },
 
-  // ── Page 2: Clothing, Colors, Family & Daily ───────
-  { id:'hat', en:'hat', zh:'帽子', cat:'clothing' },
-  { id:'jacket', en:'jacket', zh:'夾克外套', cat:'clothing' },
-  { id:'pants', en:'pants', zh:'長褲', cat:'clothing' },
-  { id:'pocket', en:'pocket', zh:'口袋', cat:'clothing' },
-  { id:'shirt', en:'shirt', zh:'襯衫', cat:'clothing' },
-  { id:'shoes', en:'shoes', zh:'鞋子', cat:'clothing' },
-  { id:'shorts', en:'shorts', zh:'短褲', cat:'clothing' },
-  { id:'skirt', en:'skirt', zh:'裙子', cat:'clothing' },
-  { id:'socks', en:'socks', zh:'襪子', cat:'clothing' },
-  { id:'sweater', en:'sweater', zh:'毛衣', cat:'clothing' },
-  { id:'tshirt', en:'T-shirt', zh:'T 恤', cat:'clothing' },
-  { id:'umbrella', en:'umbrella', zh:'傘', cat:'clothing' },
-  { id:'wear', en:'wear', zh:'穿、戴', cat:'clothing' },
-  { id:'black', en:'black', zh:'黑色的', cat:'color' },
-  { id:'blue', en:'blue', zh:'藍色的', cat:'color' },
-  { id:'brown', en:'brown', zh:'咖啡色的', cat:'color' },
-  { id:'color', en:'color', zh:'顏色', cat:'color' },
-  { id:'gray', en:'gray', zh:'灰色的', cat:'color' },
-  { id:'green', en:'green', zh:'綠色的', cat:'color' },
-  { id:'orange_color', en:'orange', zh:'橘色的 / 柳橙', cat:'color' },
-  { id:'pink', en:'pink', zh:'粉紅色的', cat:'color' },
-  { id:'purple', en:'purple', zh:'紫色的', cat:'color' },
-  { id:'red', en:'red', zh:'紅色的', cat:'color' },
-  { id:'white', en:'white', zh:'白色的', cat:'color' },
-  { id:'yellow', en:'yellow', zh:'黃色的', cat:'color' },
-  { id:'aunt', en:'aunt', zh:'阿姨、姑姑', cat:'family' },
-  { id:'brother', en:'brother', zh:'哥哥、弟弟', cat:'family' },
-  { id:'cousin', en:'cousin', zh:'堂表兄弟姊妹', cat:'family' },
-  { id:'dad', en:'dad', zh:'爸爸', cat:'family' },
-  { id:'father', en:'father', zh:'父親', cat:'family' },
-  { id:'daughter', en:'daughter', zh:'女兒', cat:'family' },
-  { id:'family', en:'family', zh:'家庭、家人', cat:'family' },
-  { id:'grandfather', en:'grandfather', zh:'外公、爺爺', cat:'family' },
-  { id:'grandmother', en:'grandmother', zh:'外婆、奶奶', cat:'family' },
-  { id:'grow_up', en:'grow up', zh:'成長、長大', cat:'life' },
-  { id:'live', en:'live', zh:'住', cat:'life' },
-  { id:'mother', en:'mother', zh:'媽媽', cat:'family' },
+  // ── Page 2: Clothing, Colors, Family & Daily (37 words) ───────
+  { id:'p2_hat', en:'hat', zh:'帽子', cat:'clothing', page:2 },
+  { id:'p2_jacket', en:'jacket', zh:'夾克外套', cat:'clothing', page:2 },
+  { id:'p2_pants', en:'pants', zh:'長褲', cat:'clothing', page:2 },
+  { id:'p2_pocket', en:'pocket', zh:'口袋', cat:'clothing', page:2 },
+  { id:'p2_shirt', en:'shirt', zh:'襯衫', cat:'clothing', page:2 },
+  { id:'p2_shoes', en:'shoes', zh:'鞋子', cat:'clothing', page:2 },
+  { id:'p2_shorts', en:'shorts', zh:'短褲', cat:'clothing', page:2 },
+  { id:'p2_skirt', en:'skirt', zh:'裙子', cat:'clothing', page:2 },
+  { id:'p2_socks', en:'socks', zh:'襪子', cat:'clothing', page:2 },
+  { id:'p2_sweater', en:'sweater', zh:'毛衣', cat:'clothing', page:2 },
+  { id:'p2_tshirt', en:'T-shirt', zh:'T 恤', cat:'clothing', page:2 },
+  { id:'p2_umbrella', en:'umbrella', zh:'傘', cat:'clothing', page:2 },
+  { id:'p2_wear', en:'wear', zh:'穿、戴', cat:'clothing', page:2 },
+  { id:'p2_black', en:'black', zh:'黑色的', cat:'color', page:2 },
+  { id:'p2_blue', en:'blue', zh:'藍色的', cat:'color', page:2 },
+  { id:'p2_brown', en:'brown', zh:'咖啡色的', cat:'color', page:2 },
+  { id:'p2_color', en:'color', zh:'顏色', cat:'color', page:2 },
+  { id:'p2_gray', en:'gray', zh:'灰色的', cat:'color', page:2 },
+  { id:'p2_green', en:'green', zh:'綠色的', cat:'color', page:2 },
+  { id:'p2_orange', en:'orange', zh:'橘色的', cat:'color', page:2 },
+  { id:'p2_pink', en:'pink', zh:'粉紅色的', cat:'color', page:2 },
+  { id:'p2_purple', en:'purple', zh:'紫色的', cat:'color', page:2 },
+  { id:'p2_red', en:'red', zh:'紅色的', cat:'color', page:2 },
+  { id:'p2_white', en:'white', zh:'白色的', cat:'color', page:2 },
+  { id:'p2_yellow', en:'yellow', zh:'黃色的', cat:'color', page:2 },
+  { id:'p2_aunt', en:'aunt', zh:'阿姨、姑姑', cat:'family', page:2 },
+  { id:'p2_brother', en:'brother', zh:'哥哥、弟弟', cat:'family', page:2 },
+  { id:'p2_cousin', en:'cousin', zh:'堂表兄弟姊妹', cat:'family', page:2 },
+  { id:'p2_dad', en:'dad', zh:'爸爸', cat:'family', page:2 },
+  { id:'p2_father', en:'father', zh:'父親', cat:'family', page:2 },
+  { id:'p2_daughter', en:'daughter', zh:'女兒', cat:'family', page:2 },
+  { id:'p2_family', en:'family', zh:'家庭、家人', cat:'family', page:2 },
+  { id:'p2_grandfather', en:'grandfather', zh:'外公、爺爺', cat:'family', page:2 },
+  { id:'p2_grandmother', en:'grandmother', zh:'外婆、奶奶', cat:'family', page:2 },
+  { id:'p2_grow_up', en:'grow up', zh:'成長、長大', cat:'life', page:2 },
+  { id:'p2_live', en:'live', zh:'住', cat:'life', page:2 },
+  { id:'p2_mother', en:'mother', zh:'媽媽', cat:'family', page:2 },
 
-  // ── Page 3: Family, Food & Meals, Verbs ───────────
-  { id:'parent', en:'parent', zh:'父母親', cat:'family' },
-  { id:'sister', en:'sister', zh:'姐姐、妹妹', cat:'family' },
-  { id:'son', en:'son', zh:'兒子', cat:'family' },
-  { id:'uncle', en:'uncle', zh:'叔叔、舅舅', cat:'family' },
-  { id:'apple', en:'apple', zh:'蘋果', cat:'food' },
-  { id:'banana', en:'banana', zh:'香蕉', cat:'food' },
-  { id:'beef', en:'beef', zh:'牛肉', cat:'food' },
-  { id:'bread', en:'bread', zh:'麵包', cat:'food' },
-  { id:'breakfast', en:'breakfast', zh:'早餐', cat:'food' },
-  { id:'cake', en:'cake', zh:'蛋糕', cat:'food' },
-  { id:'candy', en:'candy', zh:'糖果', cat:'food' },
-  { id:'chicken', en:'chicken', zh:'雞 / 雞肉', cat:'food' },
-  { id:'chocolate', en:'chocolate', zh:'巧克力', cat:'food' },
-  { id:'coffee', en:'coffee', zh:'咖啡', cat:'food' },
-  { id:'coke', en:'coke', zh:'可樂', cat:'food' },
-  { id:'cook', en:'cook', zh:'烹飪、煮', cat:'food' },
-  { id:'cookies', en:'cookies', zh:'餅乾', cat:'food' },
-  { id:'dinner', en:'dinner', zh:'晚餐', cat:'food' },
-  { id:'drink', en:'drink', zh:'喝', cat:'food' },
-  { id:'duck', en:'duck', zh:'鴨 / 鴨肉', cat:'food' },
-  { id:'dumpling', en:'dumpling', zh:'水餃', cat:'food' },
-  { id:'eat', en:'eat', zh:'吃', cat:'food' },
-  { id:'egg', en:'egg', zh:'蛋', cat:'food' },
-  { id:'fish', en:'fish', zh:'魚 / 魚肉', cat:'food' },
-  { id:'food', en:'food', zh:'食物', cat:'food' },
-  { id:'french_fries', en:'French fries', zh:'薯條', cat:'food' },
-  { id:'fruit', en:'fruit', zh:'水果', cat:'food' },
-  { id:'full', en:'full', zh:'飽的', cat:'health' },
-  { id:'grape', en:'grape', zh:'葡萄', cat:'food' },
-  { id:'hamburger', en:'hamburger', zh:'漢堡', cat:'food' },
-  { id:'hungry', en:'hungry', zh:'餓的', cat:'health' },
-  { id:'ice_cream', en:'ice cream', zh:'冰淇淋', cat:'food' },
-  { id:'juice', en:'juice', zh:'果汁', cat:'food' },
-  { id:'lemon', en:'lemon', zh:'檸檬', cat:'food' },
-  { id:'lunch', en:'lunch', zh:'午餐', cat:'food' },
-  { id:'meal', en:'meal', zh:'餐', cat:'food' },
-  { id:'milk', en:'milk', zh:'牛奶', cat:'food' },
-  { id:'noodles', en:'noodles', zh:'麵', cat:'food' },
+  // ── Page 3: Family, Food & Meals, Verbs (38 words) ───────────
+  { id:'p3_parent', en:'parent', zh:'父母親', cat:'family', page:3 },
+  { id:'p3_sister', en:'sister', zh:'姐姐、妹妹', cat:'family', page:3 },
+  { id:'p3_son', en:'son', zh:'兒子', cat:'family', page:3 },
+  { id:'p3_uncle', en:'uncle', zh:'叔叔、舅舅', cat:'family', page:3 },
+  { id:'p3_apple', en:'apple', zh:'蘋果', cat:'food', page:3 },
+  { id:'p3_banana', en:'banana', zh:'香蕉', cat:'food', page:3 },
+  { id:'p3_beef', en:'beef', zh:'牛肉', cat:'food', page:3 },
+  { id:'p3_bread', en:'bread', zh:'麵包', cat:'food', page:3 },
+  { id:'p3_breakfast', en:'breakfast', zh:'早餐', cat:'food', page:3 },
+  { id:'p3_cake', en:'cake', zh:'蛋糕', cat:'food', page:3 },
+  { id:'p3_candy', en:'candy', zh:'糖果', cat:'food', page:3 },
+  { id:'p3_chicken', en:'chicken', zh:'雞肉', cat:'food', page:3 },
+  { id:'p3_chocolate', en:'chocolate', zh:'巧克力', cat:'food', page:3 },
+  { id:'p3_coffee', en:'coffee', zh:'咖啡', cat:'food', page:3 },
+  { id:'p3_coke', en:'coke', zh:'可樂', cat:'food', page:3 },
+  { id:'p3_cook', en:'cook', zh:'烹飪、煮', cat:'food', page:3 },
+  { id:'p3_cookies', en:'cookies', zh:'餅乾', cat:'food', page:3 },
+  { id:'p3_dinner', en:'dinner', zh:'晚餐', cat:'food', page:3 },
+  { id:'p3_drink', en:'drink', zh:'喝', cat:'food', page:3 },
+  { id:'p3_duck', en:'duck', zh:'鴨肉', cat:'food', page:3 },
+  { id:'p3_dumpling', en:'dumpling', zh:'水餃', cat:'food', page:3 },
+  { id:'p3_eat', en:'eat', zh:'吃', cat:'food', page:3 },
+  { id:'p3_egg', en:'egg', zh:'蛋', cat:'food', page:3 },
+  { id:'p3_fish', en:'fish', zh:'魚肉', cat:'food', page:3 },
+  { id:'p3_food', en:'food', zh:'食物', cat:'food', page:3 },
+  { id:'p3_french_fries', en:'French fries', zh:'薯條', cat:'food', page:3 },
+  { id:'p3_fruit', en:'fruit', zh:'水果', cat:'food', page:3 },
+  { id:'p3_full', en:'full', zh:'飽的', cat:'health', page:3 },
+  { id:'p3_grape', en:'grape', zh:'葡萄', cat:'food', page:3 },
+  { id:'p3_hamburger', en:'hamburger', zh:'漢堡', cat:'food', page:3 },
+  { id:'p3_hungry', en:'hungry', zh:'餓的', cat:'health', page:3 },
+  { id:'p3_ice_cream', en:'ice cream', zh:'冰淇淋', cat:'food', page:3 },
+  { id:'p3_juice', en:'juice', zh:'果汁', cat:'food', page:3 },
+  { id:'p3_lemon', en:'lemon', zh:'檸檬', cat:'food', page:3 },
+  { id:'p3_lunch', en:'lunch', zh:'午餐', cat:'food', page:3 },
+  { id:'p3_meal', en:'meal', zh:'餐', cat:'food', page:3 },
+  { id:'p3_milk', en:'milk', zh:'牛奶', cat:'food', page:3 },
+  { id:'p3_noodles', en:'noodles', zh:'麵', cat:'food', page:3 },
 
-  // ── Page 4: More Food, Titles, Nature, Health, Life ─
-  { id:'peach', en:'peach', zh:'桃子', cat:'food' },
-  { id:'pie', en:'pie', zh:'派', cat:'food' },
-  { id:'pizza', en:'pizza', zh:'披薩', cat:'food' },
-  { id:'pork', en:'pork', zh:'豬肉', cat:'food' },
-  { id:'pumpkin', en:'pumpkin', zh:'南瓜', cat:'food' },
-  { id:'rice', en:'rice', zh:'米飯', cat:'food' },
-  { id:'salad', en:'salad', zh:'沙拉', cat:'food' },
-  { id:'sandwich', en:'sandwich', zh:'三明治', cat:'food' },
-  { id:'soup', en:'soup', zh:'湯', cat:'food' },
-  { id:'strawberry', en:'strawberry', zh:'草莓', cat:'food' },
-  { id:'sweet', en:'sweet', zh:'甜的', cat:'food' },
-  { id:'taste', en:'taste', zh:'嚐起來', cat:'food' },
-  { id:'tea', en:'tea', zh:'茶', cat:'food' },
-  { id:'thirsty', en:'thirsty', zh:'口渴的', cat:'health' },
-  { id:'water', en:'water', zh:'水', cat:'food' },
-  { id:'watermelon', en:'watermelon', zh:'西瓜', cat:'food' },
-  { id:'delicious', en:'delicious', zh:'美味的', cat:'food' },
-  { id:'miss', en:'Miss', zh:'小姐', cat:'family' },
-  { id:'mr', en:'Mr.', zh:'先生(縮寫)', cat:'family' },
-  { id:'mrs', en:'Mrs.', zh:'太太(縮寫)', cat:'family' },
-  { id:'name', en:'name', zh:'姓名', cat:'life' },
-  { id:'beach', en:'beach', zh:'海灘', cat:'nature' },
-  { id:'lake', en:'lake', zh:'湖', cat:'nature' },
-  { id:'mountain', en:'mountain', zh:'山', cat:'nature' },
-  { id:'river', en:'river', zh:'河流', cat:'nature' },
-  { id:'sea', en:'sea', zh:'大海', cat:'nature' },
-  { id:'cold', en:'cold', zh:'感冒 / 寒冷的', cat:'health' },
-  { id:'headache', en:'headache', zh:'頭痛', cat:'health' },
-  { id:'sick', en:'sick', zh:'生病的', cat:'health' },
-  { id:'strong', en:'strong', zh:'強壯的', cat:'health' },
-  { id:'tired', en:'tired', zh:'疲累的', cat:'health' },
-  { id:'toothache', en:'toothache', zh:'牙痛', cat:'health' },
-  { id:'well', en:'well', zh:'好的；健康地', cat:'health' },
-  { id:'buy', en:'buy', zh:'買', cat:'life' },
-  { id:'dollar', en:'dollar', zh:'元', cat:'life' },
-  { id:'free', en:'free', zh:'免費的', cat:'life' },
-  { id:'money', en:'money', zh:'錢', cat:'life' }
+  // ── Page 4: More Food, Titles, Nature, Health, Life (38 words) ─
+  { id:'p4_orange', en:'orange', zh:'柳橙', cat:'food', page:4 },
+  { id:'p4_peach', en:'peach', zh:'桃子', cat:'food', page:4 },
+  { id:'p4_pie', en:'pie', zh:'派', cat:'food', page:4 },
+  { id:'p4_pizza', en:'pizza', zh:'披薩', cat:'food', page:4 },
+  { id:'p4_pork', en:'pork', zh:'豬肉', cat:'food', page:4 },
+  { id:'p4_pumpkin', en:'pumpkin', zh:'南瓜', cat:'food', page:4 },
+  { id:'p4_rice', en:'rice', zh:'米飯', cat:'food', page:4 },
+  { id:'p4_salad', en:'salad', zh:'沙拉', cat:'food', page:4 },
+  { id:'p4_sandwich', en:'sandwich', zh:'三明治', cat:'food', page:4 },
+  { id:'p4_soup', en:'soup', zh:'湯', cat:'food', page:4 },
+  { id:'p4_strawberry', en:'strawberry', zh:'草莓', cat:'food', page:4 },
+  { id:'p4_sweet', en:'sweet', zh:'甜的', cat:'food', page:4 },
+  { id:'p4_taste', en:'taste', zh:'嚐起來', cat:'food', page:4 },
+  { id:'p4_tea', en:'tea', zh:'茶', cat:'food', page:4 },
+  { id:'p4_thirsty', en:'thirsty', zh:'口渴的', cat:'health', page:4 },
+  { id:'p4_water', en:'water', zh:'水', cat:'food', page:4 },
+  { id:'p4_watermelon', en:'watermelon', zh:'西瓜', cat:'food', page:4 },
+  { id:'p4_delicious', en:'delicious', zh:'美味的', cat:'food', page:4 },
+  { id:'p4_miss', en:'Miss', zh:'小姐', cat:'family', page:4 },
+  { id:'p4_mr', en:'Mr.', zh:'先生(縮寫)', cat:'family', page:4 },
+  { id:'p4_mrs', en:'Mrs.', zh:'太太(縮寫)', cat:'family', page:4 },
+  { id:'p4_name', en:'name', zh:'姓名', cat:'life', page:4 },
+  { id:'p4_beach', en:'beach', zh:'海灘', cat:'nature', page:4 },
+  { id:'p4_lake', en:'lake', zh:'湖', cat:'nature', page:4 },
+  { id:'p4_mountain', en:'mountain', zh:'山', cat:'nature', page:4 },
+  { id:'p4_river', en:'river', zh:'河流', cat:'nature', page:4 },
+  { id:'p4_sea', en:'sea', zh:'大海', cat:'nature', page:4 },
+  { id:'p4_cold', en:'cold', zh:'感冒 / 寒冷的', cat:'health', page:4 },
+  { id:'p4_headache', en:'headache', zh:'頭痛', cat:'health', page:4 },
+  { id:'p4_sick', en:'sick', zh:'生病的', cat:'health', page:4 },
+  { id:'p4_strong', en:'strong', zh:'強壯的', cat:'health', page:4 },
+  { id:'p4_tired', en:'tired', zh:'疲累的', cat:'health', page:4 },
+  { id:'p4_toothache', en:'toothache', zh:'牙痛', cat:'health', page:4 },
+  { id:'p4_well', en:'well', zh:'好的；健康地', cat:'health', page:4 },
+  { id:'p4_buy', en:'buy', zh:'買', cat:'life', page:4 },
+  { id:'p4_dollar', en:'dollar', zh:'元', cat:'life', page:4 },
+  { id:'p4_free', en:'free', zh:'免費的', cat:'life', page:4 },
+  { id:'p4_money', en:'money', zh:'錢', cat:'life', page:4 }
 ];
 
 /* ════════════════════════════════════════════════════
@@ -1012,26 +1057,40 @@ function saveRecords() {
   updateBadges();
 }
 
-function recordAnswer(en, isCorrect) {
-  if (!records[en]) {
-    records[en] = { wrongCount: 0, correctCount: 0, lastTested: Date.now() };
+function getWordRecord(w) {
+  return records[w.id] || records[w.en] || { wrongCount: 0, correctCount: 0, lastTested: 0 };
+}
+
+function recordAnswer(w, isCorrect) {
+  const key = (typeof w === 'string') ? w : w.id;
+  if (!records[key]) {
+    const legacy = (typeof w !== 'string') ? records[w.en] : null;
+    records[key] = {
+      wrongCount: legacy ? legacy.wrongCount : 0,
+      correctCount: legacy ? legacy.correctCount : 0,
+      lastTested: Date.now()
+    };
   }
   if (isCorrect) {
-    records[en].correctCount++;
+    records[key].correctCount++;
     // 特訓答對時不刪除、不減少錯題次數，完整保留每個字的歷史錯誤統計
   } else {
-    records[en].wrongCount++;
+    records[key].wrongCount++;
   }
-  records[en].lastTested = Date.now();
+  records[key].lastTested = Date.now();
   saveRecords();
 }
 
-function removeMistake(en) {
-  if (records[en]) {
-    records[en].wrongCount = 0;
-    saveRecords();
-    renderMistakesHub();
+function removeMistake(targetId) {
+  if (records[targetId]) {
+    records[targetId].wrongCount = 0;
   }
+  VOCAB_DATA.filter(w => w.id === targetId || w.en === targetId).forEach(w => {
+    if (records[w.id]) records[w.id].wrongCount = 0;
+    if (records[w.en]) records[w.en].wrongCount = 0;
+  });
+  saveRecords();
+  renderMistakesHub();
 }
 
 function clearAllMistakes() {
@@ -1045,7 +1104,10 @@ function clearAllMistakes() {
 }
 
 function getWrongWords() {
-  return VOCAB_DATA.filter(w => (records[w.en]?.wrongCount || 0) > 0);
+  return VOCAB_DATA.filter(w => {
+    const rec = records[w.id] || records[w.en];
+    return (rec?.wrongCount || 0) > 0;
+  });
 }
 
 function updateBadges() {
@@ -1062,7 +1124,7 @@ function updateBadges() {
   let totalWrongTimes = 0;
   let correctWordsCount = 0;
   VOCAB_DATA.forEach(w => {
-    const r = records[w.en];
+    const r = records[w.id] || records[w.en];
     if (r) {
       totalWrongTimes += (r.wrongCount || 0);
       if (r.correctCount > 0) correctWordsCount++;
@@ -1142,15 +1204,22 @@ function startMistakePractice(mode) {
 }
 
 /* ════════════════════════════════════════════════════
+   FILTER LOGIC (PAGE & CATEGORY)
+   ════════════════════════════════════════════════════ */
+function filterWords(catVal) {
+  if (!catVal || catVal === 'all') return [...VOCAB_DATA];
+  if (catVal === 'wrong') return getWrongWords();
+  if (catVal.startsWith('page-')) {
+    const pageNum = parseInt(catVal.replace('page-', ''), 10);
+    return VOCAB_DATA.filter(w => w.page === pageNum);
+  }
+  return VOCAB_DATA.filter(w => w.cat === catVal);
+}
+
+/* ════════════════════════════════════════════════════
    1. FLASHCARDS
    ════════════════════════════════════════════════════ */
 let fcList = [], fcIndex = 0;
-
-function filterWords(catVal) {
-  if (catVal === 'wrong') return getWrongWords();
-  if (catVal === 'all') return [...VOCAB_DATA];
-  return VOCAB_DATA.filter(w => w.cat === catVal);
-}
 
 function initFlashcards(forceRestart = false) {
   const cat = document.getElementById('fc-category').value;
@@ -1187,16 +1256,17 @@ function renderFlashcard() {
   const card = document.getElementById('flashcard-card');
   card.classList.remove('is-flipped');
 
+  const pageLabel = `第 ${w.page} 頁`;
   if (dir === 'zh2en') {
-    document.getElementById('fc-front-tag').textContent = '中文';
+    document.getElementById('fc-front-tag').textContent = `${pageLabel} · 中文`;
     document.getElementById('fc-front-text').textContent = w.zh;
-    document.getElementById('fc-back-tag').textContent = '英文';
+    document.getElementById('fc-back-tag').textContent = `${pageLabel} · 英文`;
     document.getElementById('fc-back-text').textContent = w.en;
     document.getElementById('fc-back-sub').textContent = w.zh;
   } else {
-    document.getElementById('fc-front-tag').textContent = '英文';
+    document.getElementById('fc-front-tag').textContent = `${pageLabel} · 英文`;
     document.getElementById('fc-front-text').textContent = w.en;
-    document.getElementById('fc-back-tag').textContent = '中文';
+    document.getElementById('fc-back-tag').textContent = `${pageLabel} · 中文`;
     document.getElementById('fc-back-text').textContent = w.zh;
     document.getElementById('fc-back-sub').textContent = w.en;
   }
@@ -1232,7 +1302,7 @@ function speakCurrentCard(e) {
 function markCurrentCardMistake(e) {
   if (e) e.stopPropagation();
   const w = fcList[fcIndex];
-  recordAnswer(w.en, false);
+  recordAnswer(w, false);
   alert(`已將「${w.en} (${w.zh})」加入錯題本！`);
   nextCard();
 }
@@ -1240,13 +1310,13 @@ function markCurrentCardMistake(e) {
 function markCurrentCardLearned(e) {
   if (e) e.stopPropagation();
   const w = fcList[fcIndex];
-  recordAnswer(w.en, true);
+  recordAnswer(w, true);
   alert(`太棒了！已將「${w.en}」記為答對 1 次（歷史錯誤次數持續保存）！`);
   nextCard();
 }
 
 /* ════════════════════════════════════════════════════
-   2. QUIZ
+   2. QUIZ (CHOICE QUESTIONS)
    ════════════════════════════════════════════════════ */
 let quizList = [], quizIdx = 0, quizScore = 0, quizAnswered = false;
 let sessionWrongs = [];
@@ -1294,18 +1364,20 @@ function renderQuiz() {
   document.getElementById('quiz-next-btn').style.display = 'none';
 
   const speakBtn = document.getElementById('quiz-speak-btn');
+  const pageLabel = `第 ${w.page} 頁`;
   if (dir === 'zh2en') {
-    document.getElementById('quiz-q-tag').textContent = '請選出此中文的正確英文：';
+    document.getElementById('quiz-q-tag').textContent = `${pageLabel} · 請選出此中文的正確英文：`;
     document.getElementById('quiz-q-word').textContent = w.zh;
     speakBtn.style.display = 'none';
   } else {
-    document.getElementById('quiz-q-tag').textContent = '請選出此英文的正確中文：';
+    document.getElementById('quiz-q-tag').textContent = `${pageLabel} · 請選出此英文的正確中文：`;
     document.getElementById('quiz-q-word').textContent = w.en;
     speakBtn.style.display = 'inline-flex';
     speakWord(w.en);
   }
 
-  const pool = VOCAB_DATA.filter(item => item.en !== w.en);
+  // 排除相同英文單字或相同中文翻譯的干擾項
+  const pool = VOCAB_DATA.filter(item => item.en.toLowerCase() !== w.en.toLowerCase() && item.zh !== w.zh);
   shuffleArray(pool);
   const distractors = pool.slice(0, 3);
   const options = [w, ...distractors];
@@ -1330,12 +1402,16 @@ function checkQuizChoice(btn, chosen, correct, dir) {
   if (quizAnswered) return;
   quizAnswered = true;
 
-  const isCorrect = (chosen.en === correct.en);
+  const isCorrect = (dir === 'zh2en')
+    ? (chosen.en.toLowerCase() === correct.en.toLowerCase())
+    : (chosen.zh === correct.zh || chosen.id === correct.id);
   const fb = document.getElementById('quiz-feedback');
 
   document.querySelectorAll('.option-btn').forEach(b => {
     b.disabled = true;
-    const isTarget = (dir === 'zh2en') ? (b.textContent === correct.en) : (b.textContent === correct.zh);
+    const isTarget = (dir === 'zh2en')
+      ? (b.textContent.toLowerCase() === correct.en.toLowerCase())
+      : (b.textContent === correct.zh);
     if (isTarget) b.classList.add('correct');
     else if (b === btn && !isCorrect) b.classList.add('wrong');
   });
@@ -1344,11 +1420,12 @@ function checkQuizChoice(btn, chosen, correct, dir) {
     quizScore++;
     fb.textContent = '🎉 答對了！太棒了！';
     fb.classList.add('success');
-    recordAnswer(correct.en, true);
+    recordAnswer(correct, true);
     speakWord(correct.en);
   } else {
-    recordAnswer(correct.en, false);
-    const times = records[correct.en]?.wrongCount || 1;
+    recordAnswer(correct, false);
+    const rec = getWordRecord(correct);
+    const times = rec.wrongCount || 1;
     fb.textContent = `❌ 答錯囉！答案是：${dir === 'zh2en' ? correct.en : correct.zh} (累計錯 ${times} 次)`;
     fb.classList.add('wrong');
     sessionWrongs.push(correct);
@@ -1445,6 +1522,8 @@ function renderTyping() {
 
   document.getElementById('typing-progress-fill').style.width = pct + '%';
   document.getElementById('typing-counter').textContent = `${typingIdx + 1} / ${typingList.length}`;
+  const tagElem = document.getElementById('typing-q-tag');
+  if (tagElem) tagElem.textContent = `第 ${w.page} 頁 · 請依中文與提示輸入正確英文`;
   document.getElementById('typing-zh-word').textContent = w.zh;
 
   updateHintDisplay(w.en);
@@ -1488,9 +1567,10 @@ function checkTyping() {
     nextTyping();
     return;
   }
+  const w = typingList[typingIdx];
   const inp = document.getElementById('typing-input');
   const userAns = inp.value.trim().toLowerCase().replace('.', '');
-  const correct = typingList[typingIdx].en.toLowerCase().replace('.', '');
+  const correct = w.en.toLowerCase().replace('.', '');
   const fb = document.getElementById('typing-feedback');
 
   if (!userAns) return;
@@ -1502,13 +1582,14 @@ function checkTyping() {
     inp.classList.add('correct');
     fb.textContent = '✅ 太厲害了，拼寫完全正確！';
     fb.classList.add('success');
-    recordAnswer(typingList[typingIdx].en, true);
-    speakWord(typingList[typingIdx].en);
+    recordAnswer(w, true);
+    speakWord(w.en);
   } else {
-    recordAnswer(typingList[typingIdx].en, false);
-    const times = records[typingList[typingIdx].en]?.wrongCount || 1;
+    recordAnswer(w, false);
+    const rec = getWordRecord(w);
+    const times = rec.wrongCount || 1;
     inp.classList.add('wrong');
-    fb.textContent = `❌ 正確拼法為：${typingList[typingIdx].en} (累計錯 ${times} 次)`;
+    fb.textContent = `❌ 正確拼法為：${w.en} (累計錯 ${times} 次)`;
     fb.classList.add('wrong');
     const box = document.getElementById('typing-box');
     box.classList.add('shake');
@@ -1519,9 +1600,9 @@ function checkTyping() {
 }
 
 function skipTyping() {
-  const correct = typingList[typingIdx].en;
-  recordAnswer(correct, false);
-  document.getElementById('typing-feedback').textContent = `已跳過，正確答案為：${correct}`;
+  const w = typingList[typingIdx];
+  recordAnswer(w, false);
+  document.getElementById('typing-feedback').textContent = `已跳過，正確答案為：${w.en}`;
   document.getElementById('typing-feedback').className = 'quiz-feedback wrong';
   document.getElementById('typing-input').disabled = true;
   typingAnswered = true;
@@ -1560,9 +1641,18 @@ function renderMistakesHub() {
 
   let filtered = [...VOCAB_DATA];
   if (filter === 'only-wrong') {
-    filtered = filtered.filter(w => (records[w.en]?.wrongCount || 0) > 0);
+    filtered = filtered.filter(w => {
+      const rec = records[w.id] || records[w.en];
+      return (rec?.wrongCount || 0) > 0;
+    });
   } else if (filter === 'mastered') {
-    filtered = filtered.filter(w => (records[w.en]?.correctCount || 0) > 0);
+    filtered = filtered.filter(w => {
+      const rec = records[w.id] || records[w.en];
+      return (rec?.correctCount || 0) > 0;
+    });
+  } else if (filter.startsWith('page-')) {
+    const pageNum = parseInt(filter.replace('page-', ''), 10);
+    filtered = filtered.filter(w => w.page === pageNum);
   } else if (filter !== 'all') {
     filtered = filtered.filter(w => w.cat === filter);
   }
@@ -1570,8 +1660,8 @@ function renderMistakesHub() {
   // Sorting
   if (sortMode === 'wrong-desc') {
     filtered.sort((a, b) => {
-      const wa = records[a.en]?.wrongCount || 0;
-      const wb = records[b.en]?.wrongCount || 0;
+      const wa = (records[a.id]?.wrongCount || records[a.en]?.wrongCount || 0);
+      const wb = (records[b.id]?.wrongCount || records[b.en]?.wrongCount || 0);
       if (wb !== wa) return wb - wa;
       return a.en.localeCompare(b.en);
     });
@@ -1587,7 +1677,7 @@ function renderMistakesHub() {
   }
 
   filtered.forEach(w => {
-    const rec = records[w.en] || { wrongCount: 0, correctCount: 0 };
+    const rec = getWordRecord(w);
     const isWrong = rec.wrongCount > 0;
 
     const row = document.createElement('div');
@@ -1596,14 +1686,17 @@ function renderMistakesHub() {
       <div class="word-info">
         <button class="btn-speak" style="width:32px; height:32px; font-size:0.85rem;" onclick="speakWord('${w.en}')">🔊</button>
         <div>
-          <div class="word-en">${w.en}</div>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span class="word-en">${w.en}</span>
+            <span style="font-size:0.7rem; background:#E0E7FF; color:#4338CA; padding:1px 6px; border-radius:6px; font-weight:700;">第 ${w.page} 頁</span>
+          </div>
           <div class="word-zh">${w.zh}</div>
         </div>
       </div>
       <div class="word-meta">
         ${isWrong ? `<span class="wrong-pill">❌ 錯 ${rec.wrongCount} 次</span>` : ''}
         ${rec.correctCount > 0 ? `<span class="correct-pill">✅ 對 ${rec.correctCount} 次</span>` : ''}
-        ${isWrong ? `<button class="btn-remove-wrong" title="手動移除錯題" onclick="removeMistake('${w.en}')">✕</button>` : ''}
+        ${isWrong ? `<button class="btn-remove-wrong" title="手動清空此字錯題" onclick="removeMistake('${w.id}')">✕</button>` : ''}
       </div>
     `;
     listContainer.appendChild(row);
