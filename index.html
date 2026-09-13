@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEPT Kids 英文單字練習 & 錯題特訓 (第1~4頁完整版)</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #4F46E5;
+    --primary-light: #818CF8;
+    --primary-bg: #EEF2FF;
+    --danger: #EF4444;
+    --danger-bg: #FEF2F2;
+    --success: #10B981;
+    --success-bg: #ECFDF5;
+    --warning: #F59E0B;
+    --warning-bg: #FFFBEB;
+    --bg: #F8FAFC;
+    --card: #FFFFFF;
+    --text: #1E293B;
+    --text-muted: #64748B;
+    --border: #E2E8F0;
+    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+    --radius: 18px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 40px;
+  }
+
+  /* ── Header ────────────────────────────────────────── */
+  header {
+    width: 100%;
+    background: linear-gradient(135deg, #4338CA, #6366F1);
+    color: #fff;
+    padding: 20px 20px 16px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(67, 56, 202, 0.25);
+  }
+  header h1 { font-size: 1.45rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  header p { font-size: 0.85rem; opacity: 0.9; margin-top: 4px; }
+
+  /* ── Nav Tabs ──────────────────────────────────────── */
+  nav {
+    display: flex;
+    gap: 8px;
+    padding: 16px 14px 0;
+    width: 100%;
+    max-width: 620px;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 10px 6px;
+    border: 2px solid transparent;
+    border-radius: 14px;
+    background: var(--card);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    position: relative;
+  }
+  .tab-btn:hover { border-color: var(--primary-light); color: var(--primary); }
+  .tab-btn.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+  }
+  .tab-btn .badge {
+    position: absolute;
+    top: -6px;
+    right: -4px;
+    background: var(--danger);
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 99px;
+    font-weight: 800;
+    border: 2px solid #fff;
+  }
+
+  /* ── Main Container ────────────────────────────────── */
+  main {
+    width: 100%;
+    max-width: 620px;
+    padding: 16px;
+    flex: 1;
+  }
+  .screen { display: none; animation: fadeIn 0.25s ease-out; }
+  .screen.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+
+  /* ── Filters & Action Bar ──────────────────────────── */
+  .control-panel {
+    background: var(--card);
+    padding: 12px 16px;
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    margin-bottom: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--border);
+  }
+  .control-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+  select, .filter-select {
+    padding: 6px 12px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    background: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    outline: none;
+    max-width: 190px;
+  }
+  select:focus { border-color: var(--primary); }
+
+  .wrong-mode-banner {
+    width: 100%;
+    background: var(--danger-bg);
+    color: var(--danger);
+    border: 1.5px dashed var(--danger);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .wrong-mode-banner button {
+    background: var(--danger);
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  /* ── Progress Indicators ───────────────────────────── */
+  .progress-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .progress-track {
+    flex: 1;
+    height: 10px;
+    background: #E2E8F0;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), #06B6D4);
+    border-radius: 99px;
+    transition: width 0.3s ease;
+  }
+  .progress-counter {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  /* ── Buttons ───────────────────────────────────────── */
+  .btn {
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25); }
+  .btn-primary:hover { background: #4338CA; }
+  .btn-danger { background: var(--danger); color: #fff; }
+  .btn-danger:hover { background: #DC2626; }
+  .btn-success { background: var(--success); color: #fff; }
+  .btn-success:hover { background: #059669; }
+  .btn-outline { background: #fff; border: 1.5px solid var(--border); color: var(--text); }
+  .btn-outline:hover { background: #F1F5F9; border-color: #CBD5E1; }
+  .btn-sm { padding: 6px 12px; font-size: 0.8rem; border-radius: 8px; }
+  .btn-speak {
+    background: var(--primary-bg);
+    color: var(--primary);
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.2s;
+  }
+  .btn-speak:hover { background: #E0E7FF; transform: scale(1.08); }
+
+  /* ── Flashcard ─────────────────────────────────────── */
+  .flashcard-scene {
+    perspective: 1000px;
+    height: 240px;
+    cursor: pointer;
+    margin-bottom: 16px;
+  }
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: var(--radius);
+  }
+  .flashcard-inner.is-flipped { transform: rotateY(180deg); }
+  .card-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: var(--radius);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    border: 2px solid var(--border);
+    background: var(--card);
+  }
+  .card-face-back {
+    background: linear-gradient(135deg, #312E81, #4F46E5);
+    color: #fff;
+    border-color: #4F46E5;
+    transform: rotateY(180deg);
+  }
+  .fc-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 6px;
+    background: var(--primary-bg);
+    padding: 3px 10px;
+    border-radius: 99px;
+  }
+  .card-face-back .fc-tag {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+  .fc-word { font-size: 2.3rem; font-weight: 800; margin: 6px 0; text-align: center; }
+  .fc-sub { font-size: 1.1rem; opacity: 0.9; }
+  .fc-hint { font-size: 0.8rem; color: var(--text-muted); margin-top: 10px; }
+  .card-face-back .fc-hint { color: rgba(255, 255, 255, 0.7); }
+
+  .fc-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  /* ── Quiz & Choices ────────────────────────────────── */
+  .quiz-box {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 26px 20px 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .quiz-q-tag { font-size: 0.8rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+  .quiz-word-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 8px 0;
+  }
+  .quiz-q-word { font-size: 2.1rem; font-weight: 800; }
+  .quiz-feedback {
+    min-height: 28px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 10px 0;
+  }
+  .quiz-feedback.success { color: var(--success); }
+  .quiz-feedback.wrong { color: var(--danger); }
+
+  .quiz-options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .option-btn {
+    padding: 16px 12px;
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+  }
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--primary);
+    background: var(--primary-bg);
+  }
+  .option-btn.correct {
+    background: var(--success-bg) !important;
+    border-color: var(--success) !important;
+    color: #065F46 !important;
+  }
+  .option-btn.wrong {
+    background: var(--danger-bg) !important;
+    border-color: var(--danger) !important;
+    color: #991B1B !important;
+  }
+
+  /* ── Typing ────────────────────────────────────────── */
+  .typing-box {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 26px 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .typing-zh { font-size: 2.1rem; font-weight: 800; margin: 8px 0; }
+  .typing-hint {
+    font-size: 0.9rem;
+    color: var(--primary);
+    background: var(--primary-bg);
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-family: monospace;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .typing-input-row {
+    display: flex;
+    gap: 8px;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .typing-input {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    outline: none;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  .typing-input:focus { border-color: var(--primary); }
+  .typing-input.correct { border-color: var(--success); background: var(--success-bg); }
+  .typing-input.wrong { border-color: var(--danger); background: var(--danger-bg); }
+
+  /* ── Mistakes & Progress Dashboard ─────────────────── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .stat-card {
+    background: var(--card);
+    padding: 16px 12px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .stat-num { font-size: 1.8rem; font-weight: 900; }
+  .stat-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-top: 2px; }
+
+  .wrong-hub-banner {
+    background: linear-gradient(135deg, #FEF2F2, #FEE2E2);
+    border: 2px solid #FCA5A5;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .wrong-hub-info h3 { font-size: 1.1rem; color: #991B1B; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+  .wrong-hub-info p { font-size: 0.8rem; color: #B91C1C; margin-top: 2px; }
+
+  .words-list-container {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 18px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .words-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .words-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 380px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  .word-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: all 0.15s;
+  }
+  .word-item.is-wrong {
+    border-color: #FCA5A5;
+    background: #FFF5F5;
+  }
+  .word-info { display: flex; align-items: center; gap: 12px; }
+  .word-en { font-size: 1.05rem; font-weight: 800; color: var(--primary); }
+  .word-zh { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+  .word-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .wrong-pill {
+    background: var(--danger-bg);
+    color: var(--danger);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 99px;
+  }
+  .btn-remove-wrong {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 4px;
+  }
+  .btn-remove-wrong:hover { color: var(--danger); }
+
+  /* ── Results Panel ─────────────────────────────────── */
+  .result-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 36px 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .result-score { font-size: 3.5rem; font-weight: 900; color: var(--primary); margin: 10px 0; }
+
+  /* Animation */
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20%,60% { transform: translateX(-6px); }
+    40%,80% { transform: translateX(6px); }
+  }
+  .shake { animation: shake 0.4s ease; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎒 GEPT Kids 英文單字練習</h1>
+  <p>小學英檢 · 內建 149 個完整單字（第 1 ~ 4 頁）· 支援錯題特訓與發音</p>
+</header>
+
+<nav>
+  <button class="tab-btn active" onclick="switchTab('flashcard')">
+    <span>🃏</span>
+    <span>單字卡</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('quiz')">
+    <span>✅</span>
+    <span>選擇題</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('typing')">
+    <span>⌨️</span>
+    <span>拼字練習</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('mistakes')">
+    <span>❌</span>
+    <span>錯題本</span>
+    <span class="badge" id="nav-wrong-badge" style="display:none">0</span>
+  </button>
+</nav>
+
+<main>
+
+  <!-- ══════════════════════════════════════════════════
+       FLASHCARD SCREEN
+       ══════════════════════════════════════════════════ -->
+  <div id="screen-flashcard" class="screen active">
+    
+    <div class="control-panel">
+      <div class="control-group">
+        <span>分類：</span>
+        <select id="fc-category" onchange="initFlashcards()">
+          <option value="all">🌟 全部單字 (149)</option>
+          <option value="wrong">❌ 錯題本專練</option>
+          <option value="food">🍔 食物與飲料</option>
+          <option value="animal">🐾 動物</option>
+          <option value="clothing">👕 服飾配件</option>
+          <option value="color">🎨 顏色</option>
+          <option value="family">👨‍👩‍👦 家庭與稱謂</option>
+          <option value="nature">🏖️ 大自然風景</option>
+          <option value="health">🏥 健康與感覺</option>
+          <option value="life">💰 購物與生活</option>
+        </select>
+      </div>
+      <div class="control-group" style="margin-left:auto;">
+        <span>模式：</span>
+        <select id="fc-dir" onchange="renderFlashcard()">
+          <option value="zh2en">中文 ➔ 英文</option>
+          <option value="en2zh">英文 ➔ 中文</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="fc-wrong-banner" class="wrong-mode-banner" style="display:none;">
+      <span>🔥 正在進行【錯題特訓】模式</span>
+      <button onclick="exitWrongMode('fc-category')">退出錯題模式</button>
+    </div>
+
+    <div class="progress-bar-container">
+      <div class="progress-track"><div class="progress-fill" id="fc-progress-fill" style="width:0%"></div></div>
+      <div class="progress-counter" id="fc-counter">0 / 0</div>
+    </div>
+
+    <div class="flashcard-scene" onclick="flipCard()">
+      <div class="flashcard-inner" id="flashcard-card">
+        <!-- Front -->
+        <div class="card-face card-face-front">
+          <div class="fc-tag" id="fc-front-tag">中文</div>
+          <div class="fc-word" id="fc-front-text">--</div>
+          <div class="fc-hint">點擊翻面看答案 👆</div>
+        </div>
+        <!-- Back -->
+        <div class="card-face card-face-back">
+          <div class="fc-tag" id="fc-back-tag">英文</div>
+          <div class="fc-word" id="fc-back-text">--</div>
+          <div class="fc-sub" id="fc-back-sub">--</div>
+          <div class="fc-hint">點擊翻回正面 🔄</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fc-actions">
+      <button class="btn btn-outline" onclick="prevCard()">◀ 上一個</button>
+      <button class="btn-speak" onclick="speakCurrentCard(event)" title="朗讀英文">🔊</button>
+      <button class="btn btn-danger btn-sm" onclick="markCurrentCardMistake(event)">❌ 記不住(加入錯題)</button>
+      <button class="btn btn-success btn-sm" onclick="markCurrentCardLearned(event)">👍 學會了(移除錯題)</button>
+      <button class="btn btn-primary" onclick="nextCard()">下一個 ▶</button>
+    </div>
+
+    <div style="display:flex; justify-content:center; gap:8px; margin-top:14px;">
+      <button class="btn btn-sm btn-outline" onclick="shuffleFlashcards()">🔀 隨機抽卡</button>
+      <button class="btn btn-sm btn-outline" onclick="initFlashcards()">🔄 重新開始</button>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════
+       QUIZ SCREEN
+       ══════════════════════════════════════════════════ -->
+  <div id="screen-quiz" class="screen">
+    
+    <div class="control-panel">
+      <div class="control-group">
+        <span>分類：</span>
+        <select id="quiz-category" onchange="startQuiz()">
+          <option value="all">🌟 全部單字 (149)</option>
+          <option value="wrong">❌ 錯題本專練</option>
+          <option value="food">🍔 食物與飲料</option>
+          <option value="animal">🐾 動物</option>
+          <option value="clothing">👕 服飾配件</option>
+          <option value="color">🎨 顏色</option>
+          <option value="family">👨‍👩‍👦 家庭與稱謂</option>
+          <option value="nature">🏖️ 大自然風景</option>
+          <option value="health">🏥 健康與感覺</option>
+          <option value="life">💰 購物與生活</option>
+        </select>
+      </div>
+      <div class="control-group" style="margin-left:auto;">
+        <span>題型：</span>
+        <select id="quiz-dir" onchange="startQuiz()">
+          <option value="zh2en">看中文選英文</option>
+          <option value="en2zh">看英文選中文</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="quiz-wrong-banner" class="wrong-mode-banner" style="display:none;">
+      <span>🔥 正在進行【錯題特訓】測驗</span>
+      <button onclick="exitWrongMode('quiz-category')">退出錯題模式</button>
+    </div>
+
+    <div class="progress-bar-container">
+      <div class="progress-track"><div class="progress-fill" id="quiz-progress-fill" style="width:0%"></div></div>
+      <div class="progress-counter" id="quiz-counter">0 / 0</div>
+    </div>
+
+    <div id="quiz-game-panel">
+      <div class="quiz-box">
+        <div class="quiz-q-tag" id="quiz-q-tag">請選擇正確的英文單字</div>
+        <div class="quiz-word-row">
+          <div class="quiz-q-word" id="quiz-q-word">--</div>
+          <button class="btn-speak" id="quiz-speak-btn" onclick="speakCurrentQuiz()" title="朗讀發音" style="display:none;">🔊</button>
+        </div>
+        <div class="quiz-feedback" id="quiz-feedback"></div>
+      </div>
+
+      <div class="quiz-options-grid" id="quiz-options"></div>
+
+      <div style="text-align:center; margin-top:16px;">
+        <button class="btn btn-primary" id="quiz-next-btn" onclick="nextQuizQuestion()" style="display:none;">下一題 ▶</button>
+      </div>
+    </div>
+
+    <div id="quiz-result-panel" class="result-card" style="display:none;">
+      <div style="font-size:3.5rem;">🎉</div>
+      <h2 id="quiz-result-title">測驗完成！</h2>
+      <div class="result-score" id="quiz-result-score">0%</div>
+      <p id="quiz-result-detail" style="color:var(--text-muted); margin-bottom:20px;"></p>
+      <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="startQuiz()">再測一次</button>
+        <button class="btn btn-danger" id="quiz-retry-wrong-btn" onclick="retryQuizWrong()" style="display:none;">🔥 立即練習本次錯題</button>
+        <button class="btn btn-outline" onclick="switchTab('mistakes')">查看錯題本</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════
+       TYPING SCREEN
+       ══════════════════════════════════════════════════ -->
+  <div id="screen-typing" class="screen">
+    
+    <div class="control-panel">
+      <div class="control-group">
+        <span>分類：</span>
+        <select id="typing-category" onchange="startTyping()">
+          <option value="all">🌟 全部單字 (149)</option>
+          <option value="wrong">❌ 錯題本專練</option>
+          <option value="food">🍔 食物與飲料</option>
+          <option value="animal">🐾 動物</option>
+          <option value="clothing">👕 服飾配件</option>
+          <option value="color">🎨 顏色</option>
+          <option value="family">👨‍👩‍👦 家庭與稱謂</option>
+          <option value="nature">🏖️ 大自然風景</option>
+          <option value="health">🏥 健康與感覺</option>
+          <option value="life">💰 購物與生活</option>
+        </select>
+      </div>
+      <button class="btn btn-outline btn-sm" style="margin-left:auto;" onclick="revealTypingHint()">💡 提示一個字</button>
+    </div>
+
+    <div id="typing-wrong-banner" class="wrong-mode-banner" style="display:none;">
+      <span>🔥 正在進行【錯題拼字特訓】</span>
+      <button onclick="exitWrongMode('typing-category')">退出錯題模式</button>
+    </div>
+
+    <div class="progress-bar-container">
+      <div class="progress-track"><div class="progress-fill" id="typing-progress-fill" style="width:0%"></div></div>
+      <div class="progress-counter" id="typing-counter">0 / 0</div>
+    </div>
+
+    <div id="typing-game-panel">
+      <div class="typing-box" id="typing-box">
+        <div style="font-size:0.8rem; font-weight:700; color:var(--primary);">請拼出此中文的英文</div>
+        <div class="typing-zh" id="typing-zh-word">--</div>
+        <div>
+          <span class="typing-hint" id="typing-hint-display">_ _ _ _</span>
+          <button class="btn-speak" style="width:30px; height:30px; font-size:0.9rem; margin-left:6px;" onclick="speakCurrentTyping()" title="朗讀發音">🔊</button>
+        </div>
+
+        <div class="typing-input-row">
+          <input type="text" class="typing-input" id="typing-input" placeholder="輸入英文拼字..." autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter') checkTyping()">
+          <button class="btn btn-primary" onclick="checkTyping()">送出</button>
+        </div>
+        <div class="quiz-feedback" id="typing-feedback"></div>
+      </div>
+
+      <div style="display:flex; justify-content:center; gap:10px;">
+        <button class="btn btn-outline btn-sm" onclick="skipTyping()">跳過 ▷</button>
+        <button class="btn btn-primary btn-sm" id="typing-next-btn" onclick="nextTyping()" style="display:none;">下一題 ▶</button>
+      </div>
+    </div>
+
+    <div id="typing-result-panel" class="result-card" style="display:none;">
+      <div style="font-size:3.5rem;">⌨️</div>
+      <h2>拼字練習完成！</h2>
+      <div class="result-score" id="typing-result-score">0%</div>
+      <p id="typing-result-detail" style="color:var(--text-muted); margin-bottom:20px;"></p>
+      <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="startTyping()">再試一次</button>
+        <button class="btn btn-outline" onclick="switchTab('mistakes')">查看錯題本</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════
+       MISTAKES & PROGRESS SCREEN
+       ══════════════════════════════════════════════════ -->
+  <div id="screen-mistakes" class="screen">
+    
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num" id="stat-total-words" style="color:var(--primary)">149</div>
+        <div class="stat-label">總單字庫</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-wrong-words" style="color:var(--danger)">0</div>
+        <div class="stat-label">待加強錯題</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-master-words" style="color:var(--success)">0</div>
+        <div class="stat-label">已掌握單字</div>
+      </div>
+    </div>
+
+    <!-- Quick Practice Mistake Banner -->
+    <div class="wrong-hub-banner" id="wrong-practice-box">
+      <div class="wrong-hub-info">
+        <h3><span>❌</span> 錯題專練特訓區</h3>
+        <p id="wrong-banner-sub">目前共有 0 個單字需要加強複習</p>
+      </div>
+      <div style="display:flex; gap:6px;">
+        <button class="btn btn-danger btn-sm" onclick="startMistakePractice('quiz')">特訓選擇題</button>
+        <button class="btn btn-outline btn-sm" onclick="startMistakePractice('typing')">特訓拼字</button>
+      </div>
+    </div>
+
+    <!-- Word List -->
+    <div class="words-list-container">
+      <div class="words-list-header">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <strong style="font-size:0.95rem;">單字與錯題清單</strong>
+          <select id="filter-list-cat" class="filter-select" onchange="renderMistakesHub()">
+            <option value="all">顯示全部 (149)</option>
+            <option value="only-wrong" selected>僅顯示錯題 ❌</option>
+            <option value="mastered">僅顯示已掌握 👍</option>
+            <option value="food">🍔 食物與飲料</option>
+            <option value="animal">🐾 動物</option>
+            <option value="clothing">👕 服飾配件</option>
+            <option value="color">🎨 顏色</option>
+            <option value="family">👨‍👩‍👦 家庭與稱謂</option>
+            <option value="nature">🏖️ 大自然風景</option>
+            <option value="health">🏥 健康與感覺</option>
+            <option value="life">💰 購物與生活</option>
+          </select>
+        </div>
+        <button class="btn btn-outline btn-sm" onclick="clearAllMistakes()">清空錯題</button>
+      </div>
+
+      <div class="words-list" id="mistakes-word-list"></div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+/* ════════════════════════════════════════════════════
+   FULL VOCABULARY DATABASE (149 WORDS: PAGES 1, 2, 3, 4)
+   ════════════════════════════════════════════════════ */
+const VOCAB_DATA = [
+  // ── Page 1: Animals & Clothing ────────────────────
+  { id:'animal', en:'animal', zh:'動物', cat:'animal' },
+  { id:'bear', en:'bear', zh:'熊', cat:'animal' },
+  { id:'bee', en:'bee', zh:'蜜蜂', cat:'animal' },
+  { id:'bird', en:'bird', zh:'鳥', cat:'animal' },
+  { id:'bite', en:'bite', zh:'咬', cat:'life' },
+  { id:'butterfly', en:'butterfly', zh:'蝴蝶', cat:'animal' },
+  { id:'cat', en:'cat', zh:'貓', cat:'animal' },
+  { id:'cow', en:'cow', zh:'乳牛', cat:'animal' },
+  { id:'dog', en:'dog', zh:'狗', cat:'animal' },
+  { id:'elephant', en:'elephant', zh:'大象', cat:'animal' },
+  { id:'frog', en:'frog', zh:'青蛙', cat:'animal' },
+  { id:'hippo', en:'hippo', zh:'河馬', cat:'animal' },
+  { id:'horse', en:'horse', zh:'馬', cat:'animal' },
+  { id:'koala', en:'koala', zh:'無尾熊', cat:'animal' },
+  { id:'lion', en:'lion', zh:'獅子', cat:'animal' },
+  { id:'mouse', en:'mouse', zh:'老鼠', cat:'animal' },
+  { id:'mice', en:'mice', zh:'老鼠(複數)', cat:'animal' },
+  { id:'monkey', en:'monkey', zh:'猴子', cat:'animal' },
+  { id:'panda', en:'panda', zh:'大貓熊', cat:'animal' },
+  { id:'pet', en:'pet', zh:'寵物', cat:'animal' },
+  { id:'pig', en:'pig', zh:'豬', cat:'animal' },
+  { id:'rabbit', en:'rabbit', zh:'兔子', cat:'animal' },
+  { id:'sheep', en:'sheep', zh:'綿羊', cat:'animal' },
+  { id:'snake', en:'snake', zh:'蛇', cat:'animal' },
+  { id:'spider', en:'spider', zh:'蜘蛛', cat:'animal' },
+  { id:'tiger', en:'tiger', zh:'老虎', cat:'animal' },
+  { id:'turtle', en:'turtle', zh:'烏龜', cat:'animal' },
+  { id:'whale', en:'whale', zh:'鯨魚', cat:'animal' },
+  { id:'zebra', en:'zebra', zh:'斑馬', cat:'animal' },
+  { id:'bag', en:'bag', zh:'袋子', cat:'clothing' },
+  { id:'cap', en:'cap', zh:'棒球帽', cat:'clothing' },
+  { id:'clothes', en:'clothes', zh:'衣服', cat:'clothing' },
+  { id:'coat', en:'coat', zh:'外套', cat:'clothing' },
+  { id:'dress', en:'dress', zh:'洋裝', cat:'clothing' },
+  { id:'glasses', en:'glasses', zh:'眼鏡', cat:'clothing' },
+
+  // ── Page 2: Clothing, Colors, Family & Daily ───────
+  { id:'hat', en:'hat', zh:'帽子', cat:'clothing' },
+  { id:'jacket', en:'jacket', zh:'夾克外套', cat:'clothing' },
+  { id:'pants', en:'pants', zh:'長褲', cat:'clothing' },
+  { id:'pocket', en:'pocket', zh:'口袋', cat:'clothing' },
+  { id:'shirt', en:'shirt', zh:'襯衫', cat:'clothing' },
+  { id:'shoes', en:'shoes', zh:'鞋子', cat:'clothing' },
+  { id:'shorts', en:'shorts', zh:'短褲', cat:'clothing' },
+  { id:'skirt', en:'skirt', zh:'裙子', cat:'clothing' },
+  { id:'socks', en:'socks', zh:'襪子', cat:'clothing' },
+  { id:'sweater', en:'sweater', zh:'毛衣', cat:'clothing' },
+  { id:'tshirt', en:'T-shirt', zh:'T 恤', cat:'clothing' },
+  { id:'umbrella', en:'umbrella', zh:'傘', cat:'clothing' },
+  { id:'wear', en:'wear', zh:'穿、戴', cat:'clothing' },
+  { id:'black', en:'black', zh:'黑色的', cat:'color' },
+  { id:'blue', en:'blue', zh:'藍色的', cat:'color' },
+  { id:'brown', en:'brown', zh:'咖啡色的', cat:'color' },
+  { id:'color', en:'color', zh:'顏色', cat:'color' },
+  { id:'gray', en:'gray', zh:'灰色的', cat:'color' },
+  { id:'green', en:'green', zh:'綠色的', cat:'color' },
+  { id:'orange_color', en:'orange', zh:'橘色的 / 柳橙', cat:'color' },
+  { id:'pink', en:'pink', zh:'粉紅色的', cat:'color' },
+  { id:'purple', en:'purple', zh:'紫色的', cat:'color' },
+  { id:'red', en:'red', zh:'紅色的', cat:'color' },
+  { id:'white', en:'white', zh:'白色的', cat:'color' },
+  { id:'yellow', en:'yellow', zh:'黃色的', cat:'color' },
+  { id:'aunt', en:'aunt', zh:'阿姨、姑姑', cat:'family' },
+  { id:'brother', en:'brother', zh:'哥哥、弟弟', cat:'family' },
+  { id:'cousin', en:'cousin', zh:'堂表兄弟姊妹', cat:'family' },
+  { id:'dad', en:'dad', zh:'爸爸', cat:'family' },
+  { id:'father', en:'father', zh:'父親', cat:'family' },
+  { id:'daughter', en:'daughter', zh:'女兒', cat:'family' },
+  { id:'family', en:'family', zh:'家庭、家人', cat:'family' },
+  { id:'grandfather', en:'grandfather', zh:'外公、爺爺', cat:'family' },
+  { id:'grandmother', en:'grandmother', zh:'外婆、奶奶', cat:'family' },
+  { id:'grow_up', en:'grow up', zh:'成長、長大', cat:'life' },
+  { id:'live', en:'live', zh:'住', cat:'life' },
+  { id:'mother', en:'mother', zh:'媽媽', cat:'family' },
+
+  // ── Page 3: Family, Food & Meals, Verbs ───────────
+  { id:'parent', en:'parent', zh:'父母親', cat:'family' },
+  { id:'sister', en:'sister', zh:'姐姐、妹妹', cat:'family' },
+  { id:'son', en:'son', zh:'兒子', cat:'family' },
+  { id:'uncle', en:'uncle', zh:'叔叔、舅舅', cat:'family' },
+  { id:'apple', en:'apple', zh:'蘋果', cat:'food' },
+  { id:'banana', en:'banana', zh:'香蕉', cat:'food' },
+  { id:'beef', en:'beef', zh:'牛肉', cat:'food' },
+  { id:'bread', en:'bread', zh:'麵包', cat:'food' },
+  { id:'breakfast', en:'breakfast', zh:'早餐', cat:'food' },
+  { id:'cake', en:'cake', zh:'蛋糕', cat:'food' },
+  { id:'candy', en:'candy', zh:'糖果', cat:'food' },
+  { id:'chicken', en:'chicken', zh:'雞 / 雞肉', cat:'food' },
+  { id:'chocolate', en:'chocolate', zh:'巧克力', cat:'food' },
+  { id:'coffee', en:'coffee', zh:'咖啡', cat:'food' },
+  { id:'coke', en:'coke', zh:'可樂', cat:'food' },
+  { id:'cook', en:'cook', zh:'烹飪、煮', cat:'food' },
+  { id:'cookies', en:'cookies', zh:'餅乾', cat:'food' },
+  { id:'dinner', en:'dinner', zh:'晚餐', cat:'food' },
+  { id:'drink', en:'drink', zh:'喝', cat:'food' },
+  { id:'duck', en:'duck', zh:'鴨 / 鴨肉', cat:'food' },
+  { id:'dumpling', en:'dumpling', zh:'水餃', cat:'food' },
+  { id:'eat', en:'eat', zh:'吃', cat:'food' },
+  { id:'egg', en:'egg', zh:'蛋', cat:'food' },
+  { id:'fish', en:'fish', zh:'魚 / 魚肉', cat:'food' },
+  { id:'food', en:'food', zh:'食物', cat:'food' },
+  { id:'french_fries', en:'French fries', zh:'薯條', cat:'food' },
+  { id:'fruit', en:'fruit', zh:'水果', cat:'food' },
+  { id:'full', en:'full', zh:'飽的', cat:'health' },
+  { id:'grape', en:'grape', zh:'葡萄', cat:'food' },
+  { id:'hamburger', en:'hamburger', zh:'漢堡', cat:'food' },
+  { id:'hungry', en:'hungry', zh:'餓的', cat:'health' },
+  { id:'ice_cream', en:'ice cream', zh:'冰淇淋', cat:'food' },
+  { id:'juice', en:'juice', zh:'果汁', cat:'food' },
+  { id:'lemon', en:'lemon', zh:'檸檬', cat:'food' },
+  { id:'lunch', en:'lunch', zh:'午餐', cat:'food' },
+  { id:'meal', en:'meal', zh:'餐', cat:'food' },
+  { id:'milk', en:'milk', zh:'牛奶', cat:'food' },
+  { id:'noodles', en:'noodles', zh:'麵', cat:'food' },
+
+  // ── Page 4: More Food, Titles, Nature, Health, Life ─
+  { id:'peach', en:'peach', zh:'桃子', cat:'food' },
+  { id:'pie', en:'pie', zh:'派', cat:'food' },
+  { id:'pizza', en:'pizza', zh:'披薩', cat:'food' },
+  { id:'pork', en:'pork', zh:'豬肉', cat:'food' },
+  { id:'pumpkin', en:'pumpkin', zh:'南瓜', cat:'food' },
+  { id:'rice', en:'rice', zh:'米飯', cat:'food' },
+  { id:'salad', en:'salad', zh:'沙拉', cat:'food' },
+  { id:'sandwich', en:'sandwich', zh:'三明治', cat:'food' },
+  { id:'soup', en:'soup', zh:'湯', cat:'food' },
+  { id:'strawberry', en:'strawberry', zh:'草莓', cat:'food' },
+  { id:'sweet', en:'sweet', zh:'甜的', cat:'food' },
+  { id:'taste', en:'taste', zh:'嚐起來', cat:'food' },
+  { id:'tea', en:'tea', zh:'茶', cat:'food' },
+  { id:'thirsty', en:'thirsty', zh:'口渴的', cat:'health' },
+  { id:'water', en:'water', zh:'水', cat:'food' },
+  { id:'watermelon', en:'watermelon', zh:'西瓜', cat:'food' },
+  { id:'delicious', en:'delicious', zh:'美味的', cat:'food' },
+  { id:'miss', en:'Miss', zh:'小姐', cat:'family' },
+  { id:'mr', en:'Mr.', zh:'先生(縮寫)', cat:'family' },
+  { id:'mrs', en:'Mrs.', zh:'太太(縮寫)', cat:'family' },
+  { id:'name', en:'name', zh:'姓名', cat:'life' },
+  { id:'beach', en:'beach', zh:'海灘', cat:'nature' },
+  { id:'lake', en:'lake', zh:'湖', cat:'nature' },
+  { id:'mountain', en:'mountain', zh:'山', cat:'nature' },
+  { id:'river', en:'river', zh:'河流', cat:'nature' },
+  { id:'sea', en:'sea', zh:'大海', cat:'nature' },
+  { id:'cold', en:'cold', zh:'感冒 / 寒冷的', cat:'health' },
+  { id:'headache', en:'headache', zh:'頭痛', cat:'health' },
+  { id:'sick', en:'sick', zh:'生病的', cat:'health' },
+  { id:'strong', en:'strong', zh:'強壯的', cat:'health' },
+  { id:'tired', en:'tired', zh:'疲累的', cat:'health' },
+  { id:'toothache', en:'toothache', zh:'牙痛', cat:'health' },
+  { id:'well', en:'well', zh:'好的；健康地', cat:'health' },
+  { id:'buy', en:'buy', zh:'買', cat:'life' },
+  { id:'dollar', en:'dollar', zh:'元', cat:'life' },
+  { id:'free', en:'free', zh:'免費的', cat:'life' },
+  { id:'money', en:'money', zh:'錢', cat:'life' }
+];
+
+/* ════════════════════════════════════════════════════
+   STORAGE: MISTAKES & RECORDS
+   ════════════════════════════════════════════════════ */
+let records = JSON.parse(localStorage.getItem('gept_records') || '{}');
+
+function saveRecords() {
+  localStorage.setItem('gept_records', JSON.stringify(records));
+  updateBadges();
+}
+
+function recordAnswer(en, isCorrect) {
+  if (!records[en]) {
+    records[en] = { wrongCount: 0, correctCount: 0, lastTested: Date.now() };
+  }
+  if (isCorrect) {
+    records[en].correctCount++;
+    if (records[en].wrongCount > 0) {
+      records[en].wrongCount--;
+    }
+  } else {
+    records[en].wrongCount++;
+  }
+  records[en].lastTested = Date.now();
+  saveRecords();
+}
+
+function removeMistake(en) {
+  if (records[en]) {
+    records[en].wrongCount = 0;
+    saveRecords();
+    renderMistakesHub();
+  }
+}
+
+function clearAllMistakes() {
+  if (confirm('確定要清空所有錯題記錄嗎？')) {
+    Object.keys(records).forEach(key => {
+      records[key].wrongCount = 0;
+    });
+    saveRecords();
+    renderMistakesHub();
+  }
+}
+
+function getWrongWords() {
+  return VOCAB_DATA.filter(w => (records[w.en]?.wrongCount || 0) > 0);
+}
+
+function updateBadges() {
+  const wrongCount = getWrongWords().length;
+  const badge = document.getElementById('nav-wrong-badge');
+  if (wrongCount > 0) {
+    badge.textContent = wrongCount;
+    badge.style.display = 'block';
+  } else {
+    badge.style.display = 'none';
+  }
+
+  const totalElem = document.getElementById('stat-total-words');
+  const wrongElem = document.getElementById('stat-wrong-words');
+  const masterElem = document.getElementById('stat-master-words');
+  const bannerSub = document.getElementById('wrong-banner-sub');
+
+  if (totalElem) totalElem.textContent = VOCAB_DATA.length;
+  if (wrongElem) wrongElem.textContent = wrongCount;
+  if (bannerSub) bannerSub.textContent = `目前共有 ${wrongCount} 個單字需要加強複習`;
+
+  let masteredCount = 0;
+  VOCAB_DATA.forEach(w => {
+    const r = records[w.en];
+    if (r && r.correctCount >= 2 && r.wrongCount === 0) masteredCount++;
+  });
+  if (masterElem) masterElem.textContent = masteredCount;
+}
+
+/* ════════════════════════════════════════════════════
+   TTS AUDIO (SPEECH SYNTHESIS)
+   ════════════════════════════════════════════════════ */
+function speakWord(text) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'en-US';
+    utter.rate = 0.9;
+    window.speechSynthesis.speak(utter);
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   TAB NAVIGATION
+   ════════════════════════════════════════════════════ */
+function switchTab(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+  const activeScreen = document.getElementById('screen-' + name);
+  if (activeScreen) activeScreen.classList.add('active');
+
+  const tabs = ['flashcard', 'quiz', 'typing', 'mistakes'];
+  const idx = tabs.indexOf(name);
+  if (idx !== -1) {
+    document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+  }
+
+  if (name === 'flashcard') initFlashcards();
+  if (name === 'quiz') startQuiz();
+  if (name === 'typing') startTyping();
+  if (name === 'mistakes') renderMistakesHub();
+}
+
+function exitWrongMode(selectId) {
+  document.getElementById(selectId).value = 'all';
+  if (selectId === 'fc-category') initFlashcards();
+  if (selectId === 'quiz-category') startQuiz();
+  if (selectId === 'typing-category') startTyping();
+}
+
+function startMistakePractice(mode) {
+  const wrongs = getWrongWords();
+  if (wrongs.length === 0) {
+    alert('太棒了！目前沒有任何錯題喔！請直接練習一般單字。');
+    return;
+  }
+  if (mode === 'quiz') {
+    switchTab('quiz');
+    document.getElementById('quiz-category').value = 'wrong';
+    startQuiz();
+  } else if (mode === 'typing') {
+    switchTab('typing');
+    document.getElementById('typing-category').value = 'wrong';
+    startTyping();
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   1. FLASHCARDS
+   ════════════════════════════════════════════════════ */
+let fcList = [], fcIndex = 0;
+
+function filterWords(catVal) {
+  if (catVal === 'wrong') return getWrongWords();
+  if (catVal === 'all') return [...VOCAB_DATA];
+  return VOCAB_DATA.filter(w => w.cat === catVal);
+}
+
+function initFlashcards() {
+  const cat = document.getElementById('fc-category').value;
+  const banner = document.getElementById('fc-wrong-banner');
+  banner.style.display = (cat === 'wrong') ? 'flex' : 'none';
+
+  fcList = filterWords(cat);
+  if (fcList.length === 0) {
+    if (cat === 'wrong') {
+      alert('太棒了！目前錯題本是空的，將切換回全部單字。');
+      document.getElementById('fc-category').value = 'all';
+      fcList = [...VOCAB_DATA];
+      banner.style.display = 'none';
+    }
+  }
+  fcIndex = 0;
+  document.getElementById('flashcard-card').classList.remove('is-flipped');
+  renderFlashcard();
+}
+
+function renderFlashcard() {
+  if (fcList.length === 0) return;
+  const w = fcList[fcIndex];
+  const dir = document.getElementById('fc-dir').value;
+  const pct = ((fcIndex + 1) / fcList.length * 100).toFixed(0);
+
+  document.getElementById('fc-progress-fill').style.width = pct + '%';
+  document.getElementById('fc-counter').textContent = `${fcIndex + 1} / ${fcList.length}`;
+
+  const card = document.getElementById('flashcard-card');
+  card.classList.remove('is-flipped');
+
+  if (dir === 'zh2en') {
+    document.getElementById('fc-front-tag').textContent = '中文';
+    document.getElementById('fc-front-text').textContent = w.zh;
+    document.getElementById('fc-back-tag').textContent = '英文';
+    document.getElementById('fc-back-text').textContent = w.en;
+    document.getElementById('fc-back-sub').textContent = w.zh;
+  } else {
+    document.getElementById('fc-front-tag').textContent = '英文';
+    document.getElementById('fc-front-text').textContent = w.en;
+    document.getElementById('fc-back-tag').textContent = '中文';
+    document.getElementById('fc-back-text').textContent = w.zh;
+    document.getElementById('fc-back-sub').textContent = w.en;
+  }
+}
+
+function flipCard() {
+  document.getElementById('flashcard-card').classList.toggle('is-flipped');
+}
+
+function nextCard() {
+  if (fcList.length === 0) return;
+  fcIndex = (fcIndex + 1) % fcList.length;
+  renderFlashcard();
+}
+
+function prevCard() {
+  if (fcList.length === 0) return;
+  fcIndex = (fcIndex - 1 + fcList.length) % fcList.length;
+  renderFlashcard();
+}
+
+function shuffleFlashcards() {
+  shuffleArray(fcList);
+  fcIndex = 0;
+  renderFlashcard();
+}
+
+function speakCurrentCard(e) {
+  if (e) e.stopPropagation();
+  if (fcList.length > 0) speakWord(fcList[fcIndex].en);
+}
+
+function markCurrentCardMistake(e) {
+  if (e) e.stopPropagation();
+  const w = fcList[fcIndex];
+  recordAnswer(w.en, false);
+  alert(`已將「${w.en} (${w.zh})」加入錯題本！`);
+  nextCard();
+}
+
+function markCurrentCardLearned(e) {
+  if (e) e.stopPropagation();
+  const w = fcList[fcIndex];
+  removeMistake(w.en);
+  alert(`太棒了！已將「${w.en}」標記為熟記！`);
+  nextCard();
+}
+
+/* ════════════════════════════════════════════════════
+   2. QUIZ
+   ════════════════════════════════════════════════════ */
+let quizList = [], quizIdx = 0, quizScore = 0, quizAnswered = false;
+let sessionWrongs = [];
+
+function startQuiz() {
+  const cat = document.getElementById('quiz-category').value;
+  const banner = document.getElementById('quiz-wrong-banner');
+  banner.style.display = (cat === 'wrong') ? 'flex' : 'none';
+
+  quizList = filterWords(cat);
+  if (quizList.length === 0) {
+    if (cat === 'wrong') {
+      alert('錯題本目前沒有題目！切換回全部單字。');
+      document.getElementById('quiz-category').value = 'all';
+      quizList = [...VOCAB_DATA];
+      banner.style.display = 'none';
+    }
+  }
+  shuffleArray(quizList);
+  quizIdx = 0;
+  quizScore = 0;
+  sessionWrongs = [];
+
+  document.getElementById('quiz-game-panel').style.display = 'block';
+  document.getElementById('quiz-result-panel').style.display = 'none';
+  renderQuiz();
+}
+
+function renderQuiz() {
+  quizAnswered = false;
+  const w = quizList[quizIdx];
+  const dir = document.getElementById('quiz-dir').value;
+  const pct = ((quizIdx + 1) / quizList.length * 100).toFixed(0);
+
+  document.getElementById('quiz-progress-fill').style.width = pct + '%';
+  document.getElementById('quiz-counter').textContent = `${quizIdx + 1} / ${quizList.length}`;
+  document.getElementById('quiz-feedback').textContent = '';
+  document.getElementById('quiz-feedback').className = 'quiz-feedback';
+  document.getElementById('quiz-next-btn').style.display = 'none';
+
+  const speakBtn = document.getElementById('quiz-speak-btn');
+  if (dir === 'zh2en') {
+    document.getElementById('quiz-q-tag').textContent = '請選出此中文的正確英文：';
+    document.getElementById('quiz-q-word').textContent = w.zh;
+    speakBtn.style.display = 'none';
+  } else {
+    document.getElementById('quiz-q-tag').textContent = '請選出此英文的正確中文：';
+    document.getElementById('quiz-q-word').textContent = w.en;
+    speakBtn.style.display = 'inline-flex';
+    speakWord(w.en);
+  }
+
+  const pool = VOCAB_DATA.filter(item => item.en !== w.en);
+  shuffleArray(pool);
+  const distractors = pool.slice(0, 3);
+  const options = [w, ...distractors];
+  shuffleArray(options);
+
+  const container = document.getElementById('quiz-options');
+  container.innerHTML = '';
+  options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = (dir === 'zh2en') ? opt.en : opt.zh;
+    btn.onclick = () => checkQuizChoice(btn, opt, w, dir);
+    container.appendChild(btn);
+  });
+}
+
+function speakCurrentQuiz() {
+  if (quizList.length > 0) speakWord(quizList[quizIdx].en);
+}
+
+function checkQuizChoice(btn, chosen, correct, dir) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+
+  const isCorrect = (chosen.en === correct.en);
+  const fb = document.getElementById('quiz-feedback');
+
+  document.querySelectorAll('.option-btn').forEach(b => {
+    b.disabled = true;
+    const isTarget = (dir === 'zh2en') ? (b.textContent === correct.en) : (b.textContent === correct.zh);
+    if (isTarget) b.classList.add('correct');
+    else if (b === btn && !isCorrect) b.classList.add('wrong');
+  });
+
+  if (isCorrect) {
+    quizScore++;
+    fb.textContent = '🎉 答對了！太棒了！';
+    fb.classList.add('success');
+    recordAnswer(correct.en, true);
+    speakWord(correct.en);
+  } else {
+    fb.textContent = `❌ 答錯囉！正確答案是：${dir === 'zh2en' ? correct.en : correct.zh} (已存入錯題本)`;
+    fb.classList.add('wrong');
+    recordAnswer(correct.en, false);
+    sessionWrongs.push(correct);
+  }
+
+  document.getElementById('quiz-next-btn').style.display = 'inline-block';
+}
+
+function nextQuizQuestion() {
+  quizIdx++;
+  if (quizIdx >= quizList.length) {
+    finishQuiz();
+  } else {
+    renderQuiz();
+  }
+}
+
+function finishQuiz() {
+  document.getElementById('quiz-game-panel').style.display = 'none';
+  document.getElementById('quiz-result-panel').style.display = 'block';
+
+  const total = quizList.length;
+  const pct = Math.round((quizScore / total) * 100);
+  document.getElementById('quiz-result-score').textContent = pct + '%';
+  document.getElementById('quiz-result-detail').textContent = `共 ${total} 題，答對 ${quizScore} 題，答錯 ${total - quizScore} 題`;
+
+  const retryWrongBtn = document.getElementById('quiz-retry-wrong-btn');
+  if (sessionWrongs.length > 0) {
+    retryWrongBtn.style.display = 'inline-block';
+    retryWrongBtn.textContent = `🔥 立即特訓本次 ${sessionWrongs.length} 個錯題`;
+  } else {
+    retryWrongBtn.style.display = 'none';
+  }
+  updateBadges();
+}
+
+function retryQuizWrong() {
+  if (sessionWrongs.length === 0) return;
+  quizList = [...sessionWrongs];
+  shuffleArray(quizList);
+  quizIdx = 0;
+  quizScore = 0;
+  sessionWrongs = [];
+  document.getElementById('quiz-game-panel').style.display = 'block';
+  document.getElementById('quiz-result-panel').style.display = 'none';
+  renderQuiz();
+}
+
+/* ════════════════════════════════════════════════════
+   3. TYPING / SPELLING
+   ════════════════════════════════════════════════════ */
+let typingList = [], typingIdx = 0, typingScore = 0, typingAnswered = false;
+let hintLettersRevealed = 1;
+
+function startTyping() {
+  const cat = document.getElementById('typing-category').value;
+  const banner = document.getElementById('typing-wrong-banner');
+  banner.style.display = (cat === 'wrong') ? 'flex' : 'none';
+
+  typingList = filterWords(cat);
+  if (typingList.length === 0) {
+    if (cat === 'wrong') {
+      alert('目前沒有錯題可練習！已自動切換為全部單字。');
+      document.getElementById('typing-category').value = 'all';
+      typingList = [...VOCAB_DATA];
+      banner.style.display = 'none';
+    }
+  }
+  shuffleArray(typingList);
+  typingIdx = 0;
+  typingScore = 0;
+
+  document.getElementById('typing-game-panel').style.display = 'block';
+  document.getElementById('typing-result-panel').style.display = 'none';
+  renderTyping();
+}
+
+function renderTyping() {
+  typingAnswered = false;
+  hintLettersRevealed = 1;
+  const w = typingList[typingIdx];
+  const pct = ((typingIdx + 1) / typingList.length * 100).toFixed(0);
+
+  document.getElementById('typing-progress-fill').style.width = pct + '%';
+  document.getElementById('typing-counter').textContent = `${typingIdx + 1} / ${typingList.length}`;
+  document.getElementById('typing-zh-word').textContent = w.zh;
+
+  updateHintDisplay(w.en);
+
+  const inp = document.getElementById('typing-input');
+  inp.value = '';
+  inp.className = 'typing-input';
+  inp.disabled = false;
+  inp.focus();
+
+  document.getElementById('typing-feedback').textContent = '';
+  document.getElementById('typing-feedback').className = 'quiz-feedback';
+  document.getElementById('typing-next-btn').style.display = 'none';
+}
+
+function updateHintDisplay(targetWord) {
+  const display = targetWord.split('').map((ch, i) => {
+    if (ch === ' ') return '  ';
+    if (ch === '.' || ch === '-') return ch;
+    if (i < hintLettersRevealed) return ch;
+    return '_';
+  }).join(' ');
+  document.getElementById('typing-hint-display').textContent = display;
+}
+
+function revealTypingHint() {
+  if (typingList.length === 0) return;
+  const target = typingList[typingIdx].en;
+  if (hintLettersRevealed < target.length) {
+    hintLettersRevealed++;
+    updateHintDisplay(target);
+  }
+}
+
+function speakCurrentTyping() {
+  if (typingList.length > 0) speakWord(typingList[typingIdx].en);
+}
+
+function checkTyping() {
+  if (typingAnswered) {
+    nextTyping();
+    return;
+  }
+  const inp = document.getElementById('typing-input');
+  const userAns = inp.value.trim().toLowerCase().replace('.', '');
+  const correct = typingList[typingIdx].en.toLowerCase().replace('.', '');
+  const fb = document.getElementById('typing-feedback');
+
+  if (!userAns) return;
+  typingAnswered = true;
+  inp.disabled = true;
+
+  if (userAns === correct) {
+    typingScore++;
+    inp.classList.add('correct');
+    fb.textContent = '✅ 太厲害了，拼寫完全正確！';
+    fb.classList.add('success');
+    recordAnswer(typingList[typingIdx].en, true);
+    speakWord(typingList[typingIdx].en);
+  } else {
+    inp.classList.add('wrong');
+    fb.textContent = `❌ 正確拼法為：${typingList[typingIdx].en} (已記錄到錯題本)`;
+    fb.classList.add('wrong');
+    recordAnswer(typingList[typingIdx].en, false);
+    const box = document.getElementById('typing-box');
+    box.classList.add('shake');
+    setTimeout(() => box.classList.remove('shake'), 400);
+  }
+
+  document.getElementById('typing-next-btn').style.display = 'inline-block';
+}
+
+function skipTyping() {
+  const correct = typingList[typingIdx].en;
+  recordAnswer(correct, false);
+  document.getElementById('typing-feedback').textContent = `已跳過，正確答案為：${correct}`;
+  document.getElementById('typing-feedback').className = 'quiz-feedback wrong';
+  document.getElementById('typing-input').disabled = true;
+  typingAnswered = true;
+  document.getElementById('typing-next-btn').style.display = 'inline-block';
+}
+
+function nextTyping() {
+  typingIdx++;
+  if (typingIdx >= typingList.length) {
+    finishTyping();
+  } else {
+    renderTyping();
+  }
+}
+
+function finishTyping() {
+  document.getElementById('typing-game-panel').style.display = 'none';
+  document.getElementById('typing-result-panel').style.display = 'block';
+
+  const total = typingList.length;
+  const pct = Math.round((typingScore / total) * 100);
+  document.getElementById('typing-result-score').textContent = pct + '%';
+  document.getElementById('typing-result-detail').textContent = `共 ${total} 題，拼對 ${typingScore} 題，需加強 ${total - typingScore} 題`;
+  updateBadges();
+}
+
+/* ════════════════════════════════════════════════════
+   4. MISTAKES & PROGRESS HUB
+   ════════════════════════════════════════════════════ */
+function renderMistakesHub() {
+  updateBadges();
+  const filter = document.getElementById('filter-list-cat').value;
+  const listContainer = document.getElementById('mistakes-word-list');
+  listContainer.innerHTML = '';
+
+  let filtered = [...VOCAB_DATA];
+  if (filter === 'only-wrong') {
+    filtered = filtered.filter(w => (records[w.en]?.wrongCount || 0) > 0);
+  } else if (filter === 'mastered') {
+    filtered = filtered.filter(w => (records[w.en]?.correctCount || 0) >= 2 && (records[w.en]?.wrongCount || 0) === 0);
+  } else if (filter !== 'all') {
+    filtered = filtered.filter(w => w.cat === filter);
+  }
+
+  if (filtered.length === 0) {
+    listContainer.innerHTML = `<div style="text-align:center; padding:30px 10px; color:var(--text-muted);">
+      ${filter === 'only-wrong' ? '🎉 太棒了！目前沒有任何錯題記錄！' : '暫無符合條件的單字'}
+    </div>`;
+    return;
+  }
+
+  filtered.forEach(w => {
+    const rec = records[w.en] || { wrongCount: 0, correctCount: 0 };
+    const isWrong = rec.wrongCount > 0;
+
+    const row = document.createElement('div');
+    row.className = `word-item ${isWrong ? 'is-wrong' : ''}`;
+    row.innerHTML = `
+      <div class="word-info">
+        <button class="btn-speak" style="width:32px; height:32px; font-size:0.85rem;" onclick="speakWord('${w.en}')">🔊</button>
+        <div>
+          <div class="word-en">${w.en}</div>
+          <div class="word-zh">${w.zh}</div>
+        </div>
+      </div>
+      <div class="word-meta">
+        ${isWrong ? `<span class="wrong-pill">錯 ${rec.wrongCount} 次</span>` : ''}
+        <span style="font-size:0.75rem; color:var(--text-muted);">${rec.correctCount}✓</span>
+        ${isWrong ? `<button class="btn-remove-wrong" title="移出錯題本" onclick="removeMistake('${w.en}')">✕</button>` : ''}
+      </div>
+    `;
+    listContainer.appendChild(row);
+  });
+}
+
+/* ════════════════════════════════════════════════════
+   HELPERS
+   ════════════════════════════════════════════════════ */
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// Initialization
+updateBadges();
+initFlashcards();
+</script>
+
+</body>
+</html>
