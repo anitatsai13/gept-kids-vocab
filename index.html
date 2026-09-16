@@ -874,34 +874,34 @@
   <div id="screen-mistakes" class="screen">
     
     <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-num" id="stat-total-words" style="color:var(--primary)">303</div>
-        <div class="stat-label">總單字庫 (P.1~8)</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num" id="stat-today-wrong" style="color:#DC2626">0</div>
-        <div class="stat-label">📅 今日錯題</div>
-      </div>
-      <div class="stat-card">
+      <div class="stat-card" style="border-left: 4px solid var(--danger);">
         <div class="stat-num" id="stat-wrong-words" style="color:var(--danger)">0</div>
-        <div class="stat-label">曾出錯單字</div>
+        <div class="stat-label">❌ 歷史曾出錯單字</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card" style="border-left: 4px solid #7C3AED;">
+        <div class="stat-num" id="stat-wrong-times" style="color:#7C3AED">0</div>
+        <div class="stat-label">🔁 累計出錯次數</div>
+      </div>
+      <div class="stat-card" style="border-left: 4px solid #D97706;">
+        <div class="stat-num" id="stat-today-wrong" style="color:#D97706">0</div>
+        <div class="stat-label">📅 今日出錯單字</div>
+      </div>
+      <div class="stat-card" style="border-left: 4px solid var(--success);">
         <div class="stat-num" id="stat-master-words" style="color:var(--success)">0</div>
-        <div class="stat-label">已答對單字</div>
+        <div class="stat-label">✅ 已答對單字</div>
       </div>
     </div>
 
     <!-- Quick Practice Mistake Banner -->
     <div class="wrong-hub-banner" id="wrong-practice-box">
       <div class="wrong-hub-info">
-        <h3><span>📅</span> 錯題專練特訓區</h3>
-        <p id="wrong-banner-sub">今日錯題 0 個 · 累計歷史錯題 0 個（特訓答對持續保留紀錄）</p>
+        <h3><span>📚</span> 錯題專練特訓區</h3>
+        <p id="wrong-banner-sub">累計歷史錯題 0 個（共出錯 0 次） · 今日出錯 0 個</p>
       </div>
       <div style="display:flex; gap:6px; flex-wrap:wrap;">
-        <button class="btn btn-danger btn-sm" onclick="startMistakePractice('quiz', true)">🔥 今日錯題測驗</button>
-        <button class="btn btn-primary btn-sm" onclick="startMistakePractice('typing', true)">⌨️ 今日錯題拼字</button>
-        <button class="btn btn-outline btn-sm" onclick="startMistakePractice('quiz', false)">全部錯題</button>
+        <button class="btn btn-danger btn-sm" onclick="startMistakePractice('quiz', false)">🔥 全部歷史錯題測驗</button>
+        <button class="btn btn-primary btn-sm" onclick="startMistakePractice('typing', false)">⌨️ 全部歷史錯題拼字</button>
+        <button class="btn btn-outline btn-sm" onclick="startMistakePractice('quiz', true)" style="border-color:#D97706; color:#B45309;">📅 僅練今日錯題</button>
       </div>
     </div>
 
@@ -912,8 +912,8 @@
           <strong style="font-size:0.95rem;">單字與錯題清單</strong>
           <select id="filter-list-cat" class="filter-select" onchange="renderMistakesHub()">
             <optgroup label="📊 錯題與狀態">
-              <option value="today-wrong" selected>📅 今日錯題 ❌</option>
-              <option value="only-wrong">❌ 全部歷史錯題</option>
+              <option value="only-wrong" selected>❌ 全部歷史錯題 (預設)</option>
+              <option value="today-wrong">📅 僅看今日錯題</option>
               <option value="mastered">僅顯示已答對 👍</option>
               <option value="all">顯示全部單字 (303 字)</option>
             </optgroup>
@@ -1300,8 +1300,72 @@ function saveRecords() {
   updateBadges();
 }
 
+// Comprehensive record retriever ensuring backward-compatibility with legacy keys ('bear' vs 'p1_bear')
 function getWordRecord(w) {
-  return records[w.id] || records[w.en] || { wrongCount: 0, correctCount: 0, lastTested: 0, lastWrongDate: null, wrongDates: {} };
+  if (!w) return { wrongCount: 0, correctCount: 0, lastTested: 0, lastWrongDate: null, wrongDates: {} };
+  const idRec = records[w.id];
+  const enRec = (w.en && records[w.en]) ? records[w.en] : null;
+  
+  // Case-insensitive fallback if stored with different casing
+  let legacyRec = null;
+  if (w.en && !enRec) {
+    const lower = w.en.toLowerCase();
+    for (const k of Object.keys(records)) {
+      if (k.toLowerCase() === lower && k !== w.id) {
+        legacyRec = records[k];
+        break;
+      }
+    }
+  }
+
+  const recs = [idRec, enRec, legacyRec].filter(Boolean);
+  if (recs.length === 0) {
+    return { wrongCount: 0, correctCount: 0, lastTested: 0, lastWrongDate: null, wrongDates: {} };
+  }
+  if (recs.length === 1) {
+    const r = recs[0];
+    return {
+      wrongCount: r.wrongCount || 0,
+      correctCount: r.correctCount || 0,
+      lastTested: r.lastTested || 0,
+      lastWrongDate: r.lastWrongDate || null,
+      wrongDates: r.wrongDates || {}
+    };
+  }
+
+  // Merge so no historical mistakes or correct attempts are ever lost
+  const combined = {
+    wrongCount: Math.max(...recs.map(r => r.wrongCount || 0)),
+    correctCount: Math.max(...recs.map(r => r.correctCount || 0)),
+    lastTested: Math.max(...recs.map(r => r.lastTested || 0)),
+    lastWrongDate: recs.find(r => r.lastWrongDate)?.lastWrongDate || null,
+    wrongDates: {}
+  };
+  recs.forEach(r => {
+    if (r.wrongDates) {
+      Object.keys(r.wrongDates).forEach(d => {
+        combined.wrongDates[d] = Math.max(combined.wrongDates[d] || 0, r.wrongDates[d] || 0);
+      });
+    }
+  });
+  return combined;
+}
+
+// Migrate and sync all legacy records upon startup so w.id always has latest data
+function migrateAndSyncRecords() {
+  let changed = false;
+  VOCAB_DATA.forEach(w => {
+    const combined = getWordRecord(w);
+    if (combined.wrongCount > 0 || combined.correctCount > 0) {
+      if (!records[w.id] || records[w.id].wrongCount !== combined.wrongCount || records[w.id].correctCount !== combined.correctCount) {
+        records[w.id] = { ...combined };
+        changed = true;
+      }
+    }
+  });
+  if (changed) {
+    localStorage.setItem('gept_records', JSON.stringify(records));
+  }
 }
 
 function isWrongToday(rec) {
@@ -1309,47 +1373,33 @@ function isWrongToday(rec) {
   const today = getTodayStr();
   if (rec.lastWrongDate === today) return true;
   if (rec.wrongDates && rec.wrongDates[today] > 0) return true;
-  if (rec.lastTested) {
-    const d = new Date(rec.lastTested);
-    const yr = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), day = String(d.getDate()).padStart(2, '0');
-    if (`${yr}-${m}-${day}` === today) return true;
-  }
   return false;
 }
 
 function recordAnswer(w, isCorrect) {
+  const current = getWordRecord(w);
   const key = (typeof w === 'string') ? w : w.id;
   const today = getTodayStr();
-  if (!records[key]) {
-    const legacy = (typeof w !== 'string') ? records[w.en] : null;
-    records[key] = {
-      wrongCount: legacy ? legacy.wrongCount : 0,
-      correctCount: legacy ? legacy.correctCount : 0,
-      lastTested: Date.now(),
-      lastWrongDate: legacy ? legacy.lastWrongDate : null,
-      wrongDates: legacy && legacy.wrongDates ? { ...legacy.wrongDates } : {}
-    };
-  }
-  if (!records[key].wrongDates) records[key].wrongDates = {};
 
   if (isCorrect) {
-    records[key].correctCount++;
+    current.correctCount = (current.correctCount || 0) + 1;
     // 特訓答對時不刪除、不減少錯題次數，完整保留每個字的歷史錯誤統計
   } else {
-    records[key].wrongCount++;
-    records[key].lastWrongDate = today;
-    records[key].wrongDates[today] = (records[key].wrongDates[today] || 0) + 1;
+    current.wrongCount = (current.wrongCount || 0) + 1;
+    current.lastWrongDate = today;
+    if (!current.wrongDates) current.wrongDates = {};
+    current.wrongDates[today] = (current.wrongDates[today] || 0) + 1;
   }
-  records[key].lastTested = Date.now();
+  current.lastTested = Date.now();
+
+  records[key] = current;
+  if (typeof w !== 'string' && w.en && w.en !== key) {
+    records[w.en] = current;
+  }
   saveRecords();
 }
 
 function removeMistake(targetId) {
-  if (records[targetId]) {
-    records[targetId].wrongCount = 0;
-    records[targetId].lastWrongDate = null;
-    records[targetId].wrongDates = {};
-  }
   VOCAB_DATA.filter(w => w.id === targetId || w.en === targetId).forEach(w => {
     if (records[w.id]) {
       records[w.id].wrongCount = 0;
@@ -1362,6 +1412,11 @@ function removeMistake(targetId) {
       records[w.en].wrongDates = {};
     }
   });
+  if (records[targetId]) {
+    records[targetId].wrongCount = 0;
+    records[targetId].lastWrongDate = null;
+    records[targetId].wrongDates = {};
+  }
   saveRecords();
   renderMistakesHub();
 }
@@ -1380,14 +1435,14 @@ function clearAllMistakes() {
 
 function getTodayWrongWords() {
   return VOCAB_DATA.filter(w => {
-    const rec = records[w.id] || records[w.en];
+    const rec = getWordRecord(w);
     return isWrongToday(rec);
   });
 }
 
 function getWrongWords() {
   return VOCAB_DATA.filter(w => {
-    const rec = records[w.id] || records[w.en];
+    const rec = getWordRecord(w);
     return (rec?.wrongCount || 0) > 0;
   });
 }
@@ -1399,13 +1454,9 @@ function updateBadges() {
   const todayWrongCount = todayWrongWords.length;
 
   const badge = document.getElementById('nav-wrong-badge');
-  if (todayWrongCount > 0) {
-    badge.textContent = todayWrongCount;
-    badge.title = `今日錯題: ${todayWrongCount} (歷史累計: ${wrongWordCount})`;
-    badge.style.display = 'block';
-  } else if (wrongWordCount > 0) {
+  if (wrongWordCount > 0) {
     badge.textContent = wrongWordCount;
-    badge.title = `累計錯題: ${wrongWordCount}`;
+    badge.title = `累計歷史錯題: ${wrongWordCount} 個${todayWrongCount > 0 ? ` (今日出錯: ${todayWrongCount})` : ''}`;
     badge.style.display = 'block';
   } else {
     badge.style.display = 'none';
@@ -1414,7 +1465,7 @@ function updateBadges() {
   let totalWrongTimes = 0;
   let correctWordsCount = 0;
   VOCAB_DATA.forEach(w => {
-    const r = records[w.id] || records[w.en];
+    const r = getWordRecord(w);
     if (r) {
       totalWrongTimes += (r.wrongCount || 0);
       if (r.correctCount > 0) correctWordsCount++;
@@ -1424,15 +1475,17 @@ function updateBadges() {
   const totalElem = document.getElementById('stat-total-words');
   const todayWrongElem = document.getElementById('stat-today-wrong');
   const wrongElem = document.getElementById('stat-wrong-words');
+  const wrongTimesElem = document.getElementById('stat-wrong-times');
   const masterElem = document.getElementById('stat-master-words');
   const bannerSub = document.getElementById('wrong-banner-sub');
 
   if (totalElem) totalElem.textContent = VOCAB_DATA.length;
-  if (todayWrongElem) todayWrongElem.textContent = todayWrongCount;
   if (wrongElem) wrongElem.textContent = wrongWordCount;
+  if (wrongTimesElem) wrongTimesElem.textContent = totalWrongTimes;
+  if (todayWrongElem) todayWrongElem.textContent = todayWrongCount;
   if (masterElem) masterElem.textContent = correctWordsCount;
   if (bannerSub) {
-    bannerSub.textContent = `今日出錯 ${todayWrongCount} 個單字 · 歷史累計 ${wrongWordCount} 個錯題單字（共出錯 ${totalWrongTimes} 次）`;
+    bannerSub.textContent = `累計歷史錯題 ${wrongWordCount} 個（共出錯 ${totalWrongTimes} 次） · 今日出錯 ${todayWrongCount} 個`;
   }
 }
 
@@ -1987,7 +2040,7 @@ function renderMistakesHub() {
     filtered = getWrongWords();
   } else if (filter === 'mastered') {
     filtered = filtered.filter(w => {
-      const rec = records[w.id] || records[w.en];
+      const rec = getWordRecord(w);
       return (rec?.correctCount || 0) > 0;
     });
   } else if (filter.startsWith('page-')) {
@@ -2000,8 +2053,8 @@ function renderMistakesHub() {
   // Sorting
   if (sortMode === 'wrong-desc') {
     filtered.sort((a, b) => {
-      const wa = (records[a.id]?.wrongCount || records[a.en]?.wrongCount || 0);
-      const wb = (records[b.id]?.wrongCount || records[b.en]?.wrongCount || 0);
+      const wa = getWordRecord(a).wrongCount || 0;
+      const wb = getWordRecord(b).wrongCount || 0;
       if (wb !== wa) return wb - wa;
       return a.en.localeCompare(b.en);
     });
@@ -2063,6 +2116,7 @@ function shuffleArray(arr) {
 }
 
 // Initialization
+migrateAndSyncRecords();
 updateBadges();
 initFlashcards();
 </script>
