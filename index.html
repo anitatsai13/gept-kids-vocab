@@ -514,6 +514,16 @@
     align-items: center;
     gap: 8px;
   }
+  .today-pill {
+    background: #FEE2E2;
+    color: #DC2626;
+    border: 1px solid #FCA5A5;
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
   .wrong-pill {
     background: var(--danger-bg);
     color: var(--danger);
@@ -564,7 +574,7 @@
 
 <header>
   <h1>🎒 GEPT Kids 英文單字練習</h1>
-  <p>小學英檢 · 內建 151 個完整單字（第 1 ~ 4 頁）· 支援分頁測驗、錯題特訓與發音</p>
+  <p>小學英檢 · 內建 303 個完整單字（第 1 ~ 8 頁）· 支援分頁測驗、每日錯題特訓與發音</p>
 </header>
 
 <nav>
@@ -603,10 +613,15 @@
             <option value="page-2">📄 第 2 頁 (服飾、顏色、家人 · 37字)</option>
             <option value="page-3">📄 第 3 頁 (親屬、食物三餐 · 38字)</option>
             <option value="page-4">📄 第 4 頁 (蔬果、自然、健康 · 38字)</option>
+            <option value="page-5">📄 第 5 頁 (居家生活、物品 · 38字)</option>
+            <option value="page-6">📄 第 6 頁 (數字與數量詞 · 38字)</option>
+            <option value="page-7">📄 第 7 頁 (形容詞、副詞、日常 · 38字)</option>
+            <option value="page-8">📄 第 8 頁 (常用名詞與動作動詞 · 38字)</option>
           </optgroup>
           <optgroup label="🌟 綜合與錯題">
-            <option value="all" selected>🌟 全真綜合 (全部 151 字)</option>
-            <option value="wrong">❌ 錯題本專練</option>
+            <option value="all" selected>🌟 全真綜合 (全部 303 字)</option>
+            <option value="wrong-today">📅 今日錯題專練 🔥</option>
+            <option value="wrong">❌ 全部歷史錯題</option>
           </optgroup>
           <optgroup label="🏷️ 依主題分類">
             <option value="food">🍔 食物與飲料</option>
@@ -614,9 +629,12 @@
             <option value="clothing">👕 服飾配件</option>
             <option value="color">🎨 顏色</option>
             <option value="family">👨‍👩‍👦 家庭與稱謂</option>
+            <option value="house">🏠 居家生活與擺設</option>
+            <option value="number">🔢 數字與數量詞</option>
             <option value="nature">🏖️ 大自然風景</option>
             <option value="health">🏥 健康與感覺</option>
-            <option value="life">💰 購物與生活</option>
+            <option value="action">🏃 常用動作動詞</option>
+            <option value="life">💰 物品與日常生活</option>
           </optgroup>
         </select>
       </div>
@@ -686,10 +704,15 @@
             <option value="page-2">📄 第 2 頁測驗 (服飾、顏色、家人 · 37題)</option>
             <option value="page-3">📄 第 3 頁測驗 (親屬、食物三餐 · 38題)</option>
             <option value="page-4">📄 第 4 頁測驗 (蔬果、自然、健康 · 38題)</option>
+            <option value="page-5">📄 第 5 頁測驗 (居家生活、物品 · 38題)</option>
+            <option value="page-6">📄 第 6 頁測驗 (數字與數量詞 · 38題)</option>
+            <option value="page-7">📄 第 7 頁測驗 (形容詞、副詞、日常 · 38題)</option>
+            <option value="page-8">📄 第 8 頁測驗 (常用名詞與動作動詞 · 38題)</option>
           </optgroup>
           <optgroup label="🌟 綜合與錯題">
-            <option value="all" selected>🌟 全真綜合測驗 (全部 151 題)</option>
-            <option value="wrong">❌ 錯題本專練</option>
+            <option value="all" selected>🌟 全真綜合測驗 (全部 303 題)</option>
+            <option value="wrong-today">📅 今日錯題專練 🔥</option>
+            <option value="wrong">❌ 全部歷史錯題</option>
           </optgroup>
           <optgroup label="🏷️ 依主題分類">
             <option value="food">🍔 食物與飲料</option>
@@ -697,9 +720,12 @@
             <option value="clothing">👕 服飾配件</option>
             <option value="color">🎨 顏色</option>
             <option value="family">👨‍👩‍👦 家庭與稱謂</option>
+            <option value="house">🏠 居家生活與擺設</option>
+            <option value="number">🔢 數字與數量詞</option>
             <option value="nature">🏖️ 大自然風景</option>
             <option value="health">🏥 健康與感覺</option>
-            <option value="life">💰 購物與生活</option>
+            <option value="action">🏃 常用動作動詞</option>
+            <option value="life">💰 物品與日常生活</option>
           </optgroup>
         </select>
       </div>
@@ -768,10 +794,15 @@
             <option value="page-2">📄 第 2 頁拼字 (服飾、顏色、家人 · 37字)</option>
             <option value="page-3">📄 第 3 頁拼字 (親屬、食物三餐 · 38字)</option>
             <option value="page-4">📄 第 4 頁拼字 (蔬果、自然、健康 · 38字)</option>
+            <option value="page-5">📄 第 5 頁拼字 (居家生活、物品 · 38字)</option>
+            <option value="page-6">📄 第 6 頁拼字 (數字與數量詞 · 38字)</option>
+            <option value="page-7">📄 第 7 頁拼字 (形容詞、副詞、日常 · 38字)</option>
+            <option value="page-8">📄 第 8 頁拼字 (常用名詞與動作動詞 · 38字)</option>
           </optgroup>
           <optgroup label="🌟 綜合與錯題">
-            <option value="all" selected>🌟 全部單字拼字 (全部 151 字)</option>
-            <option value="wrong">❌ 錯題本專練</option>
+            <option value="all" selected>🌟 全部單字拼字 (全部 303 字)</option>
+            <option value="wrong-today">📅 今日錯題專練 🔥</option>
+            <option value="wrong">❌ 全部歷史錯題</option>
           </optgroup>
           <optgroup label="🏷️ 依主題分類">
             <option value="food">🍔 食物與飲料</option>
@@ -779,9 +810,12 @@
             <option value="clothing">👕 服飾配件</option>
             <option value="color">🎨 顏色</option>
             <option value="family">👨‍👩‍👦 家庭與稱謂</option>
+            <option value="house">🏠 居家生活與擺設</option>
+            <option value="number">🔢 數字與數量詞</option>
             <option value="nature">🏖️ 大自然風景</option>
             <option value="health">🏥 健康與感覺</option>
-            <option value="life">💰 購物與生活</option>
+            <option value="action">🏃 常用動作動詞</option>
+            <option value="life">💰 物品與日常生活</option>
           </optgroup>
         </select>
         <button class="btn btn-outline btn-sm" onclick="startTyping(true)" title="重新洗牌練習">🔄 重新開始</button>
@@ -841,16 +875,16 @@
     
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-num" id="stat-total-words" style="color:var(--primary)">149</div>
-        <div class="stat-label">總單字庫</div>
+        <div class="stat-num" id="stat-total-words" style="color:var(--primary)">303</div>
+        <div class="stat-label">總單字庫 (P.1~8)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-today-wrong" style="color:#DC2626">0</div>
+        <div class="stat-label">📅 今日錯題</div>
       </div>
       <div class="stat-card">
         <div class="stat-num" id="stat-wrong-words" style="color:var(--danger)">0</div>
         <div class="stat-label">曾出錯單字</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num" id="stat-wrong-times" style="color:#DC2626">0</div>
-        <div class="stat-label">累計出錯次數</div>
       </div>
       <div class="stat-card">
         <div class="stat-num" id="stat-master-words" style="color:var(--success)">0</div>
@@ -861,12 +895,13 @@
     <!-- Quick Practice Mistake Banner -->
     <div class="wrong-hub-banner" id="wrong-practice-box">
       <div class="wrong-hub-info">
-        <h3><span>❌</span> 錯題專練特訓區</h3>
-        <p id="wrong-banner-sub">共 0 個錯題單字，累計出錯 0 次（特訓後持續保留）</p>
+        <h3><span>📅</span> 錯題專練特訓區</h3>
+        <p id="wrong-banner-sub">今日錯題 0 個 · 累計歷史錯題 0 個（特訓答對持續保留紀錄）</p>
       </div>
-      <div style="display:flex; gap:6px;">
-        <button class="btn btn-danger btn-sm" onclick="startMistakePractice('quiz')">特訓選擇題</button>
-        <button class="btn btn-outline btn-sm" onclick="startMistakePractice('typing')">特訓拼字</button>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <button class="btn btn-danger btn-sm" onclick="startMistakePractice('quiz', true)">🔥 今日錯題測驗</button>
+        <button class="btn btn-primary btn-sm" onclick="startMistakePractice('typing', true)">⌨️ 今日錯題拼字</button>
+        <button class="btn btn-outline btn-sm" onclick="startMistakePractice('quiz', false)">全部錯題</button>
       </div>
     </div>
 
@@ -876,16 +911,21 @@
         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
           <strong style="font-size:0.95rem;">單字與錯題清單</strong>
           <select id="filter-list-cat" class="filter-select" onchange="renderMistakesHub()">
-            <optgroup label="📑 依單字表各頁">
-              <option value="page-1">📄 第 1 頁 (38字)</option>
-              <option value="page-2">📄 第 2 頁 (37字)</option>
-              <option value="page-3">📄 第 3 頁 (38字)</option>
-              <option value="page-4">📄 第 4 頁 (38字)</option>
-            </optgroup>
-            <optgroup label="📊 學習狀態">
-              <option value="only-wrong" selected>僅顯示錯題 ❌</option>
+            <optgroup label="📊 錯題與狀態">
+              <option value="today-wrong" selected>📅 今日錯題 ❌</option>
+              <option value="only-wrong">❌ 全部歷史錯題</option>
               <option value="mastered">僅顯示已答對 👍</option>
-              <option value="all">顯示全部 (151 字)</option>
+              <option value="all">顯示全部單字 (303 字)</option>
+            </optgroup>
+            <optgroup label="📑 依單字表各頁">
+              <option value="page-1">📄 第 1 頁 (動物、服飾 · 38字)</option>
+              <option value="page-2">📄 第 2 頁 (服飾、顏色、家人 · 37字)</option>
+              <option value="page-3">📄 第 3 頁 (親屬、食物三餐 · 38字)</option>
+              <option value="page-4">📄 第 4 頁 (蔬果、自然、健康 · 38字)</option>
+              <option value="page-5">📄 第 5 頁 (居家生活、物品 · 38字)</option>
+              <option value="page-6">📄 第 6 頁 (數字與數量詞 · 38字)</option>
+              <option value="page-7">📄 第 7 頁 (形容詞、副詞、日常 · 38字)</option>
+              <option value="page-8">📄 第 8 頁 (常用名詞與動作動詞 · 38字)</option>
             </optgroup>
             <optgroup label="🏷️ 依主題分類">
               <option value="food">🍔 食物與飲料</option>
@@ -893,9 +933,12 @@
               <option value="clothing">👕 服飾配件</option>
               <option value="color">🎨 顏色</option>
               <option value="family">👨‍👩‍👦 家庭與稱謂</option>
+              <option value="house">🏠 居家生活與擺設</option>
+              <option value="number">🔢 數字與數量詞</option>
               <option value="nature">🏖️ 大自然風景</option>
               <option value="health">🏥 健康與感覺</option>
-              <option value="life">💰 購物與生活</option>
+              <option value="action">🏃 常用動作動詞</option>
+              <option value="life">💰 物品與日常生活</option>
             </optgroup>
           </select>
           <select id="sort-mistakes" class="filter-select" onchange="renderMistakesHub()" style="max-width:140px;">
@@ -916,7 +959,7 @@
 
 <script>
 /* ════════════════════════════════════════════════════
-   FULL VOCABULARY DATABASE (151 WORDS: PAGES 1, 2, 3, 4)
+   FULL VOCABULARY DATABASE (303 WORDS: PAGES 1 TO 8)
    ════════════════════════════════════════════════════ */
 const VOCAB_DATA = [
   // ── Page 1: Animals & Clothing (38 words) ────────────────────
@@ -1076,13 +1119,181 @@ const VOCAB_DATA = [
   { id:'p4_buy', en:'buy', zh:'買', cat:'life', page:4 },
   { id:'p4_dollar', en:'dollar', zh:'元', cat:'life', page:4 },
   { id:'p4_free', en:'free', zh:'免費的', cat:'life', page:4 },
-  { id:'p4_money', en:'money', zh:'錢', cat:'life', page:4 }
+  { id:'p4_money', en:'money', zh:'錢', cat:'life', page:4 },
+
+  // ── Page 5: House & Living, Everyday Objects, Quantifiers (38 words) ──
+  { id:'p5_bathroom', en:'bathroom', zh:'浴室', cat:'house', page:5 },
+  { id:'p5_bed', en:'bed', zh:'床', cat:'house', page:5 },
+  { id:'p5_bedroom', en:'bedroom', zh:'臥房', cat:'house', page:5 },
+  { id:'p5_chair', en:'chair', zh:'椅子', cat:'house', page:5 },
+  { id:'p5_clean_adj', en:'clean', zh:'乾淨的', cat:'house', page:5 },
+  { id:'p5_clean_v', en:'clean', zh:'清理', cat:'action', page:5 },
+  { id:'p5_computer', en:'computer', zh:'電腦', cat:'life', page:5 },
+  { id:'p5_desk', en:'desk', zh:'桌子', cat:'house', page:5 },
+  { id:'p5_dining_room', en:'dining room', zh:'(家裡的) 餐廳', cat:'house', page:5 },
+  { id:'p5_door', en:'door', zh:'門', cat:'house', page:5 },
+  { id:'p5_fan', en:'fan', zh:'電扇', cat:'house', page:5 },
+  { id:'p5_floor', en:'floor', zh:'地板', cat:'house', page:5 },
+  { id:'p5_fridge', en:'fridge', zh:'電冰箱', cat:'house', page:5 },
+  { id:'p5_garden', en:'garden', zh:'院子、花園', cat:'house', page:5 },
+  { id:'p5_home', en:'home', zh:'家庭', cat:'house', page:5 },
+  { id:'p5_house', en:'house', zh:'房屋', cat:'house', page:5 },
+  { id:'p5_key', en:'key', zh:'鑰匙', cat:'life', page:5 },
+  { id:'p5_kitchen', en:'kitchen', zh:'廚房', cat:'house', page:5 },
+  { id:'p5_lamp', en:'lamp', zh:'檯燈', cat:'house', page:5 },
+  { id:'p5_living_room', en:'living room', zh:'客廳', cat:'house', page:5 },
+  { id:'p5_mop', en:'mop', zh:'(用拖把)拖地', cat:'action', page:5 },
+  { id:'p5_refrigerator', en:'refrigerator', zh:'電冰箱', cat:'house', page:5 },
+  { id:'p5_shelf', en:'shelf', zh:'架子', cat:'house', page:5 },
+  { id:'p5_shower', en:'shower', zh:'淋浴', cat:'house', page:5 },
+  { id:'p5_sofa', en:'sofa', zh:'沙發', cat:'house', page:5 },
+  { id:'p5_street', en:'street', zh:'街道', cat:'nature', page:5 },
+  { id:'p5_sweep', en:'sweep', zh:'掃', cat:'action', page:5 },
+  { id:'p5_table', en:'table', zh:'桌子', cat:'house', page:5 },
+  { id:'p5_telephone', en:'telephone', zh:'電話', cat:'life', page:5 },
+  { id:'p5_television', en:'television', zh:'電視', cat:'life', page:5 },
+  { id:'p5_towel', en:'towel', zh:'毛巾', cat:'house', page:5 },
+  { id:'p5_wall', en:'wall', zh:'牆壁', cat:'house', page:5 },
+  { id:'p5_wash', en:'wash', zh:'洗', cat:'action', page:5 },
+  { id:'p5_window', en:'window', zh:'窗戶', cat:'house', page:5 },
+  { id:'p5_all', en:'all', zh:'全部的', cat:'number', page:5 },
+  { id:'p5_both', en:'both', zh:'兩個都', cat:'number', page:5 },
+  { id:'p5_eight', en:'eight', zh:'八', cat:'number', page:5 },
+  { id:'p5_eighteen', en:'eighteen', zh:'十八', cat:'number', page:5 },
+
+  // ── Page 6: Numbers & Quantifiers, Adjectives (38 words) ─────────────
+  { id:'p6_eighty', en:'eighty', zh:'八十', cat:'number', page:6 },
+  { id:'p6_eleven', en:'eleven', zh:'十一', cat:'number', page:6 },
+  { id:'p6_fifteen', en:'fifteen', zh:'十五', cat:'number', page:6 },
+  { id:'p6_fifty', en:'fifty', zh:'五十', cat:'number', page:6 },
+  { id:'p6_first', en:'first', zh:'第一', cat:'number', page:6 },
+  { id:'p6_five', en:'five', zh:'五', cat:'number', page:6 },
+  { id:'p6_forty', en:'forty', zh:'四十', cat:'number', page:6 },
+  { id:'p6_four', en:'four', zh:'四', cat:'number', page:6 },
+  { id:'p6_fourteen', en:'fourteen', zh:'十四', cat:'number', page:6 },
+  { id:'p6_hundred', en:'hundred', zh:'一百', cat:'number', page:6 },
+  { id:'p6_last', en:'last', zh:'最後的', cat:'number', page:6 },
+  { id:'p6_many', en:'many', zh:'許多(可數)', cat:'number', page:6 },
+  { id:'p6_more', en:'more', zh:'較多', cat:'number', page:6 },
+  { id:'p6_much', en:'much', zh:'許多(不可數)', cat:'number', page:6 },
+  { id:'p6_nine', en:'nine', zh:'九', cat:'number', page:6 },
+  { id:'p6_nineteen', en:'nineteen', zh:'十九', cat:'number', page:6 },
+  { id:'p6_ninety', en:'ninety', zh:'九十', cat:'number', page:6 },
+  { id:'p6_number', en:'number', zh:'數字', cat:'number', page:6 },
+  { id:'p6_one', en:'one', zh:'一', cat:'number', page:6 },
+  { id:'p6_second', en:'second', zh:'第二', cat:'number', page:6 },
+  { id:'p6_seven', en:'seven', zh:'七', cat:'number', page:6 },
+  { id:'p6_seventeen', en:'seventeen', zh:'十七', cat:'number', page:6 },
+  { id:'p6_seventy', en:'seventy', zh:'七十', cat:'number', page:6 },
+  { id:'p6_six', en:'six', zh:'六', cat:'number', page:6 },
+  { id:'p6_sixteen', en:'sixteen', zh:'十六', cat:'number', page:6 },
+  { id:'p6_sixty', en:'sixty', zh:'六十', cat:'number', page:6 },
+  { id:'p6_some', en:'some', zh:'一些', cat:'number', page:6 },
+  { id:'p6_ten', en:'ten', zh:'十', cat:'number', page:6 },
+  { id:'p6_third', en:'third', zh:'第三', cat:'number', page:6 },
+  { id:'p6_thirteen', en:'thirteen', zh:'十三', cat:'number', page:6 },
+  { id:'p6_thirty', en:'thirty', zh:'三十', cat:'number', page:6 },
+  { id:'p6_three', en:'three', zh:'三', cat:'number', page:6 },
+  { id:'p6_twelve', en:'twelve', zh:'十二', cat:'number', page:6 },
+  { id:'p6_twenty', en:'twenty', zh:'二十', cat:'number', page:6 },
+  { id:'p6_two', en:'two', zh:'二', cat:'number', page:6 },
+  { id:'p6_zero', en:'zero', zh:'零', cat:'number', page:6 },
+  { id:'p6_cool', en:'cool', zh:'清涼的', cat:'health', page:6 },
+  { id:'p6_different', en:'different', zh:'不一樣的', cat:'health', page:6 },
+
+  // ── Page 7: Adjectives, Frequency Adverbs, Objects (38 words) ────────
+  { id:'p7_dirty', en:'dirty', zh:'髒的', cat:'health', page:7 },
+  { id:'p7_easy', en:'easy', zh:'簡單的', cat:'health', page:7 },
+  { id:'p7_favorite', en:'favorite', zh:'最喜歡的', cat:'health', page:7 },
+  { id:'p7_fine', en:'fine', zh:'很不錯的', cat:'health', page:7 },
+  { id:'p7_fun_adj', en:'fun', zh:'有趣的', cat:'health', page:7 },
+  { id:'p7_great', en:'great', zh:'很棒的', cat:'health', page:7 },
+  { id:'p7_hard', en:'hard', zh:'困難的', cat:'health', page:7 },
+  { id:'p7_hot', en:'hot', zh:'燙的', cat:'health', page:7 },
+  { id:'p7_interesting', en:'interesting', zh:'有趣的', cat:'health', page:7 },
+  { id:'p7_new', en:'new', zh:'新的', cat:'health', page:7 },
+  { id:'p7_nice', en:'nice', zh:'好的', cat:'health', page:7 },
+  { id:'p7_quiet', en:'quiet', zh:'安靜的', cat:'health', page:7 },
+  { id:'p7_ready', en:'ready', zh:'準備好的', cat:'health', page:7 },
+  { id:'p7_right', en:'right', zh:'對的', cat:'health', page:7 },
+  { id:'p7_sorry', en:'sorry', zh:'感到抱歉的', cat:'health', page:7 },
+  { id:'p7_sure_adj', en:'sure', zh:'確定的', cat:'health', page:7 },
+  { id:'p7_wet', en:'wet', zh:'濕的', cat:'health', page:7 },
+  { id:'p7_wonderful', en:'wonderful', zh:'很棒的', cat:'health', page:7 },
+  { id:'p7_again', en:'again', zh:'再一次', cat:'life', page:7 },
+  { id:'p7_always', en:'always', zh:'總是、永遠', cat:'life', page:7 },
+  { id:'p7_maybe', en:'maybe', zh:'也許', cat:'life', page:7 },
+  { id:'p7_never', en:'never', zh:'不曾', cat:'life', page:7 },
+  { id:'p7_sometimes', en:'sometimes', zh:'有時候', cat:'life', page:7 },
+  { id:'p7_sure_adv', en:'sure', zh:'當然', cat:'life', page:7 },
+  { id:'p7_together', en:'together', zh:'一起', cat:'life', page:7 },
+  { id:'p7_usually', en:'usually', zh:'通常', cat:'life', page:7 },
+  { id:'p7_birthday', en:'birthday', zh:'生日', cat:'life', page:7 },
+  { id:'p7_bottle', en:'bottle', zh:'瓶子', cat:'life', page:7 },
+  { id:'p7_box', en:'box', zh:'箱子', cat:'life', page:7 },
+  { id:'p7_can', en:'can', zh:'鐵鋁罐', cat:'life', page:7 },
+  { id:'p7_cellphone', en:'cellphone', zh:'手機', cat:'life', page:7 },
+  { id:'p7_dream', en:'dream', zh:'夢', cat:'life', page:7 },
+  { id:'p7_email', en:'email', zh:'電子郵件', cat:'life', page:7 },
+  { id:'p7_flower', en:'flower', zh:'花', cat:'nature', page:7 },
+  { id:'p7_fun_noun', en:'fun', zh:'樂趣', cat:'life', page:7 },
+  { id:'p7_gift', en:'gift', zh:'禮物', cat:'life', page:7 },
+  { id:'p7_letter', en:'letter', zh:'信', cat:'life', page:7 },
+  { id:'p7_party', en:'party', zh:'派對', cat:'life', page:7 },
+
+  // ── Page 8: Nouns & Essential Verbs / Actions (38 words) ─────────────
+  { id:'p8_photo', en:'photo', zh:'照片', cat:'life', page:8 },
+  { id:'p8_robot', en:'robot', zh:'機器人', cat:'life', page:8 },
+  { id:'p8_sale', en:'sale', zh:'拍賣', cat:'life', page:8 },
+  { id:'p8_thing', en:'thing', zh:'東西', cat:'life', page:8 },
+  { id:'p8_ticket', en:'ticket', zh:'票', cat:'life', page:8 },
+  { id:'p8_trash', en:'trash', zh:'垃圾', cat:'life', page:8 },
+  { id:'p8_tree', en:'tree', zh:'樹', cat:'nature', page:8 },
+  { id:'p8_way', en:'way', zh:'路、方向', cat:'life', page:8 },
+  { id:'p8_word', en:'word', zh:'字', cat:'life', page:8 },
+  { id:'p8_brush', en:'brush', zh:'用刷子刷', cat:'action', page:8 },
+  { id:'p8_call', en:'call', zh:'打電話給...', cat:'action', page:8 },
+  { id:'p8_close', en:'close', zh:'關', cat:'action', page:8 },
+  { id:'p8_come', en:'come', zh:'來', cat:'action', page:8 },
+  { id:'p8_cry', en:'cry', zh:'哭泣', cat:'action', page:8 },
+  { id:'p8_do', en:'do', zh:'做', cat:'action', page:8 },
+  { id:'p8_enjoy', en:'enjoy', zh:'享受', cat:'action', page:8 },
+  { id:'p8_fall', en:'fall', zh:'掉落', cat:'action', page:8 },
+  { id:'p8_feel', en:'feel', zh:'感覺', cat:'action', page:8 },
+  { id:'p8_get', en:'get', zh:'得到', cat:'action', page:8 },
+  { id:'p8_give', en:'give', zh:'給', cat:'action', page:8 },
+  { id:'p8_go', en:'go', zh:'去', cat:'action', page:8 },
+  { id:'p8_have', en:'have', zh:'有', cat:'action', page:8 },
+  { id:'p8_help', en:'help', zh:'幫助', cat:'action', page:8 },
+  { id:'p8_hit', en:'hit', zh:'打、碰撞', cat:'action', page:8 },
+  { id:'p8_hope', en:'hope', zh:'希望', cat:'action', page:8 },
+  { id:'p8_hurry', en:'hurry', zh:'趕快、急忙', cat:'action', page:8 },
+  { id:'p8_hurt', en:'hurt', zh:'受傷', cat:'action', page:8 },
+  { id:'p8_jump', en:'jump', zh:'跳', cat:'action', page:8 },
+  { id:'p8_know', en:'know', zh:'知道、認識', cat:'action', page:8 },
+  { id:'p8_laugh', en:'laugh', zh:'笑', cat:'action', page:8 },
+  { id:'p8_lets', en:"let's", zh:'讓我們...', cat:'action', page:8 },
+  { id:'p8_like', en:'like', zh:'喜歡', cat:'action', page:8 },
+  { id:'p8_look', en:'look', zh:'看、看起來', cat:'action', page:8 },
+  { id:'p8_love', en:'love', zh:'愛', cat:'action', page:8 },
+  { id:'p8_make', en:'make', zh:'製造', cat:'action', page:8 },
+  { id:'p8_meet', en:'meet', zh:'遇見、會面', cat:'action', page:8 },
+  { id:'p8_miss_verb', en:'miss', zh:'想念', cat:'action', page:8 },
+  { id:'p8_need', en:'need', zh:'需要', cat:'action', page:8 }
 ];
 
 /* ════════════════════════════════════════════════════
-   STORAGE: MISTAKES & RECORDS
+   STORAGE: MISTAKES & RECORDS (SUPPORT DAILY MISTAKES)
    ════════════════════════════════════════════════════ */
 let records = JSON.parse(localStorage.getItem('gept_records') || '{}');
+
+function getTodayStr() {
+  const d = new Date();
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
 
 function saveRecords() {
   localStorage.setItem('gept_records', JSON.stringify(records));
@@ -1090,24 +1301,44 @@ function saveRecords() {
 }
 
 function getWordRecord(w) {
-  return records[w.id] || records[w.en] || { wrongCount: 0, correctCount: 0, lastTested: 0 };
+  return records[w.id] || records[w.en] || { wrongCount: 0, correctCount: 0, lastTested: 0, lastWrongDate: null, wrongDates: {} };
+}
+
+function isWrongToday(rec) {
+  if (!rec || (rec.wrongCount || 0) <= 0) return false;
+  const today = getTodayStr();
+  if (rec.lastWrongDate === today) return true;
+  if (rec.wrongDates && rec.wrongDates[today] > 0) return true;
+  if (rec.lastTested) {
+    const d = new Date(rec.lastTested);
+    const yr = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), day = String(d.getDate()).padStart(2, '0');
+    if (`${yr}-${m}-${day}` === today) return true;
+  }
+  return false;
 }
 
 function recordAnswer(w, isCorrect) {
   const key = (typeof w === 'string') ? w : w.id;
+  const today = getTodayStr();
   if (!records[key]) {
     const legacy = (typeof w !== 'string') ? records[w.en] : null;
     records[key] = {
       wrongCount: legacy ? legacy.wrongCount : 0,
       correctCount: legacy ? legacy.correctCount : 0,
-      lastTested: Date.now()
+      lastTested: Date.now(),
+      lastWrongDate: legacy ? legacy.lastWrongDate : null,
+      wrongDates: legacy && legacy.wrongDates ? { ...legacy.wrongDates } : {}
     };
   }
+  if (!records[key].wrongDates) records[key].wrongDates = {};
+
   if (isCorrect) {
     records[key].correctCount++;
     // 特訓答對時不刪除、不減少錯題次數，完整保留每個字的歷史錯誤統計
   } else {
     records[key].wrongCount++;
+    records[key].lastWrongDate = today;
+    records[key].wrongDates[today] = (records[key].wrongDates[today] || 0) + 1;
   }
   records[key].lastTested = Date.now();
   saveRecords();
@@ -1116,10 +1347,20 @@ function recordAnswer(w, isCorrect) {
 function removeMistake(targetId) {
   if (records[targetId]) {
     records[targetId].wrongCount = 0;
+    records[targetId].lastWrongDate = null;
+    records[targetId].wrongDates = {};
   }
   VOCAB_DATA.filter(w => w.id === targetId || w.en === targetId).forEach(w => {
-    if (records[w.id]) records[w.id].wrongCount = 0;
-    if (records[w.en]) records[w.en].wrongCount = 0;
+    if (records[w.id]) {
+      records[w.id].wrongCount = 0;
+      records[w.id].lastWrongDate = null;
+      records[w.id].wrongDates = {};
+    }
+    if (records[w.en]) {
+      records[w.en].wrongCount = 0;
+      records[w.en].lastWrongDate = null;
+      records[w.en].wrongDates = {};
+    }
   });
   saveRecords();
   renderMistakesHub();
@@ -1129,10 +1370,19 @@ function clearAllMistakes() {
   if (confirm('確定要清空所有錯題記錄嗎？')) {
     Object.keys(records).forEach(key => {
       records[key].wrongCount = 0;
+      records[key].lastWrongDate = null;
+      records[key].wrongDates = {};
     });
     saveRecords();
     renderMistakesHub();
   }
+}
+
+function getTodayWrongWords() {
+  return VOCAB_DATA.filter(w => {
+    const rec = records[w.id] || records[w.en];
+    return isWrongToday(rec);
+  });
 }
 
 function getWrongWords() {
@@ -1144,10 +1394,18 @@ function getWrongWords() {
 
 function updateBadges() {
   const wrongWords = getWrongWords();
+  const todayWrongWords = getTodayWrongWords();
   const wrongWordCount = wrongWords.length;
+  const todayWrongCount = todayWrongWords.length;
+
   const badge = document.getElementById('nav-wrong-badge');
-  if (wrongWordCount > 0) {
+  if (todayWrongCount > 0) {
+    badge.textContent = todayWrongCount;
+    badge.title = `今日錯題: ${todayWrongCount} (歷史累計: ${wrongWordCount})`;
+    badge.style.display = 'block';
+  } else if (wrongWordCount > 0) {
     badge.textContent = wrongWordCount;
+    badge.title = `累計錯題: ${wrongWordCount}`;
     badge.style.display = 'block';
   } else {
     badge.style.display = 'none';
@@ -1164,16 +1422,18 @@ function updateBadges() {
   });
 
   const totalElem = document.getElementById('stat-total-words');
+  const todayWrongElem = document.getElementById('stat-today-wrong');
   const wrongElem = document.getElementById('stat-wrong-words');
-  const wrongTimesElem = document.getElementById('stat-wrong-times');
   const masterElem = document.getElementById('stat-master-words');
   const bannerSub = document.getElementById('wrong-banner-sub');
 
   if (totalElem) totalElem.textContent = VOCAB_DATA.length;
+  if (todayWrongElem) todayWrongElem.textContent = todayWrongCount;
   if (wrongElem) wrongElem.textContent = wrongWordCount;
-  if (wrongTimesElem) wrongTimesElem.textContent = totalWrongTimes;
   if (masterElem) masterElem.textContent = correctWordsCount;
-  if (bannerSub) bannerSub.textContent = `共 ${wrongWordCount} 個錯題單字，累計出錯 ${totalWrongTimes} 次（特訓後持續保留）`;
+  if (bannerSub) {
+    bannerSub.textContent = `今日出錯 ${todayWrongCount} 個單字 · 歷史累計 ${wrongWordCount} 個錯題單字（共出錯 ${totalWrongTimes} 次）`;
+  }
 }
 
 /* ════════════════════════════════════════════════════
@@ -1218,28 +1478,30 @@ function exitWrongMode(selectId) {
   if (selectId === 'typing-category') startTyping(true);
 }
 
-function startMistakePractice(mode) {
-  const wrongs = getWrongWords();
-  if (wrongs.length === 0) {
-    alert('太棒了！目前沒有任何錯題喔！請直接練習一般單字。');
+function startMistakePractice(mode, isTodayOnly = false) {
+  const targetCategory = isTodayOnly ? 'wrong-today' : 'wrong';
+  const list = filterWords(targetCategory);
+  if (list.length === 0) {
+    alert(isTodayOnly ? '太棒了！今天目前沒有任何錯題喔！請練習一般單字或選擇全部錯題。' : '太棒了！目前沒有任何錯題記錄！');
     return;
   }
   if (mode === 'quiz') {
     switchTab('quiz');
-    document.getElementById('quiz-category').value = 'wrong';
+    document.getElementById('quiz-category').value = targetCategory;
     startQuiz(true);
   } else if (mode === 'typing') {
     switchTab('typing');
-    document.getElementById('typing-category').value = 'wrong';
+    document.getElementById('typing-category').value = targetCategory;
     startTyping(true);
   }
 }
 
 /* ════════════════════════════════════════════════════
-   FILTER LOGIC (PAGE & CATEGORY)
+   FILTER LOGIC (PAGE, CATEGORY, DAILY MISTAKES)
    ════════════════════════════════════════════════════ */
 function filterWords(catVal) {
   if (!catVal || catVal === 'all') return [...VOCAB_DATA];
+  if (catVal === 'wrong-today') return getTodayWrongWords();
   if (catVal === 'wrong') return getWrongWords();
   if (catVal.startsWith('page-')) {
     const pageNum = parseInt(catVal.replace('page-', ''), 10);
@@ -1256,7 +1518,17 @@ let fcList = [], fcIndex = 0;
 function initFlashcards(forceRestart = false) {
   const cat = document.getElementById('fc-category').value;
   const banner = document.getElementById('fc-wrong-banner');
-  banner.style.display = (cat === 'wrong') ? 'flex' : 'none';
+  const bannerText = banner.querySelector('span');
+
+  if (cat === 'wrong-today') {
+    banner.style.display = 'flex';
+    if (bannerText) bannerText.textContent = '🔥 正在練習【今日錯題專練】';
+  } else if (cat === 'wrong') {
+    banner.style.display = 'flex';
+    if (bannerText) bannerText.textContent = '🔥 正在練習【全部歷史錯題】';
+  } else {
+    banner.style.display = 'none';
+  }
 
   if (!forceRestart && fcList.length > 0 && fcIndex < fcList.length) {
     return;
@@ -1264,7 +1536,12 @@ function initFlashcards(forceRestart = false) {
 
   fcList = filterWords(cat);
   if (fcList.length === 0) {
-    if (cat === 'wrong') {
+    if (cat === 'wrong-today') {
+      alert('太棒了！今天目前沒有錯題，將切換為全部單字。');
+      document.getElementById('fc-category').value = 'all';
+      fcList = [...VOCAB_DATA];
+      banner.style.display = 'none';
+    } else if (cat === 'wrong') {
       alert('太棒了！目前錯題本是空的，將切換回全部單字。');
       document.getElementById('fc-category').value = 'all';
       fcList = [...VOCAB_DATA];
@@ -1335,7 +1612,7 @@ function markCurrentCardMistake(e) {
   if (e) e.stopPropagation();
   const w = fcList[fcIndex];
   recordAnswer(w, false);
-  alert(`已將「${w.en} (${w.zh})」加入錯題本！`);
+  alert(`已將「${w.en} (${w.zh})」加入今日錯題本！`);
   nextCard();
 }
 
@@ -1356,7 +1633,17 @@ let sessionWrongs = [];
 function startQuiz(forceRestart = false) {
   const cat = document.getElementById('quiz-category').value;
   const banner = document.getElementById('quiz-wrong-banner');
-  banner.style.display = (cat === 'wrong') ? 'flex' : 'none';
+  const bannerText = banner.querySelector('span');
+
+  if (cat === 'wrong-today') {
+    banner.style.display = 'flex';
+    if (bannerText) bannerText.textContent = '🔥 正在進行【今日錯題特訓】測驗';
+  } else if (cat === 'wrong') {
+    banner.style.display = 'flex';
+    if (bannerText) bannerText.textContent = '🔥 正在進行【全部錯題特訓】測驗';
+  } else {
+    banner.style.display = 'none';
+  }
 
   // 若已有測驗進行中且未要求強制重測，且不是在成績頁，則保留原本做題進度
   const isResultShowing = document.getElementById('quiz-result-panel').style.display === 'block';
@@ -1366,7 +1653,12 @@ function startQuiz(forceRestart = false) {
 
   quizList = filterWords(cat);
   if (quizList.length === 0) {
-    if (cat === 'wrong') {
+    if (cat === 'wrong-today') {
+      alert('太棒了！今日目前沒有任何錯題！將自動切換回全部單字。');
+      document.getElementById('quiz-category').value = 'all';
+      quizList = [...VOCAB_DATA];
+      banner.style.display = 'none';
+    } else if (cat === 'wrong') {
       alert('錯題本目前沒有題目！切換回全部單字。');
       document.getElementById('quiz-category').value = 'all';
       quizList = [...VOCAB_DATA];
@@ -1484,7 +1776,7 @@ function finishQuiz() {
   document.getElementById('quiz-result-score').textContent = pct + '%';
   document.getElementById('quiz-result-detail').innerHTML = `共 ${total} 題，答對 ${quizScore} 題，答錯 ${total - quizScore} 題<br>
     <span style="display:inline-block; margin-top:8px; font-size:0.83rem; color:var(--text-muted); background:var(--bg); padding:6px 14px; border-radius:10px;">
-      💡 提示：特訓答對不會把錯題刪除，各單字的累計錯誤次數皆完整保留！
+      💡 提示：錯題已記錄至【今日錯題】，特訓答對不會刪除，各單字累計錯誤次數皆完整保留！
     </span>`;
 
   const retryWrongBtn = document.getElementById('quiz-retry-wrong-btn');
@@ -1518,7 +1810,17 @@ let hintLettersRevealed = 1;
 function startTyping(forceRestart = false) {
   const cat = document.getElementById('typing-category').value;
   const banner = document.getElementById('typing-wrong-banner');
-  banner.style.display = (cat === 'wrong') ? 'flex' : 'none';
+  const bannerText = banner.querySelector('span');
+
+  if (cat === 'wrong-today') {
+    banner.style.display = 'flex';
+    if (bannerText) bannerText.textContent = '🔥 正在進行【今日錯題拼字特訓】';
+  } else if (cat === 'wrong') {
+    banner.style.display = 'flex';
+    if (bannerText) bannerText.textContent = '🔥 正在進行【全部錯題拼字特訓】';
+  } else {
+    banner.style.display = 'none';
+  }
 
   // 若已有拼字題進行中且未要求強制重練，且不是在成績頁，則保留原本做題進度並聚焦
   const isResultShowing = document.getElementById('typing-result-panel').style.display === 'block';
@@ -1530,7 +1832,12 @@ function startTyping(forceRestart = false) {
 
   typingList = filterWords(cat);
   if (typingList.length === 0) {
-    if (cat === 'wrong') {
+    if (cat === 'wrong-today') {
+      alert('太棒了！今天目前沒有錯題！已自動切換為全部單字。');
+      document.getElementById('typing-category').value = 'all';
+      typingList = [...VOCAB_DATA];
+      banner.style.display = 'none';
+    } else if (cat === 'wrong') {
       alert('目前沒有錯題可練習！已自動切換為全部單字。');
       document.getElementById('typing-category').value = 'all';
       typingList = [...VOCAB_DATA];
@@ -1613,7 +1920,7 @@ function checkTyping() {
     typingScore++;
     inp.classList.add('correct');
     fb.textContent = '✅ 太厲害了，拼寫完全正確！';
-    fb.classList.add('success');
+    fb.className = 'quiz-feedback success';
     recordAnswer(w, true);
     speakWord(w.en);
   } else {
@@ -1622,7 +1929,7 @@ function checkTyping() {
     const times = rec.wrongCount || 1;
     inp.classList.add('wrong');
     fb.textContent = `❌ 正確拼法為：${w.en} (累計錯 ${times} 次)`;
-    fb.classList.add('wrong');
+    fb.className = 'quiz-feedback wrong';
     const box = document.getElementById('typing-box');
     box.classList.add('shake');
     setTimeout(() => box.classList.remove('shake'), 400);
@@ -1634,7 +1941,9 @@ function checkTyping() {
 function skipTyping() {
   const w = typingList[typingIdx];
   recordAnswer(w, false);
-  document.getElementById('typing-feedback').textContent = `已跳過，正確答案為：${w.en}`;
+  const rec = getWordRecord(w);
+  const times = rec.wrongCount || 1;
+  document.getElementById('typing-feedback').textContent = `已跳過，正確答案為：${w.en} (累計錯 ${times} 次)`;
   document.getElementById('typing-feedback').className = 'quiz-feedback wrong';
   document.getElementById('typing-input').disabled = true;
   typingAnswered = true;
@@ -1672,11 +1981,10 @@ function renderMistakesHub() {
   listContainer.innerHTML = '';
 
   let filtered = [...VOCAB_DATA];
-  if (filter === 'only-wrong') {
-    filtered = filtered.filter(w => {
-      const rec = records[w.id] || records[w.en];
-      return (rec?.wrongCount || 0) > 0;
-    });
+  if (filter === 'today-wrong') {
+    filtered = getTodayWrongWords();
+  } else if (filter === 'only-wrong') {
+    filtered = getWrongWords();
   } else if (filter === 'mastered') {
     filtered = filtered.filter(w => {
       const rec = records[w.id] || records[w.en];
@@ -1702,8 +2010,14 @@ function renderMistakesHub() {
   }
 
   if (filtered.length === 0) {
-    listContainer.innerHTML = `<div style="text-align:center; padding:30px 10px; color:var(--text-muted);">
-      ${filter === 'only-wrong' ? '🎉 太棒了！目前沒有任何錯題記錄！' : '暫無符合條件的單字'}
+    let emptyMsg = '暫無符合條件的單字';
+    if (filter === 'today-wrong') {
+      emptyMsg = '🎉 太棒了！今天目前沒有任何錯題記錄！';
+    } else if (filter === 'only-wrong') {
+      emptyMsg = '🎉 太棒了！目前錯題本是空的，沒有歷史錯題！';
+    }
+    listContainer.innerHTML = `<div style="text-align:center; padding:30px 10px; color:var(--text-muted); font-size:1.05rem;">
+      ${emptyMsg}
     </div>`;
     return;
   }
@@ -1711,6 +2025,7 @@ function renderMistakesHub() {
   filtered.forEach(w => {
     const rec = getWordRecord(w);
     const isWrong = rec.wrongCount > 0;
+    const wrongToday = isWrongToday(rec);
 
     const row = document.createElement('div');
     row.className = `word-item ${isWrong ? 'is-wrong' : ''}`;
@@ -1718,7 +2033,7 @@ function renderMistakesHub() {
       <div class="word-info">
         <button class="btn-speak" style="width:32px; height:32px; font-size:0.85rem;" onclick="speakWord('${w.en}')">🔊</button>
         <div>
-          <div style="display:flex; align-items:center; gap:6px;">
+          <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
             <span class="word-en">${w.en}</span>
             <span style="font-size:0.7rem; background:#E0E7FF; color:#4338CA; padding:1px 6px; border-radius:6px; font-weight:700;">第 ${w.page} 頁</span>
           </div>
@@ -1726,7 +2041,8 @@ function renderMistakesHub() {
         </div>
       </div>
       <div class="word-meta">
-        ${isWrong ? `<span class="wrong-pill">❌ 錯 ${rec.wrongCount} 次</span>` : ''}
+        ${wrongToday ? `<span class="today-pill">📅 今日錯題</span>` : ''}
+        ${isWrong ? `<span class="wrong-pill">❌ 累計錯 ${rec.wrongCount} 次</span>` : ''}
         ${rec.correctCount > 0 ? `<span class="correct-pill">✅ 對 ${rec.correctCount} 次</span>` : ''}
         ${isWrong ? `<button class="btn-remove-wrong" title="手動清空此字錯題" onclick="removeMistake('${w.id}')">✕</button>` : ''}
       </div>
