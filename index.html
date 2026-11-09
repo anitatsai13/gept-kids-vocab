@@ -139,6 +139,29 @@
     max-width: 260px;
   }
   optgroup { font-weight: 800; color: var(--primary); }
+
+  /* ── 測驗範圍複選 chip ─────────────────────────────── */
+  .scope-box { width: 100%; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+  .scope-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .scope-label { flex-basis: 100%; font-size: 0.8rem; font-weight: 800; color: var(--primary); }
+  .scope-hint { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); }
+  .scope-box details { border-top: 1px dashed var(--border); padding-top: 6px; }
+  .scope-box summary { cursor: pointer; font-size: 0.8rem; font-weight: 800; color: var(--primary); padding: 2px 0 6px; }
+  .scope-box details.wrong-sec summary { color: var(--danger); }
+  .chip {
+    border: 1.5px solid var(--border); background: #fff; color: var(--text);
+    border-radius: 999px; padding: 4px 10px; font-size: 0.8rem; font-weight: 700;
+    cursor: pointer; font-family: inherit; white-space: nowrap; line-height: 1.3;
+  }
+  .chip small { font-weight: 600; color: var(--text-muted); margin-left: 2px; }
+  .chip:hover { border-color: var(--primary-light); }
+  .chip.active { background: var(--primary-bg); border-color: var(--primary); color: var(--primary); }
+  .chip.active small { color: var(--primary); }
+  .chip.chip-all { font-weight: 800; }
+  .chip.chip-wrong.active { background: var(--danger-bg); border-color: var(--danger); color: var(--danger); }
+  .chip.chip-wrong.active small { color: var(--danger); }
+  .chip:disabled { opacity: 0.4; cursor: not-allowed; }
+  .scope-start { white-space: nowrap; }
   select:focus { border-color: var(--primary); }
 
   .wrong-mode-banner {
@@ -725,76 +748,17 @@
   <div id="screen-quiz" class="screen">
     
     <div class="control-panel">
+      <!-- 範圍：hidden 值 = all（依下方 chip 選取）/ wrong / wrong-pN（錯題模式） -->
+      <input type="hidden" id="quiz-category" value="all">
+      <div class="scope-box" id="quiz-scope"></div>
       <div class="control-group">
-        <span>分類：</span>
-        <select id="quiz-category" onchange="startQuiz(true)">
-          <optgroup label="📑 依單字表各頁測驗">
-            <option value="page-1">📄 第 1 頁測驗 (動物、服飾 · 38題)</option>
-            <option value="page-2">📄 第 2 頁測驗 (服飾、顏色、家人 · 37題)</option>
-            <option value="page-3">📄 第 3 頁測驗 (親屬、食物三餐 · 38題)</option>
-            <option value="page-4">📄 第 4 頁測驗 (蔬果、自然、健康 · 38題)</option>
-            <option value="page-5">📄 第 5 頁測驗 (居家生活、物品 · 38題)</option>
-            <option value="page-6">📄 第 6 頁測驗 (數字與數量詞 · 38題)</option>
-            <option value="page-7">📄 第 7 頁測驗 (形容詞、副詞、日常 · 38題)</option>
-            <option value="page-8">📄 第 8 頁測驗 (常用名詞與動作動詞 · 38題)</option>
-            <option value="page-9">📄 第 9 頁測驗 (動作動詞、身體器官 · 38題)</option>
-            <option value="page-10">📄 第 10 頁測驗 (人物稱謂、形容詞、場所 · 38題)</option>
-            <option value="page-11">📄 第 11 頁測驗 (地方方位、學校學習 · 38題)</option>
-            <option value="page-12">📄 第 12 頁測驗 (學科課業、休閒運動 · 38題)</option>
-            <option value="page-13">📄 第 13 頁測驗 (休閒運動、餐具、月份 · 38題)</option>
-            <option value="page-14">📄 第 14 頁測驗 (時間日期、星期、交通 · 38題)</option>
-            <option value="page-15">📄 第 15 頁測驗 (交通、天氣、職業 · 38題)</option>
-            <option value="page-16">📄 第 16 頁測驗 (職業與工作 · 8題)</option>
-          </optgroup>
-          <optgroup label="🌟 綜合與全部錯題">
-            <option value="all" selected>🌟 全真綜合測驗 (全部 455 題)</option>
-            <option value="wrong">❌ 全部歷史錯題測驗</option>
-          </optgroup>
-          <optgroup label="🎯 依各頁挑選錯題測驗">
-            <option value="wrong-p1">🔥 第 1 頁錯題測驗</option>
-            <option value="wrong-p2">🔥 第 2 頁錯題測驗</option>
-            <option value="wrong-p3">🔥 第 3 頁錯題測驗</option>
-            <option value="wrong-p4">🔥 第 4 頁錯題測驗</option>
-            <option value="wrong-p5">🔥 第 5 頁錯題測驗</option>
-            <option value="wrong-p6">🔥 第 6 頁錯題測驗</option>
-            <option value="wrong-p7">🔥 第 7 頁錯題測驗</option>
-            <option value="wrong-p8">🔥 第 8 頁錯題測驗</option>
-            <option value="wrong-p9">🔥 第 9 頁錯題測驗</option>
-            <option value="wrong-p10">🔥 第 10 頁錯題測驗</option>
-            <option value="wrong-p11">🔥 第 11 頁錯題測驗</option>
-            <option value="wrong-p12">🔥 第 12 頁錯題測驗</option>
-            <option value="wrong-p13">🔥 第 13 頁錯題測驗</option>
-            <option value="wrong-p14">🔥 第 14 頁錯題測驗</option>
-            <option value="wrong-p15">🔥 第 15 頁錯題測驗</option>
-            <option value="wrong-p16">🔥 第 16 頁錯題測驗</option>
-          </optgroup>
-          <optgroup label="🏷️ 依主題分類">
-            <option value="food">🍔 食物與飲料</option>
-            <option value="animal">🐾 動物</option>
-            <option value="clothing">👕 服飾配件</option>
-            <option value="color">🎨 顏色</option>
-            <option value="family">👨‍👩‍👦 家庭與稱謂</option>
-            <option value="house">🏠 居家生活與擺設</option>
-            <option value="number">🔢 數字與數量詞</option>
-            <option value="nature">🏖️ 大自然風景</option>
-            <option value="health">🏥 健康與感覺</option>
-            <option value="action">🏃 常用動作動詞</option>
-            <option value="life">💰 物品與日常生活</option>
-            <option value="time">⏰ 時間與日期</option>
-            <option value="transport">🚗 交通工具</option>
-            <option value="weather">🌤️ 天氣</option>
-            <option value="job">👮 職業與工作</option>
-          </optgroup>
-        </select>
-      </div>
-      <div class="control-group" style="margin-left:auto;">
         <span>題型：</span>
         <select id="quiz-dir" onchange="startQuiz(true)">
           <option value="zh2en">看中文選英文</option>
           <option value="en2zh">看英文選中文</option>
         </select>
-        <button class="btn btn-outline btn-sm" onclick="startQuiz(true)" title="重新洗牌出題">🔄 重新測驗</button>
       </div>
+      <button class="btn btn-primary btn-sm scope-start" id="quiz-start-btn" onclick="startQuiz(true)" title="依目前範圍重新洗牌出題">📝 開始測驗</button>
     </div>
 
     <div id="quiz-wrong-banner" class="wrong-mode-banner" style="display:none;">
@@ -844,69 +808,10 @@
   <div id="screen-typing" class="screen">
     
     <div class="control-panel">
-      <div class="control-group">
-        <span>分類：</span>
-        <select id="typing-category" onchange="startTyping(true)">
-          <optgroup label="📑 依單字表各頁拼字">
-            <option value="page-1">📄 第 1 頁拼字 (動物、服飾 · 38字)</option>
-            <option value="page-2">📄 第 2 頁拼字 (服飾、顏色、家人 · 37字)</option>
-            <option value="page-3">📄 第 3 頁拼字 (親屬、食物三餐 · 38字)</option>
-            <option value="page-4">📄 第 4 頁拼字 (蔬果、自然、健康 · 38字)</option>
-            <option value="page-5">📄 第 5 頁拼字 (居家生活、物品 · 38字)</option>
-            <option value="page-6">📄 第 6 頁拼字 (數字與數量詞 · 38字)</option>
-            <option value="page-7">📄 第 7 頁拼字 (形容詞、副詞、日常 · 38字)</option>
-            <option value="page-8">📄 第 8 頁拼字 (常用名詞與動作動詞 · 38字)</option>
-            <option value="page-9">📄 第 9 頁拼字 (動作動詞、身體器官 · 38字)</option>
-            <option value="page-10">📄 第 10 頁拼字 (人物稱謂、形容詞、場所 · 38字)</option>
-            <option value="page-11">📄 第 11 頁拼字 (地方方位、學校學習 · 38字)</option>
-            <option value="page-12">📄 第 12 頁拼字 (學科課業、休閒運動 · 38字)</option>
-            <option value="page-13">📄 第 13 頁拼字 (休閒運動、餐具、月份 · 38字)</option>
-            <option value="page-14">📄 第 14 頁拼字 (時間日期、星期、交通 · 38字)</option>
-            <option value="page-15">📄 第 15 頁拼字 (交通、天氣、職業 · 38字)</option>
-            <option value="page-16">📄 第 16 頁拼字 (職業與工作 · 8字)</option>
-          </optgroup>
-          <optgroup label="🌟 綜合與全部錯題">
-            <option value="all" selected>🌟 全部單字拼字 (全部 455 字)</option>
-            <option value="wrong">❌ 全部歷史錯題拼字</option>
-          </optgroup>
-          <optgroup label="🎯 依各頁挑選錯題拼字特訓">
-            <option value="wrong-p1">🔥 第 1 頁錯題拼字</option>
-            <option value="wrong-p2">🔥 第 2 頁錯題拼字</option>
-            <option value="wrong-p3">🔥 第 3 頁錯題拼字</option>
-            <option value="wrong-p4">🔥 第 4 頁錯題拼字</option>
-            <option value="wrong-p5">🔥 第 5 頁錯題拼字</option>
-            <option value="wrong-p6">🔥 第 6 頁錯題拼字</option>
-            <option value="wrong-p7">🔥 第 7 頁錯題拼字</option>
-            <option value="wrong-p8">🔥 第 8 頁錯題拼字</option>
-            <option value="wrong-p9">🔥 第 9 頁錯題拼字</option>
-            <option value="wrong-p10">🔥 第 10 頁錯題拼字</option>
-            <option value="wrong-p11">🔥 第 11 頁錯題拼字</option>
-            <option value="wrong-p12">🔥 第 12 頁錯題拼字</option>
-            <option value="wrong-p13">🔥 第 13 頁錯題拼字</option>
-            <option value="wrong-p14">🔥 第 14 頁錯題拼字</option>
-            <option value="wrong-p15">🔥 第 15 頁錯題拼字</option>
-            <option value="wrong-p16">🔥 第 16 頁錯題拼字</option>
-          </optgroup>
-          <optgroup label="🏷️ 依主題分類">
-            <option value="food">🍔 食物與飲料</option>
-            <option value="animal">🐾 動物</option>
-            <option value="clothing">👕 服飾配件</option>
-            <option value="color">🎨 顏色</option>
-            <option value="family">👨‍👩‍👦 家庭與稱謂</option>
-            <option value="house">🏠 居家生活與擺設</option>
-            <option value="number">🔢 數字與數量詞</option>
-            <option value="nature">🏖️ 大自然風景</option>
-            <option value="health">🏥 健康與感覺</option>
-            <option value="action">🏃 常用動作動詞</option>
-            <option value="life">💰 物品與日常生活</option>
-            <option value="time">⏰ 時間與日期</option>
-            <option value="transport">🚗 交通工具</option>
-            <option value="weather">🌤️ 天氣</option>
-            <option value="job">👮 職業與工作</option>
-          </optgroup>
-        </select>
-        <button class="btn btn-outline btn-sm" onclick="startTyping(true)" title="重新洗牌練習">🔄 重新開始</button>
-      </div>
+      <!-- 範圍：hidden 值 = all（依下方 chip 選取）/ wrong / wrong-pN（錯題模式） -->
+      <input type="hidden" id="typing-category" value="all">
+      <div class="scope-box" id="typing-scope"></div>
+      <button class="btn btn-primary btn-sm scope-start" id="typing-start-btn" onclick="startTyping(true)" title="依目前範圍重新洗牌練習">⌨️ 開始拼字</button>
       <button class="btn btn-outline btn-sm" style="margin-left:auto;" onclick="revealTypingHint()">💡 提示一個字</button>
     </div>
 
@@ -1959,6 +1864,126 @@ function switchTab(name) {
   if (name === 'mistakes') renderMistakesHub();
 }
 
+/* ════════════════════════════════════════════════════
+   測驗範圍複選（選擇測驗 / 拼字練習）
+   - 頁碼 chip 與主題 chip 皆可複選，但兩者擇一：點頁碼會清掉主題、點主題會清掉頁碼
+     （頁與主題交集常常很小甚至為 0，擇一較直覺；聯集又會讓「選了第 1 頁」意外混入別頁的字）
+   - 都沒選＝全部
+   - 錯題模式另一排按鈕：hidden 值設為 wrong / wrong-pN，點一下即開始
+   ════════════════════════════════════════════════════ */
+const PAGE_TOPICS = {1:'動物、服飾',2:'服飾、顏色、家人',3:'親屬、食物三餐',4:'蔬果、自然、健康',5:'居家生活、物品',6:'數字與數量詞',7:'形容詞、副詞、日常',8:'常用名詞與動作動詞',9:'動作動詞、身體器官',10:'人物稱謂、形容詞、場所',11:'地方方位、學校學習',12:'學科課業、休閒運動',13:'休閒運動、餐具、月份',14:'時間日期、星期、交通',15:'交通、天氣、職業',16:'職業與工作'};
+const SCOPE_THEMES = [['food','🍔 食物與飲料'],['animal','🐾 動物'],['clothing','👕 服飾配件'],['color','🎨 顏色'],['family','👨‍👩‍👦 家庭與稱謂'],['house','🏠 居家生活與擺設'],['number','🔢 數字與數量詞'],['nature','🏖️ 大自然風景'],['health','🏥 健康與感覺'],['action','🏃 常用動作動詞'],['life','💰 物品與日常生活'],['time','⏰ 時間與日期'],['transport','🚗 交通工具'],['weather','🌤️ 天氣'],['job','👮 職業與工作']];
+const scopeSel = { quiz: { pages: new Set(), cats: new Set() }, typing: { pages: new Set(), cats: new Set() } };
+const scopeOpen = { quiz: { theme: false, wrong: false }, typing: { theme: false, wrong: false } };
+
+function scopePages() {
+  return [...new Set(VOCAB_DATA.map(w => w.page))].sort((a, b) => a - b);
+}
+
+// 依目前範圍取得題目（錯題模式沿用 filterWords）
+function getScopeWords(mode) {
+  const val = document.getElementById(mode + '-category').value;
+  if (val && val !== 'all') return filterWords(val);
+  const s = scopeSel[mode];
+  if (s.pages.size) return VOCAB_DATA.filter(w => s.pages.has(w.page));
+  if (s.cats.size) return VOCAB_DATA.filter(w => s.cats.has(w.cat));
+  return [...VOCAB_DATA];
+}
+
+function scopeDesc(mode) {
+  const val = document.getElementById(mode + '-category').value;
+  if (val === 'wrong') return '全部錯題';
+  if (val && val.startsWith('wrong-p')) return `第 ${val.replace('wrong-p', '')} 頁錯題`;
+  const s = scopeSel[mode];
+  if (s.pages.size) return '第 ' + [...s.pages].sort((a, b) => a - b).join('、') + ' 頁';
+  if (s.cats.size) return SCOPE_THEMES.filter(t => s.cats.has(t[0])).map(t => t[1]).join('、');
+  return '全部單字';
+}
+
+function scopeTogglePage(mode, p) {
+  const s = scopeSel[mode];
+  document.getElementById(mode + '-category').value = 'all';
+  s.cats.clear();
+  if (s.pages.has(p)) s.pages.delete(p); else s.pages.add(p);
+  renderScope(mode);
+}
+
+function scopeToggleCat(mode, c) {
+  const s = scopeSel[mode];
+  document.getElementById(mode + '-category').value = 'all';
+  s.pages.clear();
+  if (s.cats.has(c)) s.cats.delete(c); else s.cats.add(c);
+  scopeOpen[mode].theme = true;
+  renderScope(mode);
+}
+
+function scopeClear(mode) {
+  document.getElementById(mode + '-category').value = 'all';
+  scopeSel[mode].pages.clear();
+  scopeSel[mode].cats.clear();
+  renderScope(mode);
+}
+
+function scopeStartWrong(mode, val) {
+  scopeOpen[mode].wrong = true;
+  document.getElementById(mode + '-category').value = val;
+  if (mode === 'quiz') startQuiz(true); else startTyping(true);
+}
+
+function renderScope(mode) {
+  const box = document.getElementById(mode + '-scope');
+  if (!box) return;
+  // 保留使用者手動展開／收合的狀態
+  box.querySelectorAll('details[data-sec]').forEach(d => { scopeOpen[mode][d.dataset.sec] = d.open; });
+  const val = document.getElementById(mode + '-category').value;
+  const inWrong = val && val !== 'all';
+  const s = scopeSel[mode];
+  const unit = mode === 'quiz' ? '題' : '字';
+  const wrongAll = getWrongWords();
+  const noneSel = !inWrong && !s.pages.size && !s.cats.size;
+
+  let h = `<div class="scope-row">
+    <button type="button" class="chip chip-all${noneSel ? ' active' : ''}" onclick="scopeClear('${mode}')">🌟 全部<small>${VOCAB_DATA.length}${unit}</small></button>
+    <span class="scope-hint">頁碼、主題都可複選（兩者擇一）；沒選＝全部</span>
+  </div>`;
+
+  h += `<div class="scope-row"><span class="scope-label">📑 依單字表頁碼</span>`;
+  scopePages().forEach(p => {
+    const n = VOCAB_DATA.filter(w => w.page === p).length;
+    const on = !inWrong && s.pages.has(p);
+    h += `<button type="button" class="chip${on ? ' active' : ''}" title="${PAGE_TOPICS[p] || ''}" onclick="scopeTogglePage('${mode}', ${p})">第 ${p} 頁<small>${n}</small></button>`;
+  });
+  h += `</div>`;
+
+  const themeOpen = scopeOpen[mode].theme || (!inWrong && s.cats.size > 0);
+  h += `<details data-sec="theme"${themeOpen ? ' open' : ''}><summary>🏷️ 依主題分類${s.cats.size && !inWrong ? `（已選 ${s.cats.size}）` : ''}</summary><div class="scope-row">`;
+  SCOPE_THEMES.forEach(([c, label]) => {
+    const n = VOCAB_DATA.filter(w => w.cat === c).length;
+    if (!n) return;
+    const on = !inWrong && s.cats.has(c);
+    h += `<button type="button" class="chip${on ? ' active' : ''}" onclick="scopeToggleCat('${mode}', '${c}')">${label}<small>${n}</small></button>`;
+  });
+  h += `</div></details>`;
+
+  const wrongOpen = scopeOpen[mode].wrong || inWrong;
+  h += `<details data-sec="wrong" class="wrong-sec"${wrongOpen ? ' open' : ''}><summary>🔥 錯題特訓（點一下直接開始）</summary><div class="scope-row">`;
+  h += `<button type="button" class="chip chip-wrong${val === 'wrong' ? ' active' : ''}" ${wrongAll.length ? '' : 'disabled'} onclick="scopeStartWrong('${mode}', 'wrong')">❌ 全部錯題<small>${wrongAll.length}</small></button>`;
+  scopePages().forEach(p => {
+    const n = wrongAll.filter(w => w.page === p).length;
+    const v = 'wrong-p' + p;
+    h += `<button type="button" class="chip chip-wrong${val === v ? ' active' : ''}" ${n ? '' : 'disabled'} onclick="scopeStartWrong('${mode}', '${v}')">第 ${p} 頁錯題<small>${n}</small></button>`;
+  });
+  h += `</div></details>`;
+  box.innerHTML = h;
+
+  const btn = document.getElementById(mode + '-start-btn');
+  if (btn) {
+    const n = getScopeWords(mode).length;
+    btn.textContent = (mode === 'quiz' ? '📝 開始測驗' : '⌨️ 開始拼字') + `（${n} ${unit}）`;
+    btn.title = '範圍：' + scopeDesc(mode);
+  }
+}
+
 function exitWrongMode(selectId) {
   document.getElementById(selectId).value = 'all';
   if (selectId === 'fc-category') initFlashcards(true);
@@ -2152,10 +2177,11 @@ function startQuiz(forceRestart = false) {
   // 若已有測驗進行中且未要求強制重測，且不是在成績頁，則保留原本做題進度
   const isResultShowing = document.getElementById('quiz-result-panel').style.display === 'block';
   if (!forceRestart && quizList.length > 0 && quizIdx < quizList.length && !isResultShowing) {
+    renderScope('quiz');
     return;
   }
 
-  quizList = filterWords(cat);
+  quizList = getScopeWords('quiz');
   if (quizList.length === 0) {
     if (cat.startsWith('wrong-p') || cat.startsWith('wrong-page-')) {
       const p = cat.replace(/wrong-page-|wrong-p/, '');
@@ -2174,6 +2200,7 @@ function startQuiz(forceRestart = false) {
   quizIdx = 0;
   quizScore = 0;
   sessionWrongs = [];
+  renderScope('quiz');
 
   document.getElementById('quiz-game-panel').style.display = 'block';
   document.getElementById('quiz-result-panel').style.display = 'none';
@@ -2292,6 +2319,7 @@ function finishQuiz() {
     retryWrongBtn.style.display = 'none';
   }
   updateBadges();
+  renderScope('quiz');
 }
 
 function retryQuizWrong() {
@@ -2333,10 +2361,11 @@ function startTyping(forceRestart = false) {
   if (!forceRestart && typingList.length > 0 && typingIdx < typingList.length && !isResultShowing) {
     const inp = document.getElementById('typing-input');
     if (inp && !inp.disabled) inp.focus();
+    renderScope('typing');
     return;
   }
 
-  typingList = filterWords(cat);
+  typingList = getScopeWords('typing');
   if (typingList.length === 0) {
     if (cat.startsWith('wrong-p') || cat.startsWith('wrong-page-')) {
       const p = cat.replace(/wrong-page-|wrong-p/, '');
@@ -2354,6 +2383,7 @@ function startTyping(forceRestart = false) {
   shuffleArray(typingList);
   typingIdx = 0;
   typingScore = 0;
+  renderScope('typing');
 
   document.getElementById('typing-game-panel').style.display = 'block';
   document.getElementById('typing-result-panel').style.display = 'none';
@@ -2475,6 +2505,7 @@ function finishTyping() {
   document.getElementById('typing-result-score').textContent = pct + '%';
   document.getElementById('typing-result-detail').textContent = `共 ${total} 題，拼對 ${typingScore} 題，需加強 ${total - typingScore} 題`;
   updateBadges();
+  renderScope('typing');
 }
 
 /* ════════════════════════════════════════════════════
