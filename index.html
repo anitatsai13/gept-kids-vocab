@@ -1673,7 +1673,9 @@ function getWordRecord(w) {
       correctCount: r.correctCount || 0,
       lastTested: r.lastTested || 0,
       lastWrongDate: r.lastWrongDate || null,
-      wrongDates: r.wrongDates || {}
+      wrongDates: r.wrongDates || {},
+      streak: r.streak || 0,
+      wrongHist: r.wrongHist || 0
     };
   }
 
@@ -1683,7 +1685,9 @@ function getWordRecord(w) {
     correctCount: Math.max(...recs.map(r => r.correctCount || 0)),
     lastTested: Math.max(...recs.map(r => r.lastTested || 0)),
     lastWrongDate: recs.find(r => r.lastWrongDate)?.lastWrongDate || null,
-    wrongDates: {}
+    wrongDates: {},
+    streak: Math.max(...recs.map(r => r.streak || 0)),
+    wrongHist: Math.max(...recs.map(r => r.wrongHist || 0))
   };
   recs.forEach(r => {
     if (r.wrongDates) {
@@ -1720,6 +1724,12 @@ function isWrongToday(rec) {
   return false;
 }
 
+const W_NEED = 3;
+function wToast(s){let d=document.getElementById('wToast');
+  if(!d){d=document.createElement('div');d.id='wToast';
+    d.style.cssText='position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:rgba(34,34,34,.92);color:#fff;padding:10px 16px;border-radius:12px;font-weight:800;z-index:9999;max-width:90vw;text-align:center;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,.25);transition:opacity .3s';
+    document.body.appendChild(d);}
+  d.textContent=s;d.style.opacity='1';clearTimeout(d._t);d._t=setTimeout(()=>{d.style.opacity='0';},2200);}
 function recordAnswer(w, isCorrect) {
   const current = getWordRecord(w);
   const key = (typeof w === 'string') ? w : w.id;
@@ -1727,8 +1737,18 @@ function recordAnswer(w, isCorrect) {
 
   if (isCorrect) {
     current.correctCount = (current.correctCount || 0) + 1;
-    // 特訓答對時不刪除、不減少錯題次數，完整保留每個字的歷史錯誤統計
+    // 錯題本：同一個字連續答對 W_NEED 次就移出（wrongCount 歸零），中途答錯歸零重算；
+    // 移出前的錯誤次數累加到 wrongHist，歷史錯誤統計不會丟
+    if ((current.wrongCount || 0) > 0) {
+      current.streak = (current.streak || 0) + 1;
+      if (current.streak >= W_NEED) {
+        current.wrongHist = (current.wrongHist || 0) + current.wrongCount;
+        current.wrongCount = 0; current.lastWrongDate = null; current.wrongDates = {}; current.streak = 0;
+        wToast('🎉 ' + (w.en || '') + ' 連續答對 ' + W_NEED + ' 次，移出錯題本！');
+      } else wToast('👍 錯題 ' + (w.en || '') + ' 答對 ' + current.streak + '／' + W_NEED + '（連續答對 ' + W_NEED + ' 次就移出錯題本）');
+    }
   } else {
+    current.streak = 0;
     current.wrongCount = (current.wrongCount || 0) + 1;
     current.lastWrongDate = today;
     if (!current.wrongDates) current.wrongDates = {};
@@ -2580,7 +2600,7 @@ function renderMistakesHub() {
         </div>
       </div>
       <div class="word-meta">
-        ${isWrong ? `<span class="wrong-pill">❌ 累計錯 ${rec.wrongCount} 次</span>` : ''}
+        ${isWrong ? `<span class="wrong-pill">❌ 累計錯 ${rec.wrongCount} 次${rec.streak ? `・連續答對 ${rec.streak}／${W_NEED}` : ''}</span>` : ''}
         ${rec.correctCount > 0 ? `<span class="correct-pill">✅ 對 ${rec.correctCount} 次</span>` : ''}
         ${isWrong ? `<button class="btn-remove-wrong" title="手動清空此字錯題" onclick="removeMistake('${w.id}')">✕</button>` : ''}
       </div>
